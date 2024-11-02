@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Alignment",
+  title: "Ali",
   description: "Transform Your Business with AI",
 };
 
