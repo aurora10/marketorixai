@@ -53,7 +53,7 @@ export default function LandingPage() {
 
       <main>
         <section id="services" className="container mx-auto px-4 py-20">
-          <h2 className="text-4xl font-bold text-center mb-12">We Offer</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">We Offer Only That</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <motion.div
