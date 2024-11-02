@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Marketorix AI System",
+  title: "Marketorix AAA",
   description: "Transform Your Business with AI",
 };
 
