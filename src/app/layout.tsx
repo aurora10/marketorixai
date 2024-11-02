@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Alignment for GeIST",
+  title: "Alignment",
   description: "Transform Your Business with AI",
 };
 
