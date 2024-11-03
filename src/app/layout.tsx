@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Red Bullet",
+  title: "XXXXXXXXXXXXXXXX",
   description: "Transform Your Business with AI anways from scratch",
 };
 
