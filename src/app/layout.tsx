@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Red Bullet",
-  description: "Transform Your Business with AI",
+  description: "Transform Your Business with AI anways from scratch",
 };
 
 export default function RootLayout({
