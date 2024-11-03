@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/robert',
-        destination: 'https://robzi-portfollio.s3.eu-central-1.amazonaws.com/index-2.html',
+        destination: 'https://robzi-portfollio.s3.eu-central-1.amazonaws.com/index-1.html',
         permanent: true, // Use false for a temporary redirect
       },
     ];
