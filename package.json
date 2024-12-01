@@ -7,11 +7,10 @@
     "build": "next build",
     "start": "next start -p 3003",
     "lint": "next lint",
-  
     "stop": "kill $(lsof -t -i:3003) || true"
-      
   },
   "dependencies": {
+    "@next/third-parties": "^15.0.3",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.11.10",
     "lucide-react": "^0.454.0",
