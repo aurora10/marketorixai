@@ -1,13 +1,9 @@
-
-
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
-import MotionServiceCard from "@/components/MotionServiceCard"; // Import the motion card
-
-
+import MotionServiceCard from "@/components/MotionServiceCard";
 
 const services = [
   {
@@ -18,7 +14,7 @@ const services = [
   {
     title: "Custom AI Solution Development",
     description:
-      "Our team specializes in building bespoke AI solutions tailored to address your organization’s specific challenges. By understanding your unique requirements, we design and develop applications that enhance workflows, improve decision-making, and create value across your entire operation—from predictive analytics to real-time data processing.",
+      "Our team specializes in building bespoke AI solutions tailored to address your organization's specific challenges. By understanding your unique requirements, we design and develop applications that enhance workflows, improve decision-making, and create value across your entire operation—from predictive analytics to real-time data processing.",
   },
   {
     title: "AI Integration",
@@ -64,7 +60,6 @@ export default function LandingPage() {
             {services.map((service, index) => (
               <MotionServiceCard key={service.title} service={service} index={index} />
             ))}
-            
           </div>
         </section>
       </main>
