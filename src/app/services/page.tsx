@@ -6,6 +6,29 @@ import WhatWeDo from "@/components/WhatWeDo";
 
 const services = [
   {
+    title: "AI Chatbot Development Service",
+    description:
+      "Harness the power of natural language processing for advanced AI capabilities.",
+    features: [
+      "Natural language processing",
+      "Contextual understanding",
+      "Multi-language support",
+      "Personalized conversation flows",
+    ],
+  },
+
+  {
+    title: "AI Integration",
+    description:
+      "Seamlessly integrate AI technologies with your existing systems and workflows for maximum efficiency.",
+    features: [
+      "Legacy system integration",
+      "API development",
+      "Cloud migration",
+      "Performance optimization",
+    ],
+  },
+  {
     title: "AI Strategy Formulation",
     description:
       "We help businesses develop comprehensive AI strategies aligned with their goals and industry trends.",
@@ -27,17 +50,7 @@ const services = [
       "Prototype development",
     ],
   },
-  {
-    title: "AI Integration",
-    description:
-      "Seamlessly integrate AI technologies with your existing systems and workflows for maximum efficiency.",
-    features: [
-      "Legacy system integration",
-      "API development",
-      "Cloud migration",
-      "Performance optimization",
-    ],
-  },
+  
   {
     title: "Autonomous Agents Development",
     description:
@@ -82,17 +95,7 @@ const services = [
       "Minimizes human error",
     ],
   },
-  {
-    title: "AI Chatbot Development Service",
-    description:
-      "Harness the power of natural language processing for advanced AI capabilities.",
-    features: [
-      "Natural language processing",
-      "Contextual understanding",
-      "Multi-language support",
-      "Personalized conversation flows",
-    ],
-  },
+  
 ];
 
 export default function ServicesPage() {
