@@ -124,10 +124,10 @@ export default function MotionServiceCard({ service, index }: MotionServiceCardP
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-20 transition-all transform hover:scale-105 w-full" // Ensure the card takes full width of grid item
+        className="bg-white bg-opacity-10 text-xl  backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-20 transition-all transform hover:scale-105 w-full" // Ensure the card takes full width of grid item
       >
-        <h2 className="text-2xl font-semibold mb-4">{service.title}</h2>
-        <p className="mb-4">{service.description}</p>
+        <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
+        <p className="mb-4 text-xl  ">{service.description}</p>
         <ul className="space-y-2">
           {service.features.map((feature, featureIndex) => (
             <motion.li
@@ -135,7 +135,7 @@ export default function MotionServiceCard({ service, index }: MotionServiceCardP
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 + featureIndex * 0.1 }}
-              className="flex items-center"
+              className="flex items-center text-lx   "
             >
               <Check className="text-yellow-400 mr-2" size={16} />
               <span>{feature}</span>
