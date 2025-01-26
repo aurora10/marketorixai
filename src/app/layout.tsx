@@ -40,6 +40,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
+import { CSPostHogProvider } from './providers'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -65,6 +66,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <CSPostHogProvider>
       <head>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
@@ -89,6 +91,7 @@ export default function RootLayout({
         </noscript>
         {children}
       </body>
+      </CSPostHogProvider>
     </html>
   );
 }
