@@ -6,6 +6,17 @@ import WhatWeDo from "@/components/WhatWeDo";
 
 const services = [
   {
+    title: "Autonomous AI Agents Development",
+    description:
+      "Unlock the power of your data with our advanced analytics and management solutions.",
+    features: [
+      "Advanced decision-making algorithms",
+      "Seamless integration with existing systems",
+      "Increased operational efficiency",
+      "24/7 autonomous task execution",
+    ],
+  },
+  {
     title: "AI Chatbot Development Service",
     description:
       "Harness the power of natural language processing for advanced AI capabilities.",
@@ -51,17 +62,7 @@ const services = [
     ],
   },
   
-  {
-    title: "Autonomous Agents Development",
-    description:
-      "Unlock the power of your data with our advanced analytics and management solutions.",
-    features: [
-      "Advanced decision-making algorithms",
-      "Seamless integration with existing systems",
-      "Increased operational efficiency",
-      "24/7 autonomous task execution",
-    ],
-  },
+  
   {
     title: "Ongoing Support",
     description:

@@ -50,6 +50,10 @@ import MotionServiceCard from "@/components/MotionServiceCard";
 
 const services = [
   {
+    title: "Autonomous AI Agents",
+    description: "We design and deploy intelligent AI agents that can independently handle complex tasks and workflows. These agents are customized to your specific needs, transforming repetitive or intricate processes into efficient, automated operations that save time and resources.",
+  },
+  {
     title: "AI Strategy",
     description: "We help businesses develop a clear and actionable AI strategy that aligns with their long-term goals. By analyzing your current capabilities and market opportunities, we create a roadmap for AI implementation that drives measurable results and gives you a competitive edge in your industry.",
   },
@@ -61,10 +65,7 @@ const services = [
     title: "AI Integration",
     description: "We ensure a smooth and seamless integration of AI into your existing systems. By working closely with your IT and operations teams, we minimize disruption and maximize efficiency, enabling intelligent automation, advanced analytics, and improved productivity across your organization.",
   },
-  {
-    title: "Autonomous Agents",
-    description: "We design and deploy intelligent AI agents that can independently handle complex tasks and workflows. These agents are customized to your specific needs, transforming repetitive or intricate processes into efficient, automated operations that save time and resources.",
-  },
+  
   {
     title: "Ongoing Support",
     description: "We provide dedicated, long-term support to ensure your AI solutions remain effective and up-to-date. From maintenance and updates to enhancements and troubleshooting, our team is here to keep your systems optimized and ready to adapt to evolving business needs.",
