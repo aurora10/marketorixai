@@ -14,19 +14,19 @@ WORKDIR /app
 ENV NODE_ENV production
 COPY --from=builder /app/package.json ./package.json # Needed for start script if not standalone
 
-# --- Option A: Standalone Output ---
+# --- Option A: Standalone Output (Commented out) ---
 # COPY --from=builder /app/.next/standalone ./
 # COPY --from=builder /app/public ./public # If needed by standalone
 # COPY --from=builder /app/.next/static ./.next/static
 
---- Option B: Non-Standalone Output ---
+# --- Option B: Non-Standalone Output (Uncommented) ---
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules # If not pruning in build stage
+COPY --from=builder /app/node_modules ./node_modules # Ensure node_modules are copied
 COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 USER node
 
 # --- Final CMD (Choose ONE) ---
-# CMD ["node", "server.js"] # If using output: 'standalone'
-CMD ["npm", "start"] # If NOT using output: 'standalone'
+# CMD ["node", "server.js"] # (Commented out - for standalone)
+CMD ["npm", "start"]      # (Uncommented - for non-standalone)
