@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3003",
+    "start": "next start -p 3000",
     "lint": "next lint",
-    "stop": "kill $(lsof -t -i:3003) || true"
+    "stop": "kill $(lsof -t -i:3000) || true"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
