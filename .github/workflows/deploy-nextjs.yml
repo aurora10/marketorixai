@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3 # Still needed even for single platform if base image isn't native
+        uses: docker/setup-qemu-action@v3
 
       - name: Clean up previous Buildx builder
         run: |
@@ -41,9 +41,9 @@ jobs:
         with:
           context: .
           push: true
-          # ----> MODIFIED FOR SINGLE PLATFORM TEST <----
-          platforms: linux/amd64 # Build only for amd64 for testing
-          # -------------------------------------------
+          # ----> RE-ENABLE MULTI-PLATFORM BUILD <----
+          platforms: linux/amd64,linux/arm64 # Build for both architectures
+          # ----------------------------------------
           tags: |
             aurora1010/marketorix:latest
             aurora1010/marketorix:${{ github.sha }}
@@ -53,7 +53,7 @@ jobs:
           #   ANOTHER_VAR=some_value
           # -----------------------------------------------------------
 
-          # --- Keep cache disabled for this test run ---
+          # --- Keep cache disabled for now, or re-enable if you feel confident ---
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
           # --------------------------------------------
