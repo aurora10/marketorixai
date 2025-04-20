@@ -12,7 +12,8 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
-COPY --from=builder /app/package.json ./package.json # Needed for start script if not standalone
+# --- REMOVED COMMENT FROM THIS LINE ---
+COPY --from=builder /app/package.json ./package.json
 
 # --- Option A: Standalone Output (Commented out) ---
 # COPY --from=builder /app/.next/standalone ./
@@ -21,7 +22,8 @@ COPY --from=builder /app/package.json ./package.json # Needed for start script i
 
 # --- Option B: Non-Standalone Output (Uncommented) ---
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules # Ensure node_modules are copied
+# --- REMOVED COMMENT FROM THIS LINE ---
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/public ./public
 
 EXPOSE 3000
