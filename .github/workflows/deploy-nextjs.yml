@@ -43,8 +43,8 @@ jobs:
           #   NEXT_PUBLIC_API_URL=${{ secrets.API_URL_FOR_BUILD }}
           #   ANOTHER_VAR=some_value
           # -----------------------------------------------------------
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
