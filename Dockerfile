@@ -31,4 +31,5 @@ USER node
 
 # --- Final CMD (Choose ONE) ---
 # CMD ["node", "server.js"] # (Commented out - for standalone)
-CMD ["npm", "start"]      # (Uncommented - for non-standalone)
+#CMD ["npm", "start"]      # (Uncommented - for non-standalone)
+CMD npm start
