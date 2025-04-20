@@ -15,16 +15,23 @@ import { motion } from "framer-motion";
 
 export default function MotionServiceCard({ service, index }: MotionServiceCardProps) { // Specify the type here
   
+  // Define variants directly in the component or import if shared
+  const cardVariants = { 
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-20 transition-all transform hover:scale-105"
+      variants={cardVariants} // Apply variants
+      // Remove initial, whileInView, viewport, transition - will be controlled by parent
+      // Apply card background, border, padding, rounding, and add hover shadow + subtle lift animation
+      className="bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-lg p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1 h-full" 
     >
-      <h3 className="text-2xl font-semibold mb-4 relative inline-block after:block after:h-[2px] after:bg-white after:w-full after:absolute after:left-0 after:-bottom-2">{service.title}</h3>
-      <p className="text-md opacity-80">{service.description}</p>
+      {/* Use foreground color and accent underline */}
+      <h3 className="text-2xl font-semibold mb-4 text-foreground dark:text-dark-foreground relative inline-block after:block after:h-[2px] after:bg-accent after:w-full after:absolute after:left-0 after:-bottom-2">{service.title}</h3>
+      {/* Use muted foreground and base text size */}
+      <p className="text-base text-muted-foreground dark:text-dark-muted-foreground">{service.description}</p>
     </motion.div>
   );
 }

@@ -101,7 +101,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white min-h-screen flex flex-col">
+    <div className="relative text-white min-h-screen flex flex-col"> {/* Removed z-0 */}
       <Header />
 
       <section id="services" className="container mx-auto px-4 py-20 mb-8">
@@ -122,7 +122,7 @@ export default function ServicesPage() {
         <Call />
       </section>
 
-      <footer className="bg-purple-900 py-8">
+      <footer className="py-8"> {/* Ensure bg-purple-900 is removed (already done) */}
         <div className="container mx-auto px-4 text-center">
           <p>&copy; 2023 Marketorix. All rights reserved.</p>
         </div>

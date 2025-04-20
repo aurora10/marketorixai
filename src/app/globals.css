@@ -3,19 +3,80 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.5rem; /* Default border radius */
+} /* Corrected closing brace */
+
+/* Removed #__next rule */
+
+html {
+  /* Removed gradient from html */
+  min-height: 100%; /* Ensure html covers viewport */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+/* Define base styles for light mode */
+body {
+  @apply text-foreground; /* Keep text color */
+  background-color: #071c39; /* Set desired dark blue background */
+  position: relative; /* Keep for pseudo-element */
+  /* overflow: hidden; */ /* Keep scrolling enabled */
+  /* Font family is now handled by Tailwind config */
+}
+
+/* Define base styles for dark mode */
+.dark body {
+  @apply text-dark-foreground; /* Keep dark text color */
+  background-color: #071c39; /* Set desired dark blue background */
+  position: relative; /* Keep for pseudo-element */
+  /* overflow: hidden; */ /* Keep scrolling enabled */
+}
+
+/* Add keyframes back */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Apply gradient via body::before again */
+body::before {
+  content: "";
+  position: fixed; /* Change to fixed to prevent scrolling */
+  inset: 0; /* Cover viewport */
+  z-index: -1; /* Place behind body content */
+
+  --size: 750px;
+  --speed: 50s;
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+
+  /* Center the gradient visually */
+  width: var(--size);
+  height: var(--size);
+  left: 50%;
+  top: 50%;
+  margin-left: calc(-0.5 * var(--size));
+  margin-top: calc(-0.5 * var(--size));
+
+  /* Add back filter and border-radius */
+  filter: blur(calc(var(--size) / 5));
+  /* Reduce lightness to make gradient less bright */
+  background-image: linear-gradient(hsl(222, 84%, 45%), hsl(164, 79%, 55%)); 
+  animation: rotate var(--speed) var(--easing) alternate infinite;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+
+@media (min-width: 720px) {
+  body::before {
+    --size: 500px;
+  }
+}
+
+
+/* This is just to transition when you change the viewport size. */
+* {
+  transition: all 0.5s ease-out;
 }

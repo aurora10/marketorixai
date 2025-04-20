@@ -1,14 +1,26 @@
 "use client"
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ChevronDown, Menu, X, Linkedin, Twitter } from 'lucide-react'
+import { motion, Variants } from 'framer-motion' // Import Variants
+import { Menu, X, Linkedin, Twitter } from 'lucide-react' 
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from "@/components/Header";
+import InteractiveScrollToTop from "@/components/InteractiveScrollToTop"; 
 
+// Define variants for common fade/slide-up animation
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 30 }, // Adjusted y for potentially larger sections
+  visible: { opacity: 1, y: 0 }
+};
 
 export default function TeamPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // State for each animated section
+  const [teamGridAnimated, setTeamGridAnimated] = useState(false);
+  const [devTeamSectionAnimated, setDevTeamSectionAnimated] = useState(false);
+  const [letsTalkAnimated, setLetsTalkAnimated] = useState(false);
+
 
   const teamMembers = [
     {
@@ -27,14 +39,21 @@ export default function TeamPage() {
       linkedin: "#",
       twitter: "#"
     }
-  ]
+  ];
+
+  // Variants specifically for individual team cards (can inherit if simple)
+  const teamCardVariants: Variants = {
+      hidden: { opacity: 0, y: 50 },
+      visible: { opacity: 1, y: 0 }
+  };
+
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white">
-      
-      < Header />
+    <div className="relative min-h-screen text-white"> 
+      <Header />
 
       <main className="container mx-auto px-4 py-20">
+        {/* Keep H1 animation simple or manage with state if needed */}
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -44,46 +63,53 @@ export default function TeamPage() {
           Our Team
         </motion.h1>
         
-        <div className="grid md:grid-cols-2 gap-12 mb-20">
+        {/* Wrap grid in motion.div to control animation state */}
+        <motion.div 
+          className="grid md:grid-cols-2 gap-12 mb-20"
+          initial="hidden"
+          animate={teamGridAnimated ? "visible" : "hidden"}
+          variants={{ // Define simple variant for the container itself if needed, or just use it to trigger children
+             hidden: {}, // Can be empty if only controlling children
+             visible: { transition: { staggerChildren: 0.1 } } // Stagger children cards
+          }}
+          viewport={{ once: true, amount: 0.2 }}
+          onViewportEnter={() => setTeamGridAnimated(true)}
+        >
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 flex flex-col items-center text-center"
+              variants={teamCardVariants} // Use defined variants
+              // initial/animate inherited from parent ul/div
+              transition={{ duration: 0.7, ease: "easeOut" }} // Individual card transition (delay handled by stagger)
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-lg rounded-lg p-6 flex flex-col items-center text-center transition-all" 
             >
               <div className="p-4 bg-white rounded-full">
-  <Image
-    src={member.image}
-    alt={member.name}
-    width={400}
-    height={400}
-    className="rounded-full"
-  />
-</div>
-
-
-              <h2 className="text-2xl font-bold mb-2">{member.name}</h2>
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  width={400}
+                  height={400}
+                  className="rounded-full"
+                />
+              </div>
+              <h2 className="text-2xl font-bold mt-4 mb-2">{member.name}</h2> {/* Added mt-4 */}
               <h3 className="text-xl text-yellow-300 mb-4">{member.role}</h3>
               <p className="mb-6">{member.bio}</p>
               <div className="flex space-x-4">
-                {/* <a href={member.linkedin} className="text-white hover:text-yellow-300 transition-colors">
-                  <Linkedin />
-                </a>
-                <a href={member.twitter} className="text-white hover:text-yellow-300 transition-colors">
-                  <Twitter />
-                </a> */}
+                {/* Social links */}
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-8 text-center mb-20"
+          variants={sectionVariants} // Use common variants
+          initial="hidden"
+          animate={devTeamSectionAnimated ? "visible" : "hidden"}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }} // Keep a small delay relative to viewport enter
+          viewport={{ once: true, amount: 0.2 }} 
+          onViewportEnter={() => setDevTeamSectionAnimated(true)}
+          className="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-8 text-center mb-20" 
         >
           <h2 className="text-3xl font-bold mb-4">Our Development Team</h2>
           <p className="text-lg mb-6">
@@ -99,9 +125,12 @@ export default function TeamPage() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          variants={sectionVariants} // Use common variants
+          initial="hidden"
+          animate={letsTalkAnimated ? "visible" : "hidden"}
+          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }} // Keep a small delay relative to viewport enter
+          viewport={{ once: true, amount: 0.2 }} 
+          onViewportEnter={() => setLetsTalkAnimated(true)}
           className="text-center"
         >
           <Link 
@@ -113,20 +142,13 @@ export default function TeamPage() {
         </motion.div>
       </main>
 
-      <footer className="bg-purple-900 py-8 mt-20">
+      <footer className="py-8 mt-20"> 
         <div className="container mx-auto px-4 text-center">
           <p>&copy; 2023 Marketorix. All rights reserved.</p>
         </div>
       </footer>
 
-      <motion.div 
-        className="fixed bottom-8 right-8 bg-yellow-400 text-purple-900 rounded-full p-4 cursor-pointer"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      >
-        <ChevronDown className="transform rotate-180" />
-      </motion.div>
+      <InteractiveScrollToTop /> 
     </div>
   )
 }

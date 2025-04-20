@@ -2,8 +2,9 @@
 "use client"
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown, Menu, X, MapPin, Phone } from 'lucide-react'
+import { Menu, X, MapPin, Phone } from 'lucide-react' // Removed ChevronDown
 import Header from "@/components/Header"
+import InteractiveScrollToTop from "@/components/InteractiveScrollToTop"; // Added import
 
 export default function ContactsPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -42,7 +43,7 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white">
+    <div className="relative min-h-screen text-white"> {/* Removed z-0 */}
       <Header />
 
       <main className="container mx-auto px-4 py-20">
@@ -146,23 +147,14 @@ export default function ContactsPage() {
         </div>
       </main>
 
-      <footer className="bg-purple-900 py-8 mt-20">
+      <footer className="py-8 mt-20"> {/* Removed bg-purple-900 */}
         <div className="container mx-auto px-4 text-center">
           <p>&copy; 2023 Marketorix. All rights reserved.</p>
         </div>
-      </footer>
+      </footer> {/* Removed bg-purple-900 */}
 
-      <motion.div 
-        className="fixed bottom-8 right-8 bg-yellow-400 text-purple-900 rounded-full p-4 cursor-pointer"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      >
-        <ChevronDown className="transform rotate-180" />
-      </motion.div>
+      {/* Use the corrected component */}
+      <InteractiveScrollToTop />
     </div>
   )
 }
-
-
-

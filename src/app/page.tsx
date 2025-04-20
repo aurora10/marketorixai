@@ -1,3 +1,7 @@
+"use client"; // Add this if not already present
+
+import { useState } from 'react'; // Import useState
+import { motion, Variants } from 'framer-motion'; // Import motion and Variants
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,48 +9,16 @@ import Header from "@/components/Header";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import MotionServiceCard from "@/components/MotionServiceCard";
 
-// const services = [
-//   {
-//     title: "AI Strategy Formulation",
-//     description:
-//       "Our AI Strategy Formulation service helps businesses develop a clear roadmap for implementing AI, aligned with long-term goals and industry dynamics. From initial concept to detailed planning, we analyze your current capabilities and market opportunities to craft an AI strategy that drives measurable outcomes and gives you a competitive edge.",
-//   },
-//   {
-//     title: "Custom AI Solution Development",
-//     description:
-//       "Our team specializes in building bespoke AI solutions tailored to address your organization's specific challenges. By understanding your unique requirements, we design and develop applications that enhance workflows, improve decision-making, and create value across your entire operation—from predictive analytics to real-time data processing.",
-//   },
-//   {
-//     title: "AI Integration",
-//     description:
-//       "AI Integration services ensure a smooth adoption of AI into your existing systems, minimizing disruption and maximizing efficiency. We work alongside your IT and operations teams to incorporate AI tools into your workflows, enabling intelligent automation, enhanced analytics, and improved productivity throughout your organization.",
-//   },
-//   {
-//     title: "Autonomous Agents Development",
-//     description:
-//       "We design and deploy intelligent, adaptive AI agents that can independently execute complex workflows across multiple domains. Our service transforms repetitive or intricate business processes by creating custom autonomous agents tailored to your specific organizational needs.",
-//   },
-//   {
-//     title: "Ongoing Support",
-//     description:
-//       "To ensure long-term success, we provide Ongoing Support tailored to your AI solutions, covering maintenance, updates, and enhancements. Our dedicated support team is here to resolve issues, implement improvements, and keep your AI solutions optimized, allowing you to stay ahead of the curve in a rapidly evolving field.",
-//   },
-//   {
-//     title: "Industry-Specific AI Applications",
-//     description:
-//       "Our Industry-Specific AI Applications leverage domain knowledge and advanced AI models tailored to the unique needs of various sectors. Whether you are in healthcare, finance, retail, or manufacturing, we design solutions that drive innovation, efficiency, and value, using insights and predictive analytics tailored to your industry.",
-//   },
-//   {
-//     title: "Natural Language to SQL",
-//     description:
-//       "Transform natural language queries into precise, efficient SQL database interactions. Our advanced AI-powered solution bridges the gap between human communication and database querying, enabling non-technical users to extract complex insights with simple, conversational input.",
-//   },
-//   {
-//     title: "AI Chatbot Development Service",
-//     description:
-//       "We craft intelligent conversational interfaces that revolutionize customer interaction, support, and engagement. Our custom AI chatbots are designed to understand, respond, and learn from complex user interactions across multiple platforms and industries.",
-//   },
-// ];
+// Define variants for the grid container to stagger children
+const gridContainerVariants: Variants = {
+  hidden: { opacity: 0 }, // Can be simple or empty
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Adjust stagger delay as needed
+    },
+  },
+};
 
 const services = [
   {
@@ -65,7 +37,6 @@ const services = [
     title: "AI Integration",
     description: "We ensure a smooth and seamless integration of AI into your existing systems. By working closely with your IT and operations teams, we minimize disruption and maximize efficiency, enabling intelligent automation, advanced analytics, and improved productivity across your organization.",
   },
-  
   {
     title: "Ongoing Support",
     description: "We provide dedicated, long-term support to ensure your AI solutions remain effective and up-to-date. From maintenance and updates to enhancements and troubleshooting, our team is here to keep your systems optimized and ready to adapt to evolving business needs.",
@@ -85,28 +56,42 @@ const services = [
 ];
 
 export default function LandingPage() {
+  // State to track if the service grid has animated
+  const [gridAnimated, setGridAnimated] = useState(false);
+
   return (
-    <div className="bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white min-h-screen flex flex-col">
+    <div className="relative flex flex-col overflow-hidden"> 
       <Header />
 
-      <main>
-        <section id="services" className="container mx-auto px-4 py-20">
-          <h2 className="text-5xl font-bold text-center mb-12">What We Do</h2>
-          <div className="grid text-xl   grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <main className="flex-grow">
+        <section id="services" className="container mx-auto px-4 py-16 md:py-20">
+          <h2 className="text-4xl font-bold text-center mb-12 text-white">What We Do</h2> 
+          {/* Wrap grid in motion.div for animation control */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={gridContainerVariants}
+            initial="hidden"
+            animate={gridAnimated ? "visible" : "hidden"} // Control via state
+            viewport={{ once: true, amount: 0.1 }} // Trigger once when 10% visible
+            onViewportEnter={() => setGridAnimated(true)} // Set state on enter
+          >
             {services.map((service, index) => (
-              <MotionServiceCard key={service.title} service={service} index={index} />
+              // Link now inherits animation state from the grid wrapper
+              <Link key={service.title} href="/services" className="block h-full"> 
+                {/* MotionServiceCard now inherits animation from parent motion.div */}
+                <MotionServiceCard service={service} index={index} /> 
+              </Link>
             ))}
-          </div>
+          </motion.div>
         </section>
       </main>
 
-      <footer className="bg-purple-900 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2023 Marketorix. All rights reserved.</p>
+      <footer className="py-8"> 
+        <div className="container mx-auto px-4 text-center text-muted-foreground dark:text-dark-muted-foreground">
+          <p>&copy; 2024 Marketorix. All rights reserved.</p>
         </div>
       </footer>
 
-      {/* Client-Side Interactive Component */}
       <InteractiveScrollToTop />
     </div>
   );

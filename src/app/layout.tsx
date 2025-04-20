@@ -66,7 +66,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <CSPostHogProvider>
       <head>
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
@@ -81,17 +80,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Removed gradient div */}
+        {/* Removed relative wrapper */}
+        {/* <CSPostHogProvider> */} {/* Temporarily commented out PostHog */}
         <noscript>
-          <iframe
+            <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KMS7X44"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
-        </noscript>
-        {children}
+          </noscript>
+          {/* Corrected structure: Removed duplicated noscript and wrapper */}
+          {children}
+        {/* </CSPostHogProvider> */} {/* Temporarily commented out PostHog */}
       </body>
-      </CSPostHogProvider>
     </html>
   );
 }
