@@ -57,7 +57,7 @@ export default function MotionServiceCard({ service, index }: MotionServiceCardP
         // Use onViewportEnter with once: true to set state for children
         viewport={{ once: true, amount: 0.2 }} 
         onViewportEnter={() => setHasAnimated(true)}
-        className="bg-white bg-opacity-20 text-xl backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-30 transition-all transform hover:scale-105 w-full" 
+        className="service-card bg-white bg-opacity-20 text-xl backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-30 transition-all transform hover:scale-105 w-full" 
       >
         <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
         <p className="mb-4 text-xl">{service.description}</p>

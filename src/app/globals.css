@@ -20,7 +20,7 @@ body {
   background-color: #071c39; /* Set desired dark blue background */
   position: relative; /* Keep for pseudo-element */
   /* overflow: hidden; */ /* Keep scrolling enabled */
-  /* Font family is now handled by Tailwind config */
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Define base styles for dark mode */
@@ -79,4 +79,11 @@ body::before {
 /* This is just to transition when you change the viewport size. */
 * {
   transition: all 0.5s ease-out;
+}
+
+/* Service card h2 underline */
+.service-card h2 {
+  border-bottom: 2px solid #FDE047;
+  display: inline-block;
+  padding-bottom: 4px;
 }

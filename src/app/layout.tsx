@@ -37,15 +37,16 @@
 // }
 
 import type { Metadata } from "next";
+import { Inter } from 'next/font/google';
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 import { CSPostHogProvider } from './providers'
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-inter'
 });
 
 const geistMono = localFont({
@@ -78,7 +79,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${geistMono.variable} antialiased`}
       >
         {/* Removed gradient div */}
         {/* Removed relative wrapper */}
