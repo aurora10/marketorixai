@@ -48,10 +48,10 @@ jobs:
             aurora1010/marketorix:latest
             aurora1010/marketorix:${{ github.sha }}
           # --- Optional: Add build args if your build needs env vars ---
-          # build-args: |
-          #   NEXT_PUBLIC_API_URL=${{ secrets.API_URL_FOR_BUILD }}
-          #   ANOTHER_VAR=some_value
-          # -----------------------------------------------------------
+          build-args: |
+            NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
+           
+          -----------------------------------------------------------
 
           # --- Keep cache disabled for now, or re-enable if you feel confident ---
           # cache-from: type=gha

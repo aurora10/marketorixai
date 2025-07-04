@@ -6,6 +6,10 @@ RUN npm ci
 COPY . .
 # ARG NEXT_PUBLIC_... # Define build-time args if needed
 # ENV NEXT_PUBLIC_... # Set build-time envs if needed
+
+ARG NEXT_PUBLIC_GA_ID
+# 2. Set it as an environment variable so `npm run build` can access it.
+ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
 RUN npm run build
 
 # ==== Stage 2: Production Runner ====

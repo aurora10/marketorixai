@@ -1,47 +1,15 @@
-// import type { Metadata } from "next";
-// import localFont from "next/font/local";
-// import "./globals.css";
-// import { GoogleTagManager } from '@next/third-parties/google'
+// src/app/layout.tsx
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
-
-// export const metadata: Metadata = {
-//   title: "Marketorix",
-//   description: "Transform Your Business with AI",
-// };
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <html lang="en">
-//       <body
-//         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-//       >
-//         {children}
-//       </body>
-//       <GoogleTagManager gtmId="GTM-KMS7X44" />
-//     </html>
-//   );
-// }
-
+// Your imports are all correct
+import { Suspense } from 'react'; 
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google';
 import localFont from "next/font/local";
 import "./globals.css";
-import Script from "next/script";
-import { CSPostHogProvider } from './providers'
+// You don't need to import Script here unless you use it directly in this file
+// import Script from "next/script"; 
+import { CSPostHogProvider } from './providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -65,37 +33,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("GA_ID from env:", process.env.NEXT_PUBLIC_GA_ID);
+
   return (
     <html lang="en">
-      <head>
-        <Script id="google-tag-manager" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-KMS7X44');
-          `}
-        </Script>
-      </head>
-      <body
-        className={`${inter.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Removed gradient div */}
-        {/* Removed relative wrapper */}
-        {/* <CSPostHogProvider> */} {/* Temporarily commented out PostHog */}
-        <noscript>
-            <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-KMS7X44"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-          </noscript>
-          {/* Corrected structure: Removed duplicated noscript and wrapper */}
+      {/* 
+        FIX #1: The <GoogleAnalytics> component is now inside the <body> tag.
+        This is the correct place for React components that render elements.
+      */}
+      
+      <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          // STEP 2: WRAP THE COMPONENT IN A SUSPENSE BOUNDARY
+          <Suspense fallback={null}>
+            <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID} />
+          </Suspense>
+        )}
+
+
+       
+        
+        {/*
+          FIX #2: The {children} prop is now being rendered. This will display
+          your actual page content (e.g., from page.tsx).
+        */}
+        <CSPostHogProvider>
           {children}
-        {/* </CSPostHogProvider> */} {/* Temporarily commented out PostHog */}
+        </CSPostHogProvider>
+        
+        {/* FIX #3: The manual <head> tag has been removed. */}
       </body>
+
     </html>
   );
 }
