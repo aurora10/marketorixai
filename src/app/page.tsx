@@ -53,6 +53,8 @@ const services = [
     title: "AI Chatbots",
     description: "We create intelligent, conversational AI chatbots that revolutionize customer interaction and support. Designed to understand, respond, and learn from user interactions, our chatbots enhance engagement and streamline communication across multiple platforms and industries.",
   },
+
+   
 ];
 
 export default function LandingPage() {
@@ -65,7 +67,7 @@ export default function LandingPage() {
 
       <main className="flex-grow">
         <section id="services" className="container mx-auto px-4 py-16 md:py-20">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">What We Do</h2> 
+          <h2 className="text-5xl text-white md:text-5xl font-bold mb-10 text-center">What We Do</h2> 
           {/* Wrap grid in motion.div for animation control */}
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"

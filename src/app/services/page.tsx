@@ -6,6 +6,30 @@ import WhatWeDo from "@/components/WhatWeDo";
 
 const services = [
   {
+  title: "AI-Generated Code Review & Debug",
+  description:
+    "Ensure the reliability and performance of AI-generated code through thorough reviews and debugging services.",
+  features: [
+    "Code quality assessment",
+    "Bug detection and resolution",
+    "Security vulnerability checks",
+    "Optimization for performance and readability",
+  ],
+},
+{
+  title: "AI App Recovery & Enhancement",
+  description:
+    "We fix broken or underperforming AI-generated applications and enhance them for long-term scalability.",
+  features: [
+    "Root-cause analysis of malfunctioning features",
+    "Rebuilding unstable components",
+    "Improving UX/UI and system logic",
+    "Ongoing enhancement for evolving business needs",
+  ],
+}
+,
+
+  {
     title: "Autonomous AI Agents Development",
     description:
       "Unlock the power of your data with our advanced analytics and management solutions.",
@@ -96,6 +120,10 @@ const services = [
       "Minimizes human error",
     ],
   },
+
+  
+
+  
   
 ];
 
