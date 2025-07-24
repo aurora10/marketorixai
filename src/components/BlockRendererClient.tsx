@@ -4,7 +4,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const BlockRendererClient = ({ content }) => {
+const BlockRendererClient = ({ content }: { content: any[] }) => {
   if (!content) return null;
 
   return (
@@ -13,7 +13,7 @@ const BlockRendererClient = ({ content }) => {
       blocks={{
         // Customize the rendering of each block
         heading: ({ children, level }) => {
-          const Tag = `h${level}`;
+          const Tag = `h${level}` as keyof JSX.IntrinsicElements;
           return <Tag className={`text-${6 - level}xl font-bold`}>{children}</Tag>;
         },
         // Use Next.js's Image component for optimized images

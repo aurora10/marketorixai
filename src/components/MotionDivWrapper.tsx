@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const MotionDivWrapper = ({ children }) => {
+const MotionDivWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
