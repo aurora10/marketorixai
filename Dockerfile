@@ -8,9 +8,12 @@ COPY . .
 # ENV NEXT_PUBLIC_... # Set build-time envs if needed
 
 ARG NEXT_PUBLIC_GA_ID
+ARG NEXT_PUBLIC_STRAPI_API_URL
 # 2. Set it as an environment variable so `npm run build` can access it.
 ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
-RUN npm run build
+ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
+RUN echo "NEXT_PUBLIC_STRAPI_API_URL during build: $NEXT_PUBLIC_STRAPI_API_URL"
+RUN NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL npm run build
 
 # ==== Stage 2: Production Runner ====
 FROM node:18-alpine AS runner
