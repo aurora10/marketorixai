@@ -18,7 +18,7 @@ RUN npm run build
 # ==== Stage 2: Production Runner ====
 FROM node:18-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV production
+ENV NODE_ENV=production
 # --- REMOVED COMMENT FROM THIS LINE ---
 COPY --from=builder /app/package.json ./package.json
 
