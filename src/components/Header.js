@@ -5,29 +5,41 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image"; // Reverted back to next/image
 import Link from "next/link";
 
-export default function Header() {
+export default function Header({ darkMode = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const textColor = darkMode ? "text-gray-800" : "text-gray-200";
 
   return (
-    <header className="container mx-auto px-4 py-6 text-gray-200"> {/* Added text-gray-200 */}
+    <header className={`container mx-auto px-4 py-6 ${textColor}`}>
       <nav className="flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold" aria-label="Marketorix Home">
           {/* Reverted back to using next/image for the logo */}
-          <Image
-            src="/logo.svg"
-            alt="Logo"
-            width={300} // Using original dimensions, can be adjusted
-            height={300}
-            priority={true}
-            className="h-12 w-auto" // Added class to control display size
-          />
+          {darkMode ? (
+            <Image
+              src="/logo-dark.svg"
+              alt="Logo"
+              width={300}
+              height={300}
+              priority={true}
+              className="h-12 w-auto"
+            />
+          ) : (
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={300}
+              height={300}
+              priority={true}
+              className="h-12 w-auto"
+            />
+          )}
         </Link>
         <div className="hidden md:flex space-x-6">
-          {["Home", "Services", "Team", "Contact"].map((item) => (
+          {["Home", "Services", "Team", "Blog", "Contact"].map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className="relative text-lg transition-colors group"
+              className={`relative text-lg transition-colors group ${textColor}`}
             >
               {item}
               {/* Use accent color for underline */}
@@ -51,7 +63,7 @@ export default function Header() {
           // Use card background, shadow, and consistent rounding for mobile menu
           className="md:hidden mt-4 bg-card shadow-md rounded-lg p-4"
         >
-          {["Home", "Services", "Team", "Contact"].map((item) => (
+          {["Home", "Services", "Team", "Blog", "Contact"].map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}

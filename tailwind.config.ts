@@ -67,6 +67,6 @@ const config: Config = {
       // Removed gradient-xy animation definitions
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
 export default config;

@@ -63,7 +63,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative flex flex-col overflow-hidden"> 
-      <Header />
+      <Header darkMode={false} />
 
       <main className="flex-grow">
         <section id="services" className="container mx-auto px-4 py-16 md:py-20">
