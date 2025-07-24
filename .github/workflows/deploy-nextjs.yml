@@ -1,10 +1,10 @@
 # .github/workflows/deploy-nextjs.yml
-name: Deploy Next.js App to VPS
+name: Deploy Full Stack App to VPS
 
 on:
   push:
     branches:
-      - main # Or your deployment branch
+      - main
   workflow_dispatch:
 
 jobs:
@@ -18,15 +18,6 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: Clean up previous Buildx builder
-        run: |
-          echo "Listing existing buildx builders..."
-          docker buildx ls
-          echo "Attempting to remove default builder..."
-          docker buildx rm --force --keep-state=false default || echo "Builder 'default' not found or removal failed, continuing..."
-          echo "Listing builders after removal attempt..."
-          docker buildx ls
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -36,27 +27,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Next.js image
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          # ----> RE-ENABLE MULTI-PLATFORM BUILD <----
-          platforms: linux/amd64,linux/arm64 # Build for both architectures
-          # ----------------------------------------
-          tags: |
-            aurora1010/marketorix:latest
-            aurora1010/marketorix:${{ github.sha }}
-          # --- Optional: Add build args if your build needs env vars ---
+          platforms: linux/amd64,linux/arm64
+          tags: aurora1010/marketorix:latest
           build-args: |
             NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
-           
-          
-
-          # --- Keep cache disabled for now, or re-enable if you feel confident ---
-          # cache-from: type=gha
-          # cache-to: type=gha,mode=max
-          # --------------------------------------------
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -65,13 +45,49 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # !!! Adjust cd path if needed on VPS !!!
+            # Navigate to the project directory on the VPS
             cd ~/marketorix || exit 1
-            echo "Pulling latest image for app service..."
-            # Assuming your docker-compose.yml references aurora1010/marketorix:latest
-            sudo docker-compose pull app || exit 1
-            echo "Restarting app service..."
-            sudo docker-compose up -d --force-recreate --remove-orphans app || exit 1
-            echo "Pruning old Docker images..."
+
+            # Create the .env file for Strapi and the database from GitHub Secrets
+            echo "Creating production .env file..."
+            cat << EOF > .env
+            # Server & Environment
+            HOST=0.0.0.0
+            PORT=1337
+            NODE_ENV=production
+            DOMAIN_NAME=${{ secrets.DOMAIN_NAME }}
+            PUBLIC_URL=https://${{ secrets.DOMAIN_NAME }}
+
+            # Application Secrets
+            APP_KEYS=${{ secrets.APP_KEYS }}
+            API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+            ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+            ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+
+            # Database Credentials
+            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+
+            # Strapi Database Connection
+            DATABASE_CLIENT=postgres
+            DATABASE_HOST=db
+            DATABASE_PORT=5432
+            DATABASE_NAME=${{ secrets.POSTGRES_DB }}
+            DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
+            DATABASE_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            DATABASE_SSL=false
+            EOF
+
+            echo "Pulling latest images from Docker Hub..."
+            sudo docker-compose -f docker-compose.prod.yml pull
+
+            echo "Restarting all services with new images..."
+            sudo docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
+
+            echo "Pruning old Docker images to save space..."
             sudo docker image prune -af
+
             echo "Deployment complete!"

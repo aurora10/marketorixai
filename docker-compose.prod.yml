@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  # Next.js Frontend
+  app:
+    image: aurora1010/marketorix:latest
+    container_name: marketorix-nextjs
+    restart: unless-stopped
+    networks:
+      - n8n_default # Connect to Traefik's external network
+    labels:
+      - "traefik.enable=true"
+      # Rule for the main domain: example.com
+      - "traefik.http.routers.marketorix-app.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.marketorix-app.entrypoints=websecure"
+      - "traefik.http.routers.marketorix-app.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.marketorix-app.loadbalancer.server.port=3000"
+
+  # Strapi Backend
+  strapi:
+    image: aurora1010/my-blog-strapi:latest-prod
+    container_name: marketorix-strapi
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - strapi-uploads:/opt/app/public/uploads
+    networks:
+      - n8n_default # Connect to Traefik's external network
+      - default     # Internal network for database communication
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      # Rule for the admin panel: example.com/blog-admin
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/blog-admin`)"
+      - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
+      - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
+      # Middleware to remove /blog-admin before forwarding to the Strapi container
+      - "traefik.http.middlewares.strip-blog-admin.stripprefix.prefixes=/blog-admin"
+      - "traefik.http.routers.marketorix-strapi.middlewares=strip-blog-admin"
+
+  # Strapi Database
+  db:
+    container_name: marketorix-db
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - strapi-data:/var/lib/postgresql/data
+    networks:
+      - default # Only accessible to other services on the internal 'default' network
+
+volumes:
+  strapi-data:
+  strapi-uploads:
+
+networks:
+  n8n_default:
+    external: true # This tells Docker Compose to use the existing network created by Traefik
+  default:
+    driver: bridge
