@@ -156,13 +156,13 @@ jobs:
 
             echo "Pulling the latest images for all services..."
             # This pulls all images defined in your docker-compose file
-            sudo docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml pull
 
             echo "Restarting all services with the new images..."
             # Docker Compose is smart enough to restart in the correct order based on 'depends_on'
-            sudo docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
+            docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
 
             echo "Pruning old, unused Docker images..."
-            sudo docker image prune -af
+            docker image prune -af
 
             echo "Deployment complete!"
