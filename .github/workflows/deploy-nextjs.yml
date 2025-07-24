@@ -94,68 +94,59 @@
 #             echo "Deployment complete!"
 
 
-name: Deploy Full Stack App to VPS
+name: Deploy Pre-Built Images to VPS
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to trigger this manually from the Actions tab
 
 jobs:
-  # JOB 1: DEPLOY THE BACKEND FIRST
-  deploy-backend:
-    name: Deploy Strapi Backend
+  deploy:
+    name: Deploy from Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # No checkout, build, or login steps are needed as we are not building images.
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # Build and push a DEDICATED Strapi image
-      - name: Build and push Strapi image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./backend # Assuming Strapi is in a 'backend' folder
-          file: ./backend/Dockerfile # The Dockerfile for your Strapi app
-          push: true
-          platforms: linux/amd64,linux/arm64
-          tags: aurora1010/marketorix-strapi:latest
-
-      - name: Deploy Strapi to VPS via SSH
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_SSH_HOST }}
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            # Navigate to your project directory on the VPS
             cd ~/marketorix || exit 1
 
-            # Create the .env file from secrets
-            echo "Creating production .env file..."
+            # Ensure the docker-compose.prod.yml file exists here.
+            # You can place it here manually one time or use a checkout step.
+
+            echo "Creating production .env file from secrets..."
             cat << EOF > .env
+            # Server & Environment
             HOST=0.0.0.0
             PORT=1337
             NODE_ENV=production
-            # This URL should be the public API URL, not localhost
-            URL=https://${{ secrets.DOMAIN_NAME }}/api 
+            # Ensure this is the public URL your frontend will use to call the API
+            URL=https://${{ secrets.DOMAIN_NAME }}
+
+            # Application Secrets
             APP_KEYS=${{ secrets.APP_KEYS }}
             API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
             ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
-            # ... other secrets ...
-            DATABASE_HOST=db
+            TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+            ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+
+            # Database Credentials
+            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+
+            # Strapi Database Connection
+            DATABASE_CLIENT=postgres
+            DATABASE_HOST=db # Docker Compose service name for the database
             DATABASE_PORT=5432
             DATABASE_NAME=${{ secrets.POSTGRES_DB }}
             DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
@@ -163,73 +154,15 @@ jobs:
             DATABASE_SSL=false
             EOF
 
-            echo "Pulling latest backend images..."
-            sudo docker-compose -f docker-compose.prod.yml pull backend db
+            echo "Pulling the latest images for all services..."
+            # This pulls all images defined in your docker-compose file
+            sudo docker-compose -f docker-compose.prod.yml pull
 
-            echo "Restarting backend services..."
-            # Use --no-deps to avoid affecting the potentially running frontend
-            sudo docker-compose -f docker-compose.prod.yml up -d --no-deps --force-recreate backend db
+            echo "Restarting all services with the new images..."
+            # Docker Compose is smart enough to restart in the correct order based on 'depends_on'
+            sudo docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
 
-            echo "Waiting for Strapi to be healthy..."
-            # This is a simple health check. It waits up to 60 seconds for a 200 OK from Strapi.
-            timeout 60s bash -c 'until curl -s -f http://localhost:1337/_health; do sleep 5; done'
-
-            echo "Strapi deployment complete and healthy!"
-
-  # JOB 2: BUILD & DEPLOY THE FRONTEND
-  build-and-deploy-frontend:
-    name: Build and Deploy Next.js Frontend
-    runs-on: ubuntu-latest
-    # This 'needs' keyword is crucial. It makes this job wait for deploy-backend.
-    needs: deploy-backend
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # The build step now happens AFTER Strapi is live
-      - name: Build and push Next.js image
-        uses: docker/build-push-action@v5
-        with:
-          context: . # Or ./frontend if it's in a subfolder
-          file: ./Dockerfile
-          push: true
-          platforms: linux/amd64,linux/arm64
-          tags: aurora1010/marketorix:latest
-          build-args: |
-            NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
-            # This URL is now reachable during the build
-            NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.DOMAIN_NAME }}/api
-
-      - name: Deploy Next.js to VPS via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_SSH_HOST }}
-          username: ${{ secrets.VPS_SSH_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd ~/marketorix || exit 1
-
-            echo "Pulling latest frontend image..."
-            sudo docker-compose -f docker-compose.prod.yml pull frontend
-
-            echo "Restarting frontend service..."
-            sudo docker-compose -f docker-compose.prod.yml up -d --no-deps --force-recreate frontend
-
-            echo "Pruning old Docker images..."
+            echo "Pruning old, unused Docker images..."
             sudo docker image prune -af
 
-            echo "Frontend deployment complete!"
-
-            
+            echo "Deployment complete!"
