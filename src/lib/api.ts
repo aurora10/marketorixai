@@ -22,7 +22,11 @@ interface PaginatedPosts {
   };
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://0.0.0.0:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
+if (!STRAPI_URL) {
+  throw new Error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+}
 
 // Fetches a list of posts with pagination
 async function getPosts(

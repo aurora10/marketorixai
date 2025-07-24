@@ -37,6 +37,7 @@ jobs:
           tags: aurora1010/marketorix:latest
           build-args: |
             NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
+            NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.DOMAIN_NAME }}
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
