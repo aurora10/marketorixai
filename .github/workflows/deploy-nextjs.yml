@@ -1,99 +1,3 @@
-# # .github/workflows/deploy-nextjs.yml
-# name: Deploy Full Stack App to VPS
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-
-# jobs:
-#   build-and-deploy:
-#     name: Build and Deploy
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Set up QEMU
-#         uses: docker/setup-qemu-action@v3
-
-#       - name: Set up Docker Buildx
-#         uses: docker/setup-buildx-action@v3
-
-#       - name: Login to Docker Hub
-#         uses: docker/login-action@v3
-#         with:
-#           username: ${{ secrets.DOCKERHUB_USERNAME }}
-#           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-#       - name: Build and push Next.js image
-#         uses: docker/build-push-action@v5
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           push: true
-#           platforms: linux/amd64,linux/arm64
-#           tags: aurora1010/marketorix:latest
-#           build-args: |
-#             NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
-#             NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.DOMAIN_NAME }}
-
-#       - name: Deploy to VPS via SSH
-#         uses: appleboy/ssh-action@v1.0.3
-#         with:
-#           host: ${{ secrets.VPS_SSH_HOST }}
-#           username: ${{ secrets.VPS_SSH_USERNAME }}
-#           key: ${{ secrets.VPS_SSH_KEY }}
-#           script: |
-#             # Navigate to the project directory on the VPS
-#             cd ~/marketorix || exit 1
-
-#             # Create the .env file for Strapi and the database from GitHub Secrets
-#             echo "Creating production .env file..."
-#             cat << EOF > .env
-#             # Server & Environment
-#             HOST=0.0.0.0
-#             PORT=1337
-#             NODE_ENV=production
-#             DOMAIN_NAME=${{ secrets.DOMAIN_NAME }}
-#             PUBLIC_URL=https://${{ secrets.DOMAIN_NAME }}
-
-#             # Application Secrets
-#             APP_KEYS=${{ secrets.APP_KEYS }}
-#             API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
-#             ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
-#             JWT_SECRET=${{ secrets.JWT_SECRET }}
-#             TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
-#             ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-
-#             # Database Credentials
-#             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-#             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-#             POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-
-#             # Strapi Database Connection
-#             DATABASE_CLIENT=postgres
-#             DATABASE_HOST=db
-#             DATABASE_PORT=5432
-#             DATABASE_NAME=${{ secrets.POSTGRES_DB }}
-#             DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
-#             DATABASE_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-#             DATABASE_SSL=false
-#             EOF
-
-#             echo "Pulling latest images from Docker Hub..."
-#             sudo docker-compose -f docker-compose.prod.yml pull
-
-#             echo "Restarting all services with new images..."
-#             sudo docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
-
-#             echo "Pruning old Docker images to save space..."
-#             sudo docker image prune -af
-
-#             echo "Deployment complete!"
-
-
 name: Deploy Pre-Built Images to VPS
 
 on:
@@ -107,8 +11,6 @@ jobs:
     name: Deploy from Docker Hub
     runs-on: ubuntu-latest
     steps:
-      # No checkout, build, or login steps are needed as we are not building images.
-
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -118,9 +20,6 @@ jobs:
           script: |
             # Navigate to your project directory on the VPS
             cd ~/marketorix || exit 1
-
-            # Ensure the docker-compose.prod.yml file exists here.
-            # You can place it here manually one time or use a checkout step.
 
             echo "Creating production .env file from secrets..."
             cat << EOF > .env
@@ -154,13 +53,17 @@ jobs:
             DATABASE_SSL=false
             EOF
 
+            # --- THE CRITICAL FIX IS HERE ---
+            # Define the compose command once, including the --env-file flag.
+            # This makes the variables from .env available for the healthcheck.
+            COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
+
             echo "Pulling the latest images for all services..."
-            # This pulls all images defined in your docker-compose file
-            docker-compose -f docker-compose.prod.yml pull
+            $COMPOSE_COMMAND pull
 
             echo "Restarting all services with the new images..."
-            # Docker Compose is smart enough to restart in the correct order based on 'depends_on'
-            docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
+            # This command now runs with the correct variables, fixing the healthcheck.
+            $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
 
             echo "Pruning old, unused Docker images..."
             docker image prune -af
