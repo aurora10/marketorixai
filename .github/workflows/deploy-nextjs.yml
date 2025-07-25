@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd ~/MARKETORIXAI || exit 1
+            cd ~/marketorix || exit 1
             git pull
             echo "Creating production .env file from secrets..."
             cat << EOF > .env
