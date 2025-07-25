@@ -25,7 +25,7 @@ services:
       - "1337:1337"
     environment:
       ADMIN_PATH: /
-      URL: https://${DOMAIN_NAME}/admin
+      URL: https://${DOMAIN_NAME}
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
