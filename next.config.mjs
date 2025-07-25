@@ -1,5 +1,6 @@
 const nextConfig = {
   images: {
+    output: 'standalone',
     remotePatterns: [
       {
         protocol: "http",

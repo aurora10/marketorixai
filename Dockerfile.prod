@@ -1,39 +1,50 @@
-# ==== Stage 1: Build ====
-FROM node:18-alpine AS builder
+# ----------------- STAGE 1: DEPENDENCY INSTALLATION -----------------
+# This stage installs dependencies and is cached separately
+FROM node:18-alpine AS deps
 WORKDIR /app
-
-# Copy package files and install dependencies
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Copy the rest of the application source code
+# ----------------- STAGE 2: CODE BUILDER -----------------
+# This stage builds the Next.js code. It copies dependencies from the previous stage.
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # --- THIS IS THE CRITICAL FIX ---
 # 1. Declare the build argument that we will pass in from the workflow.
 ARG NEXT_PUBLIC_STRAPI_API_URL
-
 # 2. Set it as an environment variable so `next build` can use it.
 ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 
-# 3. Now, run the build. It will no longer fail.
+# 3. Verify the variable is set before building (for debugging)
+RUN echo "Building with API URL: $NEXT_PUBLIC_STRAPI_API_URL"
+# 4. Now, run the build. It will no longer fail.
 RUN npm run build
 
-
-# ==== Stage 2: Production Runner ====
-FROM node:18-alpine
+# ----------------- STAGE 3: PRODUCTION RUNNER -----------------
+# This is the final, small image that will run on your server.
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 
+# You can add a non-root user for better security
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
+
 # Copy only the necessary parts from the builder stage
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+# Standalone output is smaller and optimized for production
+COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
+COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
 
-# Expose the port the app runs on
+# USER nextjs # Uncomment if you create a non-root user
+
 EXPOSE 3000
 
-# The command to start the Next.js server
-CMD ["npm", "start"]
+ENV PORT 3000
+
+# The command to start the optimized Next.js server
+CMD ["node", "server.js"]
