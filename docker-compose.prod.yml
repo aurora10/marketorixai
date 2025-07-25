@@ -22,8 +22,8 @@ services:
     container_name: marketorix-strapi
     restart: unless-stopped
     environment:
-      ADMIN_PATH: admin
-      URL: https://${DOMAIN_NAME}/
+      ADMIN_PATH: /admin
+      URL: https://${DOMAIN_NAME}
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
