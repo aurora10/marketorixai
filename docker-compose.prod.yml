@@ -21,6 +21,8 @@ services:
     image: aurora1010/my-blog-strapi:latest-prod
     container_name: marketorix-strapi
     restart: unless-stopped
+    environment:
+      ADMIN_PATH: /admin
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
@@ -31,14 +33,11 @@ services:
       - db
     labels:
       - "traefik.enable=true"
-      # Rule for the admin panel: example.com/blog-admin
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/blog-admin`)"
+      # Rule for the admin panel: example.com/admin
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
-      # Middleware to remove /blog-admin before forwarding to the Strapi container
-      - "traefik.http.middlewares.strip-blog-admin.stripprefix.prefixes=/blog-admin"
-      - "traefik.http.routers.marketorix-strapi.middlewares=strip-blog-admin"
 
   # Strapi Database
   db:
