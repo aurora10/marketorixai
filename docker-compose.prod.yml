@@ -21,6 +21,8 @@ services:
     image: aurora1010/my-blog-strapi:latest-prod
     container_name: marketorix-strapi
     restart: unless-stopped
+    ports:
+      - "1337:1337"
     environment:
       ADMIN_PATH: /
       URL: https://${DOMAIN_NAME}/admin
