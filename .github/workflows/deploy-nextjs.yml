@@ -53,15 +53,30 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            if [ -d "~/marketorix/.git" ]; then
-              echo "Repository already cloned. Pulling latest changes..."
-              cd ~/marketorix
-              git pull
+            # Navigate to the project directory or clone it if it doesn't exist
+            if cd ~/marketorix; then
+              echo "Successfully changed to ~/marketorix."
+              # Check if it's a git repository
+              if [ -d ".git" ]; then
+                echo "Git repository found. Fetching and hard resetting to origin/main..."
+                git fetch origin main
+                git reset --hard origin/main
+              else
+                echo "Directory ~/marketorix exists but is not a git repository. Attempting to re-clone..."
+                # If it's not a git repo, it might be an empty dir or contain non-git files.
+                # Safest is to remove and re-clone.
+                cd ~ # Go back to home to remove the directory
+                rm -rf marketorix
+                git clone https://github.com/${{ github.repository }}.git ~/marketorix
+                cd ~/marketorix # Go back into the newly cloned directory
+              fi
             else
-              echo "Cloning repository..."
+              echo "Directory ~/marketorix does not exist. Cloning repository... (This should only happen on first deploy)"
               git clone https://github.com/${{ github.repository }}.git ~/marketorix
               cd ~/marketorix
             fi
+            echo "Content of docker-compose.prod.yml on VPS after git update:"
+            cat docker-compose.prod.yml
             echo "Creating production .env file from secrets..."
             cat << EOF > .env
             FRONTEND_TAG=${{ github.sha }}
