@@ -1,50 +1,57 @@
+# Filename: Dockerfile.prod - The final, correct version for Next.js
+
 # ----------------- STAGE 1: DEPENDENCY INSTALLATION -----------------
-# This stage installs dependencies and is cached separately
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
 
 # ----------------- STAGE 2: CODE BUILDER -----------------
-# This stage builds the Next.js code. It copies dependencies from the previous stage.
 FROM node:18-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# --- THIS IS THE CRITICAL FIX ---
-# 1. Declare the build argument that we will pass in from the workflow.
+# --- THIS IS THE CRITICAL AND FINAL FIX ---
+# 1. Declare the build argument that we receive from the GitHub Actions workflow.
 ARG NEXT_PUBLIC_STRAPI_API_URL
-# 2. Set it as an environment variable so `next build` can use it.
-ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 
-# 3. Verify the variable is set before building (for debugging)
-RUN echo "Building with API URL: $NEXT_PUBLIC_STRAPI_API_URL"
-# 4. Now, run the build. It will no longer fail.
+# 2. Create the .env file that Next.js will automatically read during the build.
+#    This is the official, most reliable way to do this.
+RUN echo "NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL" > .env.production
+
+# 3. For debugging, let's print the file to be sure it was created.
+RUN echo "--- Verifying .env.production file contents: ---"
+RUN cat .env.production
+RUN echo "--------------------------------------------"
+
+# 4. Now, run the build. Next.js will find the .env.production file and succeed.
 RUN npm run build
 
 # ----------------- STAGE 3: PRODUCTION RUNNER -----------------
-# This is the final, small image that will run on your server.
 FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# You can add a non-root user for better security
+# You may want to add a non-root user for better security in the future
 # RUN addgroup --system --gid 1001 nodejs
 # RUN adduser --system --uid 1001 nextjs
 
-# Copy only the necessary parts from the builder stage
+# Copy only the necessary, optimized parts from the builder stage
 COPY --from=builder /app/public ./public
-# Standalone output is smaller and optimized for production
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/package.json ./
+
+# The standalone output contains only what's needed to run the app
 COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
 
 # USER nextjs # Uncomment if you create a non-root user
 
 EXPOSE 3000
-
 ENV PORT 3000
 
-# The command to start the optimized Next.js server
+# The command to start the optimized Next.js server from the standalone output
 CMD ["node", "server.js"]
+
