@@ -82,6 +82,17 @@ jobs:
             EOF
 
             COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
+
+            echo "--- DIAGNOSTICS START ---"
+            echo "FRONTEND_TAG being used: ${{ github.sha }}"
+            echo "Docker Images on VPS:"
+            docker images
+            echo "Running Docker Containers on VPS:"
+            docker ps -a
+            echo "Docker Compose Configuration:"
+            $COMPOSE_COMMAND config
+            echo "--- DIAGNOSTICS END ---"
+
             echo "Pulling the latest images for all services..."
             $COMPOSE_COMMAND pull
             echo "Restarting all services with the new images..."
