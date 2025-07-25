@@ -22,7 +22,7 @@ interface PaginatedPosts {
   };
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 if (!STRAPI_URL) {
   throw new Error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
@@ -56,35 +56,47 @@ async function getPosts(
   );
 
   const url = `${STRAPI_URL}/api/posts?${query}`;
-  const res = await fetch(url);
+  try {
+    const res = await fetch(url);
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch posts from ${url}`);
-  }
-
-  const responseData = await res.json();
-
-  return {
-    posts: responseData.data.map((item: any) => {
+    if (!res.ok) {
+      console.error(`Failed to fetch posts from ${url}`);
       return {
-        id: item.id,
-        title: item.title || "Untitled Post",
-        excerpt: item.excerpt || "",
-        slug: item.slug || "",
-        featuredImageUrl: item.featuredImage?.url
-          ? `${STRAPI_URL}${item.featuredImage.url}`
-          : undefined,
-        featuredImageAlt: item.featuredImage?.alternativeText,
-        contentBlocks: item.contentBlocks || [],
+        posts: [],
+        pagination: { page: 1, pageSize: 10, pageCount: 0, total: 0 },
       };
-    }) as Post[],
-    pagination: responseData.meta?.pagination || {
-      page,
-      pageSize,
-      pageCount: 0,
-      total: 0,
-    },
-  };
+    }
+
+    const responseData = await res.json();
+
+    return {
+      posts: responseData.data.map((item: any) => {
+        return {
+          id: item.id,
+          title: item.title || "Untitled Post",
+          excerpt: item.excerpt || "",
+          slug: item.slug || "",
+          featuredImageUrl: item.featuredImage?.url
+            ? `${STRAPI_URL}${item.featuredImage.url}`
+            : undefined,
+          featuredImageAlt: item.featuredImage?.alternativeText,
+          contentBlocks: item.contentBlocks || [],
+        };
+      }) as Post[],
+      pagination: responseData.meta?.pagination || {
+        page,
+        pageSize,
+        pageCount: 0,
+        total: 0,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return {
+      posts: [],
+      pagination: { page: 1, pageSize: 10, pageCount: 0, total: 0 },
+    };
+  }
 }
 
 // Fetches a single post by its slug
@@ -112,40 +124,47 @@ async function getPost(slug: string): Promise<Post | null> {
   );
 
   const url = `${STRAPI_URL}/api/posts?${query}`;
-  const res = await fetch(url);
+  try {
+    const res = await fetch(url);
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch post from ${url}`);
-  }
+    if (!res.ok) {
+      console.error(`Failed to fetch post from ${url}`);
+      return null;
+    }
 
-  const responseData = await res.json();
+    const responseData = await res.json();
 
-  if (!Array.isArray(responseData.data) || responseData.data.length === 0) {
+    if (!Array.isArray(responseData.data) || responseData.data.length === 0) {
+      return null;
+    }
+
+    const postData = responseData.data[0];
+    if (!postData) {
+      return null;
+    }
+    const post = postData;
+
+    return {
+      id: post.id,
+      title: post.title || "Untitled Post",
+      excerpt: post.excerpt || "",
+      slug: post.slug || "",
+      featuredImageUrl: post.featuredImage?.url
+        ? `${STRAPI_URL}${post.featuredImage.url}`
+        : undefined,
+      featuredImageAlt: post.featuredImage?.alternativeText,
+      contentBlocks:
+        post.contentBlocks.flatMap((block: any) => {
+          if (block.__component === "content.rich-text-block") {
+            return block.content;
+          }
+          return [];
+        }) || [],
+    };
+  } catch (error) {
+    console.error("Error fetching post:", error);
     return null;
   }
-
-  const postData = responseData.data[0];
-  if (!postData) {
-    return null;
-  }
-  const post = postData;
-
-  return {
-    id: post.id,
-    title: post.title || "Untitled Post",
-    excerpt: post.excerpt || "",
-    slug: post.slug || "",
-    featuredImageUrl: post.featuredImage?.url
-      ? `${STRAPI_URL}${post.featuredImage.url}`
-      : undefined,
-    featuredImageAlt: post.featuredImage?.alternativeText,
-    contentBlocks: post.contentBlocks.flatMap((block: any) => {
-      if (block.__component === 'content.rich-text-block') {
-        return block.content;
-      }
-      return [];
-    }) || [],
-  };
 }
 
 export { getPosts, getPost };

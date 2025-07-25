@@ -4,6 +4,8 @@ import Link from "next/link";
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import BlockRendererClient from "@/components/BlockRendererClient";
 
+export const dynamic = 'force-dynamic';
+
 type PostPageProps = {
   params: {
     slug: string;

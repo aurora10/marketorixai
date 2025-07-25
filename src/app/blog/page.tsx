@@ -2,6 +2,8 @@ import PostListClient from "@/components/PostListClient";
 import { getPosts } from "@/lib/api";
 import Header from "@/components/Header";
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPage() {
   const POSTS_PER_PAGE = 5;
   const result = await getPosts(1, POSTS_PER_PAGE);
