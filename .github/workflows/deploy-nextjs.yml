@@ -53,8 +53,15 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd ~/marketorix || exit 1
-            git pull
+            if [ -d "~/marketorix/.git" ]; then
+              echo "Repository already cloned. Pulling latest changes..."
+              cd ~/marketorix
+              git pull
+            else
+              echo "Cloning repository..."
+              git clone https://github.com/${{ github.repository }}.git ~/marketorix
+              cd ~/marketorix
+            fi
             echo "Creating production .env file from secrets..."
             cat << EOF > .env
             FRONTEND_TAG=${{ github.sha }}
