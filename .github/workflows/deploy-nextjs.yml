@@ -45,6 +45,7 @@ jobs:
             echo "Step 5: Attempting to create production .env file from secrets..."
             cat << EOF > .env
             # Server & Environment
+            DOMAIN_NAME=${{ secrets.DOMAIN_NAME }}
             HOST=0.0.0.0
             PORT=1337
             NODE_ENV=production
