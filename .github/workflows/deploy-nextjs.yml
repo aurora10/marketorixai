@@ -84,6 +84,8 @@ jobs:
             COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
             echo "Pulling the latest images for all services..."
             $COMPOSE_COMMAND pull
+            echo "Clearing Next.js cache..."
+            $COMPOSE_COMMAND run --rm frontend rm -rf .next
             echo "Restarting all services with the new images..."
             $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
             echo "Pruning old, unused Docker images..."
