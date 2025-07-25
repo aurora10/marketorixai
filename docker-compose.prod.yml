@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # Next.js Frontend
   app:
-    image: aurora1010/marketorix:latest
+    image: aurora1010/marketorix:${FRONTEND_TAG:-latest}
     container_name: marketorix-nextjs
     restart: unless-stopped
     networks:
