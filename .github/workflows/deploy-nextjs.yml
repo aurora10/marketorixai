@@ -113,6 +113,12 @@ jobs:
             docker ps -a
             echo "Docker Compose Configuration:"
             $COMPOSE_COMMAND config
+            echo "Strapi Container Image ID:"
+            docker inspect -f '{{.Image}}' marketorix-strapi
+            echo "Strapi Container Environment Variables:"
+            docker inspect -f '{{range .Config.Env}}{{.}}\n{{end}}' marketorix-strapi
+            echo "Strapi Container Logs (last 50 lines):"
+            docker logs --tail 50 marketorix-strapi
             echo "--- DIAGNOSTICS END ---"
 
             echo "Pulling the latest images for all services..."
