@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     environment:
       ADMIN_PATH: /admin
-      URL: https://${DOMAIN_NAME}
+      URL: https://${DOMAIN_NAME}/admin
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
@@ -40,6 +40,13 @@ services:
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
       # Middleware to remove /abc/admin before forwarding to the Strapi container
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
+
+    # 2. Define a middleware to strip the /strapi prefix before forwarding to the container
+      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/admin"
+
+    # 3. Apply the middleware to the strapi router
+      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix"
      
   # Strapi Database
   db:
