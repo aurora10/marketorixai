@@ -1,18 +1,125 @@
-# This is the complete workflow file with added diagnostics.
-# It will help identify path or permission errors on your server.
+# name: Deploy Pre-Built Images to VPS
 
-name: Deploy Pre-Built Images to VPS
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch: # Allows you to trigger this manually from the Actions tab
+
+# jobs:
+#   deploy:
+#     name: Deploy from Docker Hub
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy to VPS via SSH
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.VPS_SSH_HOST }}
+#           username: ${{ secrets.VPS_SSH_USERNAME }}
+#           key: ${{ secrets.VPS_SSH_KEY }}
+#           script: |
+#             # Navigate to your project directory on the VPS
+#             cd ~/marketorix || exit 1
+
+#             echo "Creating production .env file from secrets..."
+#             cat << EOF > .env
+#             # Server & Environment
+#             HOST=0.0.0.0
+#             PORT=1337
+#             NODE_ENV=production
+#             # Ensure this is the public URL your frontend will use to call the API
+#             URL=https://${{ secrets.DOMAIN_NAME }}
+
+#             # Application Secrets
+#             APP_KEYS=${{ secrets.APP_KEYS }}
+#             API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+#             ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+#             JWT_SECRET=${{ secrets.JWT_SECRET }}
+#             TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+#             ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+
+#             # Database Credentials
+#             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+#             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+#             POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+
+#             # Strapi Database Connection
+#             DATABASE_CLIENT=postgres
+#             DATABASE_HOST=db # Docker Compose service name for the database
+#             DATABASE_PORT=5432
+#             DATABASE_NAME=${{ secrets.POSTGRES_DB }}
+#             DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
+#             DATABASE_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+#             DATABASE_SSL=false
+#             EOF
+
+#             # --- THE CRITICAL FIX IS HERE ---
+#             # Define the compose command once, including the --env-file flag.
+#             # This makes the variables from .env available for the healthcheck.
+#             COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
+
+#             echo "Pulling the latest images for all services..."
+#             $COMPOSE_COMMAND pull
+
+#             echo "Restarting all services with the new images..."
+#             # This command now runs with the correct variables, fixing the healthcheck.
+#             $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
+
+#             echo "Pruning old, unused Docker images..."
+#             docker image prune -af
+
+#             echo "Deployment complete!"
+
+name: Build and Deploy Frontend
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows you to trigger this manually from the Actions tab
+    # This ensures the workflow only runs when frontend code is changed.
+    # If your frontend code is at the root of the repo, remove the 'paths' block.
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-nextjs.yml'
+  workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Deploy from Docker Hub
+  # JOB 1: BUILD AND PUSH THE FRONTEND IMAGE
+  build-frontend:
+    name: Build Frontend Image
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU for multi-platform builds
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Next.js Frontend
+        uses: docker/build-push-action@v5
+        with:
+          # IMPORTANT: Set this path to your frontend code folder.
+          # If it's at the root of the repo, use '.'
+          context: ./frontend
+          file: ./frontend/Dockerfile.prod
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: aurora1010/marketorix:${{ github.sha }}
+
+  # JOB 2: DEPLOY TO VPS
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    needs: build-frontend # Wait for the build job to finish first
+
     steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -21,31 +128,19 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # --- START DIAGNOSTICS ---
-            echo "Step 1: Verifying user and location..."
-            whoami
-            pwd
-            
-            echo "Step 2: Checking if project directory exists..."
-            ls -ld ~/marketorix
-            
-            # --- END DIAGNOSTICS ---
-
+            # --- THIS IS THE CORRECTED LINE ---
             # Navigate to your project directory on the VPS
-            cd ~/marketorix || exit 1
+            cd ~/MARKETORIXAI || exit 1
 
-            # --- MORE DIAGNOSTICS ---
-            echo "Step 3: Successfully entered project directory. Current location:"
-            pwd
-            
-            echo "Step 4: Listing files and permissions BEFORE writing .env file..."
-            ls -la
-            # --- END DIAGNOSTICS ---
-
-            echo "Step 5: Attempting to create production .env file from secrets..."
+            echo "Creating production .env file from secrets..."
             cat << EOF > .env
-            # Server & Environment
+            # Use the unique tag built by the previous job
+            FRONTEND_TAG=${{ github.sha }}
+
+            # Domain for Traefik routing
             DOMAIN_NAME=${{ secrets.DOMAIN_NAME }}
+
+            # Server & Environment
             HOST=0.0.0.0
             PORT=1337
             NODE_ENV=production
@@ -59,37 +154,31 @@ jobs:
             TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
             ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
 
-            # Database Credentials used by the PostgreSQL container
+            # Database Credentials
             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
             # Strapi Database Connection
             DATABASE_CLIENT=postgres
-            DATABASE_HOST=db # Docker Compose service name for the database
+            DATABASE_HOST=db
             DATABASE_PORT=5432
             DATABASE_NAME=${{ secrets.POSTGRES_DB }}
             DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
             DATABASE_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             DATABASE_SSL=false
             EOF
-            
-            # --- FINAL DIAGNOSTICS ---
-            echo "Step 6: Verifying the .env file was created correctly..."
-            echo "--- .env file contents START ---"
-            cat .env
-            echo "--- .env file contents END ---"
-            # --- END DIAGNOSTICS ---
 
+            # Your original commands remain the same.
             COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
 
-            echo "Step 7: Pulling the latest images..."
+            echo "Pulling the latest images for all services..."
             $COMPOSE_COMMAND pull
 
-            echo "Step 8: Restarting all services..."
+            echo "Restarting all services with the new images..."
             $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
 
-            echo "Step 9: Pruning old images..."
+            echo "Pruning old, unused Docker images..."
             docker image prune -af
 
             echo "Deployment complete!"
