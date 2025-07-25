@@ -54,7 +54,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd ~/MARKETORIXAI || exit 1
-
+            git pull
             echo "Creating production .env file from secrets..."
             cat << EOF > .env
             FRONTEND_TAG=${{ github.sha }}
@@ -84,8 +84,6 @@ jobs:
             COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
             echo "Pulling the latest images for all services..."
             $COMPOSE_COMMAND pull
-            echo "Clearing Next.js cache..."
-            $COMPOSE_COMMAND run --rm frontend rm -rf .next
             echo "Restarting all services with the new images..."
             $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
             echo "Pruning old, unused Docker images..."
