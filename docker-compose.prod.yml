@@ -7,10 +7,9 @@ services:
     container_name: marketorix-nextjs
     restart: unless-stopped
     networks:
-      - n8n_default # Connect to Traefik's external network
+      - n8n_default
     labels:
       - "traefik.enable=true"
-      # Rule for the main domain: example.com
       - "traefik.http.routers.marketorix-app.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.marketorix-app.entrypoints=websecure"
       - "traefik.http.routers.marketorix-app.tls.certresolver=mytlschallenge"
@@ -22,32 +21,31 @@ services:
     container_name: marketorix-strapi
     restart: unless-stopped
     environment:
-      ADMIN_PATH: /admin
-      URL: https://${DOMAIN_NAME}/admin
+      # The public URL where Strapi is accessible
+      URL: https://${DOMAIN_NAME}/strapi
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
     networks:
-      - n8n_default # Connect to Traefik's external network
-      - default     # Internal network for database communication
+      - n8n_default
+      - default
     depends_on:
       - db
     labels:
       - "traefik.enable=true"
-      # Rule for the admin panel: example.com/abc/admin
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
-      # Middleware to remove /abc/admin before forwarding to the Strapi container
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
 
-    # 2. Define a middleware to strip the /strapi prefix before forwarding to the container
-      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/admin"
+      # Rule to match the host AND the /strapi path prefix
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
 
-    # 3. Apply the middleware to the strapi router
-      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix"
-     
+      # Define a middleware to strip the /strapi prefix before forwarding to the container
+      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
+
+      # Apply the middleware to the strapi router
+      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
+
   # Strapi Database
   db:
     container_name: marketorix-db
@@ -57,7 +55,7 @@ services:
     volumes:
       - strapi-data:/var/lib/postgresql/data
     networks:
-      - default # Only accessible to other services on the internal 'default' network
+      - default
 
 volumes:
   strapi-data:
@@ -65,6 +63,6 @@ volumes:
 
 networks:
   n8n_default:
-    external: true # This tells Docker Compose to use the existing network created by Traefik
+    external: true
   default:
     driver: bridge
