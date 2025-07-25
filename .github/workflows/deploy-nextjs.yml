@@ -1,15 +1,12 @@
-
 name: Build and Deploy Frontend
 
 on:
   push:
     branches:
       - main
-    # This ensures the workflow only runs when frontend code is changed.
-    # If your frontend code is at the root of the repo, remove the 'paths' block.
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/deploy-nextjs.yml'
+    # --- CHANGE 1: REMOVED THE 'paths' BLOCK ---
+    # The original 'paths' looked for a 'frontend/**' folder which does not exist.
+    # Removing it means the workflow will run on any push to the main branch.
   workflow_dispatch:
 
 jobs:
@@ -35,15 +32,16 @@ jobs:
       - name: Build and push Next.js Frontend
         uses: docker/build-push-action@v5
         with:
-          # IMPORTANT: Set this path to your frontend code folder.
-          # If it's at the root of the repo, use '.'
-          context: ./frontend
-          file: ./frontend/Dockerfile.prod
+          # --- CHANGE 2: CORRECTED THE PATHS ---
+          # '.' means use the root of the repository, which is correct since
+          # the error "path ./frontend not found" proved the code is not in a subfolder.
+          context: .
+          file: ./Dockerfile.prod
           platforms: linux/amd64,linux/arm64
           push: true
           tags: aurora1010/marketorix:${{ github.sha }}
 
-  # JOB 2: DEPLOY TO VPS
+  # JOB 2: DEPLOY TO VPS (This part was already correct)
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu-latest
@@ -57,7 +55,6 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # --- THIS IS THE CORRECTED LINE ---
             # Navigate to your project directory on the VPS
             cd ~/MARKETORIXAI || exit 1
 
@@ -85,7 +82,7 @@ jobs:
 
             # Database Credentials
             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_PASSWORD=${{ secrets.POSTGROSTGRES_DB }}
             POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
             # Strapi Database Connection
@@ -111,3 +108,4 @@ jobs:
             docker image prune -af
 
             echo "Deployment complete!"
+
