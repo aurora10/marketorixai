@@ -23,6 +23,7 @@ services:
     restart: unless-stopped
     environment:
       ADMIN_PATH: /admin
+      URL: https://${DOMAIN_NAME}/admin
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
