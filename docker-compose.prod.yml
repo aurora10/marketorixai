@@ -3,7 +3,6 @@ version: "3.8"
 services:
   # Next.js Frontend
   app:
-    # ... (no changes here)
     image: aurora1010/marketorix:${FRONTEND_TAG:-latest}
     container_name: marketorix-nextjs
     restart: unless-stopped
@@ -18,21 +17,18 @@ services:
 
   # Strapi Backend
   strapi:
-    image: aurora1010/my-blog-strapi:latest-prod # Use the newly built image
+    image: aurora1010/my-blog-strapi-v2:latest-prod # Make sure this points to your new image name
     container_name: marketorix-strapi
     restart: unless-stopped
-    environment:
-      NODE_ENV: production
-      # This URL is now correctly used by the config in server.js
-      URL: https://${DOMAIN_NAME}/strapi 
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
     networks:
       - n8n_default
       - default
-    # depends_on:
-    #   - db
+    # This is now correctly uncommented to ensure proper startup order
+    depends_on:
+      - db
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
@@ -43,25 +39,23 @@ services:
       - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
 
   # Strapi Database
-#   db:
-#     # ... (no changes here)
-#     container_name: marketorix-db
-#     image: postgres:15-alpine
-#     restart: unless-stopped
-#     env_file: .env
-#     volumes:
-#       - strapi-data:/var/lib/postgresql/data
-#     networks:
-#       - default
+  db:
+    container_name: marketorix-db
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - strapi-data:/var/lib/postgresql/data
+    networks:
+      - default
 
-# volumes:
-#   strapi-data:
-#   strapi-uploads:
+# Volumes are now correctly declared
+volumes:
+  strapi-data:
+  strapi-uploads:
 
 networks:
   n8n_default:
     external: true
   default:
     driver: bridge
-
-    
