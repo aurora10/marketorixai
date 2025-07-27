@@ -3,6 +3,7 @@ version: "3.8"
 services:
   # Next.js Frontend
   app:
+    # ... (no changes here)
     image: aurora1010/marketorix:${FRONTEND_TAG:-latest}
     container_name: marketorix-nextjs
     restart: unless-stopped
@@ -17,17 +18,13 @@ services:
 
   # Strapi Backend
   strapi:
-    image: aurora1010/my-blog-strapi:latest-prod
+    image: aurora1010/my-blog-strapi:latest-prod # Use the newly built image
     container_name: marketorix-strapi
     restart: unless-stopped
     environment:
-      # Set the Node environment to production
       NODE_ENV: production
-      # CRITICAL: This must be the public-facing base URL for Strapi
-      URL: https://${DOMAIN_NAME}/strapi
-      # ADMIN_PATH is relative to the URL above. This is the default and often not needed
-      # unless you want to change it from /admin to something else.
-      # ADMIN_PATH: /dashboard 
+      # This URL is now correctly used by the config in server.js
+      URL: https://${DOMAIN_NAME}/strapi 
     env_file: .env
     volumes:
       - strapi-uploads:/opt/app/public/uploads
@@ -41,33 +38,30 @@ services:
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
-
-      # Rule to match the host AND the /strapi path prefix
       - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
-
-      # Define a middleware to strip the /strapi prefix before forwarding to the container
       - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
-
-      # Apply the middleware to the strapi router
       - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
 
   # Strapi Database
-  db:
-    container_name: marketorix-db
-    image: postgres:15-alpine
-    restart: unless-stopped
-    env_file: .env
-    volumes:
-      - strapi-data:/var/lib/postgresql/data
-    networks:
-      - default
+#   db:
+#     # ... (no changes here)
+#     container_name: marketorix-db
+#     image: postgres:15-alpine
+#     restart: unless-stopped
+#     env_file: .env
+#     volumes:
+#       - strapi-data:/var/lib/postgresql/data
+#     networks:
+#       - default
 
-volumes:
-  strapi-data:
-  strapi-uploads:
+# volumes:
+#   strapi-data:
+#   strapi-uploads:
 
 networks:
   n8n_default:
     external: true
   default:
     driver: bridge
+
+    
