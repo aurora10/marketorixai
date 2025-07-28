@@ -30,13 +30,29 @@ services:
     depends_on:
       - db
     labels:
+      # Enable Traefik for this service
       - "traefik.enable=true"
+
+      # --- Define the shared service that both routers will use ---
+      - "traefik.http.services.marketorix-strapi-service.loadbalancer.server.port=1337"
+
+      # --- Router 1: For normal user traffic to /strapi ---
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
-      - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`) || PathPrefix('/admin')"
-     
+      - "traefik.http.routers.marketorix-strapi.service=marketorix-strapi-service"
 
+      # --- Router 2: To catch the broken /admin asset links ---
+      - "traefik.http.routers.marketorix-strapi-admin-fix.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
+      - "traefik.http.routers.marketorix-strapi-admin-fix.entrypoints=websecure"
+      - "traefik.http.routers.marketorix-strapi-admin-fix.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.marketorix-strapi-admin-fix.service=marketorix-strapi-service"
+
+      # --- Define the stripPrefix middleware ---
+      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
+
+      # --- Apply the middleware ONLY to the normal user traffic router ---
+      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
   # Strapi Database
   db:
     container_name: marketorix-db
