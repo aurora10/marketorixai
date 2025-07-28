@@ -30,26 +30,18 @@ services:
     depends_on:
       - db
     labels:
-      # Enable Traefik for this service
       - "traefik.enable=true"
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
+      - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
+      - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
 
-      # --- Define a single, shared "service" that both routers will point to ---
-      - "traefik.http.services.marketorix-strapi-service.loadbalancer.server.port=1337"
-
-      # --- ROUTER 1: For you, the user. Catches `/strapi` and strips it. ---
-      - "traefik.http.routers.marketorix-strapi-user.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
-      - "traefik.http.routers.marketorix-strapi-user.entrypoints=websecure"
-      - "traefik.http.routers.marketorix-strapi-user.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.marketorix-strapi-user.service=marketorix-strapi-service"
-
-      # --- ROUTER 2: The "fix-it" router. Catches the broken `/admin` requests. ---
-      - "traefik.http.routers.marketorix-strapi-fix.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
-      - "traefik.http.routers.marketorix-strapi-fix.entrypoints=websecure"
-      - "traefik.http.routers.marketorix-strapi-fix.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.marketorix-strapi-fix.service=marketorix-strapi-service"
-
-      # --- Define the stripPrefix middleware that Router 1 will use ---
+      # Define the stripPrefix middleware
       - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
+
+      # Apply the middleware to the router
+      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
+
 
       # --- Apply the middleware ONLY to the user-facing router ---
       - "traefik.http.routers.marketorix-strapi-user.middlewares=strapi-stripprefix@docker"
