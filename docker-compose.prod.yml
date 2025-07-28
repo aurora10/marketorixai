@@ -34,9 +34,8 @@ services:
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
-      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
-      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`) || PathPrefix('/admin')"
+     
 
   # Strapi Database
   db:
