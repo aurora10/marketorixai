@@ -1,6 +1,7 @@
 import { getPost } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from 'next/image';
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import BlockRendererClient from "@/components/BlockRendererClient";
 
@@ -33,10 +34,13 @@ export default async function PostPage({ params }: PostPageProps) {
               {post.title}
             </h1>
             {post.featuredImageUrl && (
-              <img
+              <Image
                 src={post.featuredImageUrl}
                 alt={post.featuredImageAlt || post.title}
+                width={1200}
+                height={630}
                 className="w-full h-auto rounded-lg mb-8"
+                priority
               />
             )}
             <BlockRendererClient content={post.contentBlocks} />

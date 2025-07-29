@@ -1,8 +1,13 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "strapi.marketorix.com",
+        port: "",
+        pathname: "/uploads/**",
+      },
       {
         protocol: "http",
         hostname: "0.0.0.0",

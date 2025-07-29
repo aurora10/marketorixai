@@ -22,7 +22,7 @@ interface PaginatedPosts {
   };
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const STRAPI_URL = "https://strapi.marketorix.com";
 
 // if (!STRAPI_URL) {
 //   throw new Error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
@@ -41,10 +41,10 @@ async function getPosts(
         pageSize,
       },
       populate: {
-        featuredImage: {
+        main_image: {
           fields: ["url", "alternativeText"],
         },
-        contentBlocks: {
+        content_blocks: {
           populate: "*",
         },
       },
@@ -71,16 +71,35 @@ async function getPosts(
 
     return {
       posts: responseData.data.map((item: any) => {
+        const attributes = item.attributes;
+
+        let featuredImageUrl: string | undefined = undefined;
+        let featuredImageAlt: string | undefined = undefined;
+
+        // First, try to get the featured image from the dedicated field
+        if (attributes.main_image?.data?.attributes?.url) {
+          featuredImageUrl = `${STRAPI_URL}${attributes.main_image.data.attributes.url}`;
+          featuredImageAlt = attributes.main_image.data.attributes.alternativeText;
+        } else if (attributes.content_blocks && attributes.content_blocks.length > 0) {
+          // If not found, search for the first image in contentBlocks
+          const imageBlock = attributes.content_blocks.find(
+            (block: any) =>
+              block.__component === 'content.media' && block.image?.data
+          );
+          if (imageBlock) {
+            featuredImageUrl = `${STRAPI_URL}${imageBlock.image.data.attributes.url}`;
+            featuredImageAlt = imageBlock.image.data.attributes.alternativeText;
+          }
+        }
+
         return {
           id: item.id,
-          title: item.title || "Untitled Post",
-          excerpt: item.excerpt || "",
-          slug: item.slug || "",
-          featuredImageUrl: item.featuredImage?.url
-            ? `${STRAPI_URL}${item.featuredImage.url}`
-            : undefined,
-          featuredImageAlt: item.featuredImage?.alternativeText,
-          contentBlocks: item.contentBlocks || [],
+          title: attributes.title || "Untitled Post",
+          excerpt: attributes.excerpt || "",
+          slug: attributes.slug || "",
+          featuredImageUrl,
+          featuredImageAlt,
+          contentBlocks: attributes.content_blocks || [],
         };
       }) as Post[],
       pagination: responseData.meta?.pagination || {
@@ -109,10 +128,10 @@ async function getPost(slug: string): Promise<Post | null> {
         },
       },
       populate: {
-        featuredImage: {
+        main_image: {
           fields: ["url", "alternativeText"],
         },
-        contentBlocks: {
+        content_blocks: {
           populate: "*",
         },
       },
@@ -142,19 +161,19 @@ async function getPost(slug: string): Promise<Post | null> {
     if (!postData) {
       return null;
     }
-    const post = postData;
+    const post = postData.attributes;
 
     return {
-      id: post.id,
+      id: postData.id,
       title: post.title || "Untitled Post",
       excerpt: post.excerpt || "",
       slug: post.slug || "",
-      featuredImageUrl: post.featuredImage?.url
-        ? `${STRAPI_URL}${post.featuredImage.url}`
+      featuredImageUrl: post.main_image?.data?.attributes?.url
+        ? `${STRAPI_URL}${post.main_image.data.attributes.url}`
         : undefined,
-      featuredImageAlt: post.featuredImage?.alternativeText,
+      featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
       contentBlocks:
-        post.contentBlocks.flatMap((block: any) => {
+        post.content_blocks.flatMap((block: any) => {
           if (block.__component === "content.rich-text-block") {
             return block.content;
           }

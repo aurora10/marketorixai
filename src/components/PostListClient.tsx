@@ -66,22 +66,23 @@ export default function PostListClient({
       <div className="grid gap-12">
         {posts.map((post: Post) => (
           <Link href={`/blog/${post.slug}`} key={post.id}>
-            <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 p-8">
+            <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex items-center">
+              <div className="p-8 w-2/3">
+                <h2 className="font-bold text-gray-800 mb-4" style={{ fontSize: '25px' }}>
+                  {post.title}
+                </h2>
+                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '14px' }}>{post.excerpt}</p>
+              </div>
               {post.featuredImageUrl && (
-                <div className="float-right ml-4 mb-4 w-1/3 h-48 md:h-64 relative">
+                <div className="relative w-1/3 h-48">
                   <Image
                     src={post.featuredImageUrl}
-                    alt={post.featuredImageAlt || post.title}
+                    alt={post.featuredImageAlt || 'Blog post image'}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
               )}
-              <h2 className="font-bold text-gray-800 mb-4" style={{ fontSize: '25px' }}>
-                {post.title}
-              </h2>
-              <p className="text-gray-600 leading-relaxed" style={{ fontSize: '14px' }}>{post.excerpt}</p>
             </article>
           </Link>
         ))}
