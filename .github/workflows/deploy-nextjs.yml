@@ -8,15 +8,13 @@ on:
 
 jobs:
   # JOB 1: BUILD AND PUSH THE FRONTEND IMAGE
-  build-frontend:
-    name: Build Frontend Image
+  build-and-push-frontend:
+    name: Build & Push Frontend Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up QEMU for multi-platform builds
-        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -26,24 +24,25 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Next.js Frontend
+      - name: Build and push Next.js image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile.prod
+          file: ./Dockerfile.prod # This is the Dockerfile you posted
           platforms: linux/amd64,linux/arm64
           push: true
+          # Tag the image with the unique commit SHA
           tags: aurora1010/marketorix:${{ github.sha }}
-          # --- THIS IS THE CRITICAL FIX ---
-          # This passes the secret URL into the Docker build process
           build-args: |
-            NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.DOMAIN_NAME }}
+            # Pass the correct Strapi URL to the frontend build process
+            NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.STRAPI_DOMAIN_NAME }}
 
   # JOB 2: DEPLOY TO VPS
   deploy:
-    name: Deploy to VPS
+    name: Deploy Frontend to VPS
     runs-on: ubuntu-latest
-    needs: build-frontend
+    # This job runs only after the frontend image is built
+    needs: build-and-push-frontend
 
     steps:
       - name: Deploy to VPS via SSH
@@ -53,79 +52,28 @@ jobs:
           username: ${{ secrets.VPS_SSH_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # Navigate to the project directory or clone it if it doesn't exist
-            if cd ~/marketorix; then
-              echo "Successfully changed to ~/marketorix."
-              # Check if it's a git repository
-              if [ -d ".git" ]; then
-                echo "Git repository found. Fetching and hard resetting to origin/main..."
-                git fetch origin main
-                git reset --hard origin/main
-              else
-                echo "Directory ~/marketorix exists but is not a git repository. Attempting to re-clone..."
-                # If it's not a git repo, it might be an empty dir or contain non-git files.
-                # Safest is to remove and re-clone.
-                cd ~ # Go back to home to remove the directory
-                rm -rf marketorix
-                git clone https://github.com/${{ github.repository }}.git ~/marketorix
-                cd ~/marketorix # Go back into the newly cloned directory
-              fi
-            else
-              echo "Directory ~/marketorix does not exist. Cloning repository... (This should only happen on first deploy)"
-              git clone https://github.com/${{ github.repository }}.git ~/marketorix
-              cd ~/marketorix
-            fi
-            echo "Content of docker-compose.prod.yml on VPS after git update:"
+            # Navigate to the project directory on the server
+            cd ~/marketorix
+
+            # --- Update the .env file ---
+            # We only need to update the frontend tag now. The Strapi tag is managed manually.
+            echo "Updating .env file with new frontend tag..."
+            # This command updates the FRONTEND_TAG line if it exists, or adds it if it doesn't.
+            grep -q '^FRONTEND_TAG=' .env && sed -i "s/^FRONTEND_TAG=.*/FRONTEND_TAG=${{ github.sha }}/" .env || echo "FRONTEND_TAG=${{ github.sha }}" >> .env
+            
+            echo "--- DOCKER-COMPOSE FILE ON SERVER (UNCHANGED) ---"
             cat docker-compose.prod.yml
-            echo "Creating production .env file from secrets..."
-            cat << EOF > .env
-            FRONTEND_TAG=${{ github.sha }}
-            DOMAIN_NAME=${{ secrets.DOMAIN_NAME }}
-            HOST=0.0.0.0
-            PORT=1337
-            NODE_ENV=production
-            URL=https://${{ secrets.DOMAIN_NAME }}
-            APP_KEYS=${{ secrets.APP_KEYS }}
-            API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
-            ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
-            JWT_SECRET=${{ secrets.JWT_SECRET }}
-            TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
-            ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-            DATABASE_CLIENT=postgres
-            DATABASE_HOST=db
-            DATABASE_PORT=5432
-            DATABASE_NAME=${{ secrets.POSTGRES_DB }}
-            DATABASE_USERNAME=${{ secrets.POSTGRES_USER }}
-            DATABASE_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-            DATABASE_SSL=false
-            EOF
+            echo "-------------------------------------------------"
 
-            COMPOSE_COMMAND="docker-compose --env-file ./.env -f docker-compose.prod.yml"
+            echo "Pulling the latest frontend image..."
+            # We explicitly pull only the 'app' service to be safe
+            docker-compose -f docker-compose.prod.yml pull app
 
-            echo "--- DIAGNOSTICS START ---"
-            echo "FRONTEND_TAG being used: ${{ github.sha }}"
-            echo "Docker Images on VPS:"
-            docker images
-            echo "Running Docker Containers on VPS:"
-            docker ps -a
-            echo "Docker Compose Configuration:"
-            $COMPOSE_COMMAND config
-            echo "Strapi Container Image ID:"
-            docker inspect -f '{{.Image}}' marketorix-strapi
-            echo "Strapi Container Environment Variables:"
-            docker inspect -f '{{range .Config.Env}}{{.}}\n{{end}}' marketorix-strapi
-            echo "Strapi Container Logs (last 50 lines):"
-            docker logs --tail 50 marketorix-strapi
-            echo "--- DIAGNOSTICS END ---"
-
-            echo "Pulling the latest images for all services..."
-            $COMPOSE_COMMAND pull
-            echo "Restarting all services with the new images..."
-            $COMPOSE_COMMAND up -d --force-recreate --remove-orphans
+            echo "Restarting the frontend service..."
+            # We restart only the 'app' service, leaving Strapi running
+            docker-compose -f docker-compose.prod.yml up -d --no-deps --force-recreate app
+            
             echo "Pruning old, unused Docker images..."
             docker image prune -af
-            echo "Deployment complete!"
             
+            echo "Frontend deployment complete!"

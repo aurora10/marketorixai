@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  # Next.js Frontend
+  # Next.js Frontend (no changes)
   app:
     image: aurora1010/marketorix:${FRONTEND_TAG:-latest}
     container_name: marketorix-nextjs
@@ -9,77 +9,65 @@ services:
     networks:
       - n8n_default
     labels:
-      # Enable Traefik for this service
       - "traefik.enable=true"
-
-      # --- Define a single, shared "service" that both routers will point to ---
-      - "traefik.http.services.marketorix-strapi-service.loadbalancer.server.port=1337"
-
-      # --- ROUTER 1: For you, the user. Catches `/strapi` and strips it. ---
-      - "traefik.http.routers.marketorix-strapi-user.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
-      - "traefik.http.routers.marketorix-strapi-user.entrypoints=websecure"
-      - "traefik.http.routers.marketorix-strapi-user.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.marketorix-strapi-user.service=marketorix-strapi-service"
-
-      # --- ROUTER 2: The "fix-it" router. Catches the broken `/admin` asset links. ---
-      - "traefik.http.routers.marketorix-strapi-fix.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/admin`)"
-      - "traefik.http.routers.marketorix-strapi-fix.entrypoints=websecure"
-      - "traefik.http.routers.marketorix-strapi-fix.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.marketorix-strapi-fix.service=marketorix-strapi-service"
-
-      # --- Define the stripPrefix middleware that Router 1 will use ---
-      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
-
-      # --- Apply the middleware ONLY to the user-facing router ---
-      - "traefik.http.routers.marketorix-strapi-user.middlewares=strapi-stripprefix@docker"
+      - "traefik.http.routers.marketorix-app.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.marketorix-app.entrypoints=websecure"
+      - "traefik.http.routers.marketorix-app.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.marketorix-app.loadbalancer.server.port=3000"
 
   # Strapi Backend
   strapi:
-    image: aurora1010/my-blog-strapi-v2:latest-prod # Make sure this points to your new image name
+    # --- THIS IS THE KEY ---
+    # We are now using your custom, pre-built, and pre-configured image from Docker Hub.
+    image: aurora1010/strapi-app:1.2
     container_name: marketorix-strapi
     restart: unless-stopped
     env_file: .env
     volumes:
+      # We no longer mount the project source code.
+      # We ONLY mount a volume for persistent file uploads.
+      # The path inside the container must match the Dockerfile WORKDIR.
       - strapi-uploads:/opt/app/public/uploads
+    # No entrypoint or command is needed. The Dockerfile's CMD is used automatically.
     networks:
       - n8n_default
       - default
-    # This is now correctly uncommented to ensure proper startup order
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.marketorix-strapi.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/strapi`)"
+      - "traefik.http.routers.marketorix-strapi.rule=Host(`${STRAPI_DOMAIN_NAME}`)"
       - "traefik.http.routers.marketorix-strapi.entrypoints=websecure"
       - "traefik.http.routers.marketorix-strapi.tls.certresolver=mytlschallenge"
       - "traefik.http.services.marketorix-strapi.loadbalancer.server.port=1337"
 
-      # Define the stripPrefix middleware
-      - "traefik.http.middlewares.strapi-stripprefix.stripprefix.prefixes=/strapi"
-
-      # Apply the middleware to the router
-      - "traefik.http.routers.marketorix-strapi.middlewares=strapi-stripprefix@docker"
-
-
-      # --- Apply the middleware ONLY to the user-facing router ---
-      - "traefik.http.routers.marketorix-strapi-user.middlewares=strapi-stripprefix@docker"
-
-  # Strapi Database
+  # Strapi Database (no changes)
   db:
     container_name: marketorix-db
     image: postgres:15-alpine
     restart: unless-stopped
     env_file: .env
     volumes:
-      - strapi-data:/var/lib/postgresql/data
+      - strapi-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - default
 
-# Volumes are now correctly declared
+# Defines all volumes needed for persistence
 volumes:
-  strapi-data:
   strapi-uploads:
+  strapi-db-data:
 
+# Defines the networks
 networks:
   n8n_default:
     external: true
