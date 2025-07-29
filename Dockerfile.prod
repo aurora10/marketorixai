@@ -33,6 +33,7 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 
 # You may want to add a non-root user for better security in the future
 # RUN addgroup --system --gid 1001 nodejs
