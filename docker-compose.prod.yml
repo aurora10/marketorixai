@@ -6,6 +6,8 @@ services:
     image: aurora1010/marketorix:${FRONTEND_TAG:-latest}
     container_name: marketorix-nextjs
     restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_STRAPI_API_URL=https://strapi.marketorix.com
     networks:
       - n8n_default
     labels:

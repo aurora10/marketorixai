@@ -22,17 +22,20 @@ interface PaginatedPosts {
   };
 }
 
-const STRAPI_URL = "https://strapi.marketorix.com";
-
-// if (!STRAPI_URL) {
-//   throw new Error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
-// }
-
 // Fetches a list of posts with pagination
 async function getPosts(
   page: number,
   pageSize: number
 ): Promise<PaginatedPosts> {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  if (!STRAPI_URL) {
+    console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+    return {
+      posts: [],
+      pagination: { page: 1, pageSize: 10, pageCount: 0, total: 0 },
+    };
+  }
+
   const query = qs.stringify(
     {
       sort: ["createdAt:desc"],
@@ -120,6 +123,12 @@ async function getPosts(
 
 // Fetches a single post by its slug
 async function getPost(slug: string): Promise<Post | null> {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  if (!STRAPI_URL) {
+    console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+    return null;
+  }
+
   const query = qs.stringify(
     {
       filters: {

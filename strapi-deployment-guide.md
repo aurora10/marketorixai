@@ -230,3 +230,4 @@ You are now ready to deploy.
     ```
 
 Pushing to `main` will automatically trigger the GitHub Actions workflow. It will build your Next.js app, pull the latest Strapi image, and deploy both services on your VPS.
+
