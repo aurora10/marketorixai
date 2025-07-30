@@ -48,6 +48,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/package.json ./
 
+# Also copy the .env.production file from the builder stage
+COPY --from=builder /app/.env.production ./
+
 # The standalone output contains only what's needed to run the app
 COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
