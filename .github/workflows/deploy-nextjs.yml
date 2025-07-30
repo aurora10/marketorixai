@@ -24,27 +24,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Debug Strapi Domain
-        run: echo "STRAPI_DOMAIN_NAME is ${{ secrets.STRAPI_DOMAIN_NAME }}"
-
       - name: Build and push Next.js image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile.prod # This is the Dockerfile you posted
+          file: ./Dockerfile.prod
           platforms: linux/amd64,linux/arm64
           push: true
-          # Tag the image with the unique commit SHA
           tags: aurora1010/marketorix:${{ github.sha }}
           build-args: |
-            # Pass the correct Strapi URL to the frontend build process
             NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.STRAPI_DOMAIN_NAME }}
 
   # JOB 2: DEPLOY TO VPS
   deploy:
     name: Deploy Frontend to VPS
     runs-on: ubuntu-latest
-    # This job runs only after the frontend image is built
     needs: build-and-push-frontend
 
     steps:
@@ -58,22 +52,18 @@ jobs:
             # Navigate to the project directory on the server
             cd ~/marketorix
 
-            # --- Update the .env file ---
-            # We only need to update the frontend tag now. The Strapi tag is managed manually.
+            # Pull the latest changes from the main branch to update config files
+            echo "Pulling latest changes from git..."
+            git pull origin main
+
+            # Update the .env file with the new image tag
             echo "Updating .env file with new frontend tag..."
-            # This command updates the FRONTEND_TAG line if it exists, or adds it if it doesn't.
             grep -q '^FRONTEND_TAG=' .env && sed -i "s/^FRONTEND_TAG=.*/FRONTEND_TAG=${{ github.sha }}/" .env || echo "FRONTEND_TAG=${{ github.sha }}" >> .env
-            
-            echo "--- DOCKER-COMPOSE FILE ON SERVER (UNCHANGED) ---"
-            cat docker-compose.prod.yml
-            echo "-------------------------------------------------"
 
             echo "Pulling the latest frontend image..."
-            # We explicitly pull only the 'app' service to be safe
             docker-compose -f docker-compose.prod.yml pull app
 
             echo "Restarting the frontend service..."
-            # We restart only the 'app' service, leaving Strapi running
             docker-compose -f docker-compose.prod.yml up -d --no-deps --force-recreate app
             
             echo "Pruning old, unused Docker images..."
