@@ -12,20 +12,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# --- THIS IS THE CRITICAL AND FINAL FIX ---
-# 1. Declare the build argument that we receive from the GitHub Actions workflow.
+# Next.js automatically reads .env.production during the build.
+# We create this file using the build argument passed from the GitHub Actions workflow.
 ARG NEXT_PUBLIC_STRAPI_API_URL
-
-# 2. Create the .env file that Next.js will automatically read during the build.
-#    This is the official, most reliable way to do this.
 RUN echo "NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL" > .env.production
 
-# 3. For debugging, let's print the file to be sure it was created.
-RUN echo "--- Verifying .env.production file contents: ---"
-RUN cat .env.production
-RUN echo "--------------------------------------------"
-
-# 4. Now, run the build. Next.js will find the .env.production file and succeed.
+# Run the build. Next.js will use the .env.production file.
 RUN npm run build
 
 # ----------------- STAGE 3: PRODUCTION RUNNER -----------------
@@ -34,33 +26,17 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# First, re-declare the build argument in the context of this new stage
-ARG NEXT_PUBLIC_STRAPI_API_URL
-# Then, set the environment variable from the build argument
-ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
-
-# You may want to add a non-root user for better security in the future
-# RUN addgroup --system --gid 1001 nodejs
-# RUN adduser --system --uid 1001 nextjs
-
 # Copy only the necessary, optimized parts from the builder stage
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/package.json ./
 
-# Also copy the .env.production file from the builder stage
-COPY --from=builder /app/.env.production ./
-
 # The standalone output contains only what's needed to run the app
 COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
-
-# USER nextjs # Uncomment if you create a non-root user
 
 EXPOSE 3000
 ENV PORT 3000
 
 # The command to start the optimized Next.js server from the standalone output
-# We add a diagnostic echo to see the runtime value of the environment variable.
-CMD ["/bin/sh", "-c", "echo RUNTIME_STRAPI_URL is $NEXT_PUBLIC_STRAPI_API_URL && node server.js"]
-
+CMD ["node", "server.js"]
