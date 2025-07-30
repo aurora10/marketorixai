@@ -61,5 +61,6 @@ EXPOSE 3000
 ENV PORT 3000
 
 # The command to start the optimized Next.js server from the standalone output
-CMD ["node", "server.js"]
+# We add a diagnostic echo to see the runtime value of the environment variable.
+CMD ["/bin/sh", "-c", "echo RUNTIME_STRAPI_URL is $NEXT_PUBLIC_STRAPI_API_URL && node server.js"]
 
