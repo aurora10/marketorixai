@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from 'next/image';
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import BlockRendererClient from "@/components/BlockRendererClient";
+import ReactMarkdown from 'react-markdown';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,6 +45,11 @@ export default async function PostPage({ params }: PostPageProps) {
               />
             )}
             <BlockRendererClient content={post.contentBlocks} />
+            {post.body && (
+              <div className="prose lg:prose-xl mt-8">
+                <ReactMarkdown>{post.body}</ReactMarkdown>
+              </div>
+            )}
           </MotionDivWrapper>
         </div>
       </main>

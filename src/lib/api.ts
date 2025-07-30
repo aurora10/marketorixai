@@ -6,6 +6,7 @@ interface Post {
   title: string;
   excerpt: string;
   slug: string;
+  body: string; // Add body field
   featuredImageUrl?: string;
   featuredImageAlt?: string;
   contentBlocks: any[];
@@ -51,7 +52,7 @@ async function getPosts(
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "body"],
     },
     {
       encodeValuesOnly: true,
@@ -144,7 +145,7 @@ async function getPost(slug: string): Promise<Post | null> {
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "body"],
     },
     {
       encodeValuesOnly: true,
@@ -177,17 +178,12 @@ async function getPost(slug: string): Promise<Post | null> {
       title: post.title || "Untitled Post",
       excerpt: post.excerpt || "",
       slug: post.slug || "",
+      body: post.body || "", // Add this line
       featuredImageUrl: post.main_image?.data?.attributes?.url
         ? `${STRAPI_URL}${post.main_image.data.attributes.url}`
         : undefined,
       featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
-      contentBlocks:
-        post.content_blocks.flatMap((block: any) => {
-          if (block.__component === "content.rich-text-block") {
-            return block.content;
-          }
-          return [];
-        }) || [],
+      contentBlocks: post.content_blocks || [],
     };
   } catch (error) {
     console.error("Error fetching post:", error);
