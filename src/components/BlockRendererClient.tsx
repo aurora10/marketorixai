@@ -13,8 +13,6 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
         if (block.__component === 'content-blocks.video-embed') {
           return (
             <div key={index} className="my-4">
-              <h3>Video Embed: {block.title}</h3>
-              <p>URL: {block.video_url}</p>
               {/* You'll need to embed the video player here, e.g., using an iframe */}
               <iframe
                 width="560"
@@ -30,30 +28,31 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
         } else if (block.__component === 'content.rich-text-block') {
           // Assuming rich-text-block content is an array of Strapi blocks
           return (
-            <BlocksRenderer
-              key={index}
-              content={block.content}
-              blocks={{
-                heading: ({ children, level }) => {
-                  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-                  return <Tag className={`text-${6 - level}xl font-bold`}>{children}</Tag>;
-                },
-                image: ({ image }) => (
-                  <Image
-                    src={image.url}
-                    alt={image.alternativeText || ""}
-                    width={image.width}
-                    height={image.height}
-                    className="my-4 rounded-lg"
-                  />
-                ),
-                link: ({ children, url }) => (
-                  <Link href={url} className="text-blue-500 hover:underline">
-                    {children}
-                  </Link>
-                ),
-              }}
-            />
+            <div key={index} className="prose lg:prose-xl my-4">
+              <BlocksRenderer
+                content={block.content}
+                blocks={{
+                  heading: ({ children, level }) => {
+                    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+                    return <Tag className={`text-${6 - level}xl font-bold`}>{children}</Tag>;
+                  },
+                  image: ({ image }) => (
+                    <Image
+                      src={image.url}
+                      alt={image.alternativeText || ""}
+                      width={image.width}
+                      height={image.height}
+                      className="my-4 rounded-lg"
+                    />
+                  ),
+                  link: ({ children, url }) => (
+                    <Link href={url} className="text-blue-500 hover:underline">
+                      {children}
+                    </Link>
+                  ),
+                }}
+              />
+            </div>
           );
         }
         // Fallback for any unhandled block types

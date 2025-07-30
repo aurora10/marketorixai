@@ -64,9 +64,34 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      typography: ({ theme }: { theme: any }) => ({
+        DEFAULT: {
+          css: {
+            h1: {
+              fontSize: '2.8em', // Default H1 size
+            },
+            // Base prose styles
+          },
+        },
+        // Custom prose size for 14px paragraphs
+        '14px': {
+          css: {
+            p: {
+              fontSize: '14px',
+            },
+          },
+        },
+        '22px-h1': {
+          css: {
+            h1: {
+              fontSize: '22px',
+            },
+          },
+        },
+      }),
       // Removed gradient-xy animation definitions
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/line-clamp")],
 };
 export default config;

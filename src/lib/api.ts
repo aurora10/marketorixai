@@ -45,9 +45,7 @@ async function getPosts(
         pageSize,
       },
       populate: {
-        main_image: {
-          fields: ["url", "alternativeText"],
-        },
+        main_image: true,
         content_blocks: {
           populate: "*",
         },
@@ -61,7 +59,7 @@ async function getPosts(
 
   const url = `${STRAPI_URL}/api/posts?${query}`;
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { next: { revalidate: 5 } });
 
     if (!res.ok) {
       console.error(`Failed to fetch posts from ${url}`);
@@ -138,9 +136,7 @@ async function getPost(slug: string): Promise<Post | null> {
         },
       },
       populate: {
-        main_image: {
-          fields: ["url", "alternativeText"],
-        },
+        main_image: true,
         content_blocks: {
           populate: "*",
         },
@@ -154,7 +150,7 @@ async function getPost(slug: string): Promise<Post | null> {
 
   const url = `${STRAPI_URL}/api/posts?${query}`;
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { next: { revalidate: 5 } });
 
     if (!res.ok) {
       console.error(`Failed to fetch post from ${url}`);

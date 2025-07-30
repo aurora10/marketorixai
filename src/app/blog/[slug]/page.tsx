@@ -40,16 +40,16 @@ export default async function PostPage({ params }: PostPageProps) {
                 alt={post.featuredImageAlt || post.title}
                 width={1200}
                 height={630}
-                className="w-full h-auto rounded-lg mb-8"
+                className="w-full h-auto rounded-lg mb-8 max-w-xl mx-auto"
                 priority
               />
             )}
-            <BlockRendererClient content={post.contentBlocks} />
             {post.body && (
-              <div className="prose lg:prose-xl mt-8">
+              <div className="prose md:prose-14px md:prose-22px-h1 mt-8">
                 <ReactMarkdown>{post.body}</ReactMarkdown>
               </div>
             )}
+            <BlockRendererClient content={post.contentBlocks} />
           </MotionDivWrapper>
         </div>
       </main>
