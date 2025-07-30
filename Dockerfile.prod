@@ -33,6 +33,10 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+
+# First, re-declare the build argument in the context of this new stage
+ARG NEXT_PUBLIC_STRAPI_API_URL
+# Then, set the environment variable from the build argument
 ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 
 # You may want to add a non-root user for better security in the future
