@@ -4,6 +4,25 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const getYouTubeVideoId = (url: string) => {
+  let videoId = null;
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') {
+      if (urlObj.pathname.startsWith('/live/')) {
+        videoId = urlObj.pathname.substring(6);
+      } else {
+        videoId = urlObj.searchParams.get('v');
+      }
+    } else if (urlObj.hostname === 'youtu.be') {
+      videoId = urlObj.pathname.substring(1);
+    }
+  } catch (error) {
+    console.error("Invalid URL for YouTube video", error);
+  }
+  return videoId;
+};
+
 const BlockRendererClient = ({ content }: { content: any[] }) => {
   if (!content) return null;
 
@@ -11,14 +30,16 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
     <>
       {content.map((block, index) => {
         if (block.__component === 'content-blocks.video-embed') {
+          const videoId = getYouTubeVideoId(block.video_url);
+          if (!videoId) return <p key={index}>Invalid YouTube URL</p>;
+
           return (
             <div key={index} className="my-4">
-              {/* You'll need to embed the video player here, e.g., using an iframe */}
               <iframe
                 width="560"
                 height="315"
-                src={block.video_url.replace("watch?v=", "embed/")}
-                title={block.title}
+                src={`https://www.youtube.com/embed/${videoId}`}
+                title={block.title || 'YouTube video player'}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
