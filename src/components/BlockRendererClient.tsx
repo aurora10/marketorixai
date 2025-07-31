@@ -82,6 +82,24 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
               />
             </div>
           );
+        } else if (block.__component === 'content-blocks.image-block') {
+          const image = block.image?.data?.[0]?.attributes;
+          if (!image) return null;
+
+          const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || '';
+          const imageUrl = image.url.startsWith('http') ? image.url : `${STRAPI_URL}${image.url}`;
+
+          return (
+            <div key={index} className="my-8 flex justify-center">
+              <Image
+                src={imageUrl}
+                alt={image.alternativeText || 'Image'}
+                width={image.width}
+                height={image.height}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+          );
         }
         // Fallback for any unhandled block types
         return <p key={index}>Unhandled block type: {block.__component}</p>;
