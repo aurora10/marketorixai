@@ -54,6 +54,34 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
               />
             </div>
           );
+        } else if (block.__component === 'content-blocks.body') {
+          return (
+            <div key={index} className="prose lg:prose-xl my-4">
+              <BlocksRenderer
+                content={block.body}
+                blocks={{
+                  heading: ({ children, level }) => {
+                    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+                    return <Tag className={`text-${6 - level}xl font-bold`}>{children}</Tag>;
+                  },
+                  image: ({ image }) => (
+                    <Image
+                      src={image.url}
+                      alt={image.alternativeText || ""}
+                      width={image.width}
+                      height={image.height}
+                      className="my-4 rounded-lg"
+                    />
+                  ),
+                  link: ({ children, url }) => (
+                    <Link href={url} className="text-blue-500 hover:underline">
+                      {children}
+                    </Link>
+                  ),
+                }}
+              />
+            </div>
+          );
         }
         // Fallback for any unhandled block types
         return <p key={index}>Unhandled block type: {block.__component}</p>;

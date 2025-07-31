@@ -44,11 +44,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 priority
               />
             )}
-            {post.body && (
-              <div className="prose md:prose-14px md:prose-22px-h1 mt-8">
-                <ReactMarkdown>{post.body}</ReactMarkdown>
-              </div>
-            )}
+            
             <BlockRendererClient content={post.contentBlocks} />
           </MotionDivWrapper>
         </div>
