@@ -71,7 +71,7 @@ export default function PostListClient({
                 <h2 className="font-bold text-gray-800 mb-4" style={{ fontSize: '25px' }}>
                   {post.title}
                 </h2>
-                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '14px' }}>{post.excerpt}</p>
+                <p className="text-gray-600 leading-relaxed text-[15px] 2xl:text-lg">{post.excerpt}</p>
               </div>
               {post.featuredImageUrl && (
                 <div className="relative w-1/3 h-48">

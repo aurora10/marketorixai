@@ -8,7 +8,6 @@ export default async function BlogPage() {
   const POSTS_PER_PAGE = 5;
   const result = await getPosts(1, POSTS_PER_PAGE);
   const initialPosts = result.posts;
-  console.log("Initial posts for /blog:", initialPosts);
   const initialHasMore = result.pagination.page < result.pagination.pageCount;
 
   return (

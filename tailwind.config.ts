@@ -67,15 +67,6 @@ const config: Config = {
       typography: ({ theme }: { theme: any }) => ({
         DEFAULT: {
           css: {
-            p: {
-              fontSize: '15px',
-              '@screen sm': {
-                fontSize: '16px',
-              },
-              '@screen lg': {
-                fontSize: '17px',
-              },
-            },
             h1: {
               fontSize: '2.8em', // Default H1 size
             },
