@@ -11,8 +11,8 @@ interface Post {
   contentBlocks: any[];
   metaTitle?: string;
   metaDescription?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // Defines the structure for a paginated list of posts
@@ -29,7 +29,7 @@ interface PaginatedPosts {
 // Defines the structure for a sitemap post
 interface SitemapPost {
   slug: string;
-  updatedAt: string;
+  updatedAt?: string;
 }
 
 // Fetches a list of posts with pagination
@@ -61,7 +61,7 @@ export async function getPosts(
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt", "updatedAt", "metaTitle", "metaDescription"],
+      fields: ["title", "excerpt", "slug", "createdAt"],
     },
     {
       encodeValuesOnly: true,
@@ -121,10 +121,8 @@ export async function getPosts(
         featuredImageUrl,
         featuredImageAlt,
         contentBlocks: attributes.content_blocks || [],
-        metaTitle: attributes.metaTitle,
-        metaDescription: attributes.metaDescription,
         createdAt: attributes.createdAt,
-        updatedAt: attributes.updatedAt,
+        updatedAt: attributes.updatedAt || new Date().toISOString(),
       };
     }) as Post[],
     pagination: responseData.meta?.pagination || {
@@ -159,7 +157,7 @@ export async function getPost(slug: string): Promise<Post | null> {
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt", "updatedAt", "metaTitle", "metaDescription"],
+      fields: ["title", "excerpt", "slug", "createdAt"],
     },
     {
       encodeValuesOnly: true,
@@ -197,10 +195,8 @@ export async function getPost(slug: string): Promise<Post | null> {
         : undefined,
       featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
       contentBlocks: post.content_blocks || [],
-      metaTitle: post.metaTitle,
-      metaDescription: post.metaDescription,
       createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
+      updatedAt: post.updatedAt || new Date().toISOString(),
     };
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -245,7 +241,7 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
 
     return responseData.data.map((item: any) => ({
       slug: item.attributes.slug,
-      updatedAt: item.attributes.updatedAt,
+      updatedAt: item.attributes.updatedAt || new Date().toISOString(),
     }));
   } catch (error) {
     console.error("Error fetching posts for sitemap:", error);
