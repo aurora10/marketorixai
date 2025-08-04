@@ -1,8 +1,14 @@
 import PostListClient from "@/components/PostListClient";
 import { getPosts } from "@/lib/api";
 import Header from "@/components/Header";
+import { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: "Blog | Your Company Name",
+  description: "Read the latest articles from our blog.",
+};
 
 export default async function BlogPage() {
   const POSTS_PER_PAGE = 5;

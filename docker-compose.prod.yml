@@ -21,7 +21,7 @@ services:
   strapi:
     # --- THIS IS THE KEY ---
     # We are now using your custom, pre-built, and pre-configured image from Docker Hub.
-    image: aurora1010/strapi-app:1.2
+    image: aurora1010/strapi-app:1.3
     container_name: marketorix-strapi
     restart: unless-stopped
     env_file: .env

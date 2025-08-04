@@ -9,6 +9,10 @@ interface Post {
   featuredImageUrl?: string;
   featuredImageAlt?: string;
   contentBlocks: any[];
+  metaTitle?: string;
+  metaDescription?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // Defines the structure for a paginated list of posts
@@ -20,6 +24,12 @@ interface PaginatedPosts {
     pageCount: number;
     total: number;
   };
+}
+
+// Defines the structure for a sitemap post
+interface SitemapPost {
+  slug: string;
+  updatedAt: string;
 }
 
 // Fetches a list of posts with pagination
@@ -51,7 +61,7 @@ export async function getPosts(
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "updatedAt", "metaTitle", "metaDescription"],
     },
     {
       encodeValuesOnly: true,
@@ -111,6 +121,10 @@ export async function getPosts(
         featuredImageUrl,
         featuredImageAlt,
         contentBlocks: attributes.content_blocks || [],
+        metaTitle: attributes.metaTitle,
+        metaDescription: attributes.metaDescription,
+        createdAt: attributes.createdAt,
+        updatedAt: attributes.updatedAt,
       };
     }) as Post[],
     pagination: responseData.meta?.pagination || {
@@ -145,7 +159,7 @@ export async function getPost(slug: string): Promise<Post | null> {
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "updatedAt", "metaTitle", "metaDescription"],
     },
     {
       encodeValuesOnly: true,
@@ -183,6 +197,10 @@ export async function getPost(slug: string): Promise<Post | null> {
         : undefined,
       featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
       contentBlocks: post.content_blocks || [],
+      metaTitle: post.metaTitle,
+      metaDescription: post.metaDescription,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
     };
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -190,5 +208,50 @@ export async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
+// Fetches all posts for the sitemap
+export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  if (!STRAPI_URL) {
+    console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+    return [];
+  }
 
-export type { Post };
+  const query = qs.stringify(
+    {
+      fields: ["slug", "updatedAt"],
+      pagination: {
+        pageSize: 1000, // Adjust as needed
+      },
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+
+  const url = `${STRAPI_URL}/api/posts?${query}`;
+  try {
+    const res = await fetch(url, { next: { revalidate: 60 } });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch posts for sitemap from ${url}`);
+      return [];
+    }
+
+    const responseData = await res.json();
+
+    if (!Array.isArray(responseData.data)) {
+      return [];
+    }
+
+    return responseData.data.map((item: any) => ({
+      slug: item.attributes.slug,
+      updatedAt: item.attributes.updatedAt,
+    }));
+  } catch (error) {
+    console.error("Error fetching posts for sitemap:", error);
+    return [];
+  }
+}
+
+
+export type { Post, SitemapPost };
