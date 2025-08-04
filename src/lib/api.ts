@@ -29,7 +29,7 @@ interface PaginatedPosts {
 // Defines the structure for a sitemap post
 interface SitemapPost {
   slug: string;
-  updatedAt?: string;
+  updatedAt: string;
 }
 
 // Fetches a list of posts with pagination
