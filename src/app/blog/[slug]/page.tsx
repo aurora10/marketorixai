@@ -81,7 +81,7 @@ export default async function PostPage({ params }: PostPageProps) {
     },
     datePublished: post.createdAt,
     dateModified: post.updatedAt,
-    description: post.excerpt,
+    description: post.metaDescription || post.excerpt,
   };
 
   return (

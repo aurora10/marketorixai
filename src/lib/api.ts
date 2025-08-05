@@ -61,7 +61,7 @@ export async function getPosts(
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "metaTitle", "metaDescription"],
     },
     {
       encodeValuesOnly: true,
@@ -121,6 +121,8 @@ export async function getPosts(
         featuredImageUrl,
         featuredImageAlt,
         contentBlocks: attributes.content_blocks || [],
+        metaTitle: attributes.metaTitle,
+        metaDescription: attributes.metaDescription,
         createdAt: attributes.createdAt,
         updatedAt: attributes.updatedAt || new Date().toISOString(),
       };
