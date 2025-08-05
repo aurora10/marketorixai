@@ -157,7 +157,7 @@ export async function getPost(slug: string): Promise<Post | null> {
           populate: "*",
         },
       },
-      fields: ["title", "excerpt", "slug", "createdAt"],
+      fields: ["title", "excerpt", "slug", "createdAt", "metaTitle", "metaDescription"],
     },
     {
       encodeValuesOnly: true,
@@ -195,6 +195,8 @@ export async function getPost(slug: string): Promise<Post | null> {
         : undefined,
       featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
       contentBlocks: post.content_blocks || [],
+      metaTitle: post.metaTitle,
+      metaDescription: post.metaDescription,
       createdAt: post.createdAt,
       updatedAt: post.updatedAt || new Date().toISOString(),
     };
