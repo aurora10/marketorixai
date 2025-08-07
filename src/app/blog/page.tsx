@@ -21,10 +21,10 @@ export default async function BlogPage() {
       <Header darkMode={true} />
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl font-bold text-center text-gray-800 mb-8">
+          <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-800 mb-8">
             Latest Blog Posts
           </h1>
-          <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-8">
             <PostListClient
               initialPosts={initialPosts}
               initialHasMore={initialHasMore}

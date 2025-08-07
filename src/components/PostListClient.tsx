@@ -63,18 +63,18 @@ export default function PostListClient({
 
   return (
     <>
-      <div className="grid gap-12">
+      <div className="grid gap-8 md:gap-12">
         {posts.map((post: Post) => (
           <Link href={`/blog/${post.slug}`} key={post.id}>
-            <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex items-center">
-              <div className="p-8 w-2/3">
-                <h2 className="font-bold text-gray-800 mb-4" style={{ fontSize: '25px' }}>
+            <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center">
+              <div className="p-4 md:p-8 w-full md:w-2/3">
+                <h2 className="font-bold text-gray-800 mb-4 text-xl md:text-3xl">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-[15px] 2xl:text-lg">{post.excerpt}</p>
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base 2xl:text-lg">{post.excerpt}</p>
               </div>
               {post.featuredImageUrl && (
-                <div className="relative w-1/3 h-48">
+                <div className="relative w-full md:w-1/3 h-64 md:h-48">
                   <Image
                     src={post.featuredImageUrl}
                     alt={post.featuredImageAlt || 'Blog post image'}
