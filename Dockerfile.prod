@@ -15,7 +15,11 @@ COPY . .
 # Next.js automatically reads .env.production during the build.
 # We create this file using the build argument passed from the GitHub Actions workflow.
 ARG NEXT_PUBLIC_STRAPI_API_URL
+ARG GMAIL_USER
+ARG GMAIL_PASS
 RUN echo "NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL" > .env.production
+RUN echo "GMAIL_USER=$GMAIL_USER" >> .env.production
+RUN echo "GMAIL_PASS=$GMAIL_PASS" >> .env.production
 
 # Run the build. Next.js will use the .env.production file.
 RUN npm run build
@@ -25,6 +29,10 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ARG GMAIL_USER
+ARG GMAIL_PASS
+ENV GMAIL_USER=$GMAIL_USER
+ENV GMAIL_PASS=$GMAIL_PASS
 
 # Copy only the necessary, optimized parts from the builder stage
 COPY --from=builder /app/public ./public
