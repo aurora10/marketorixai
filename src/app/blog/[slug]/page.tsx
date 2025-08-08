@@ -85,7 +85,13 @@ export default async function PostPage({ params }: PostPageProps) {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(circle at center, #F7B3B9 0%, #FDE1B7 35%, #BFD9F5 70%, #D7C1F0 90%, #FDFCFD 100%)",
+      }}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
