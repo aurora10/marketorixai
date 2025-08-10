@@ -71,7 +71,7 @@ export async function getPosts(
   const url = `${STRAPI_URL}/api/posts?${query}`;
   let responseData;
   try {
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url, { next: { revalidate: 60 } });
 
     if (!res.ok) {
       console.error(`Failed to fetch posts from ${url}`);
@@ -168,7 +168,7 @@ export async function getPost(slug: string): Promise<Post | null> {
 
   const url = `${STRAPI_URL}/api/posts?${query}`;
   try {
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url, { next: { revalidate: 60 } });
 
     if (!res.ok) {
       console.error(`Failed to fetch post from ${url}`);
