@@ -253,5 +253,114 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
   }
 }
 
+export async function getPostAndMorePosts(slug: string): Promise<{ post: Post | null; morePosts: Post[] }> {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  if (!STRAPI_URL) {
+    console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+    return { post: null, morePosts: [] };
+  }
+
+  const query = qs.stringify({
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: {
+      main_image: {
+        fields: ["url", "alternativeText"],
+      },
+      content_blocks: {
+        populate: "*",
+      },
+    },
+    fields: ["title", "excerpt", "slug", "createdAt", "metaTitle", "metaDescription"],
+  });
+
+  const morePostsQuery = qs.stringify({
+    filters: {
+      slug: {
+        $ne: slug,
+      },
+    },
+    pagination: {
+      limit: 3,
+    },
+    populate: {
+      main_image: {
+        fields: ["url", "alternativeText"],
+      },
+    },
+    fields: ["title", "excerpt", "slug"],
+  });
+
+  const postUrl = `${STRAPI_URL}/api/posts?${query}`;
+  const morePostsUrl = `${STRAPI_URL}/api/posts?${morePostsQuery}`;
+
+  try {
+    const [postRes, morePostsRes] = await Promise.all([
+      fetch(postUrl, { next: { revalidate: 60 } }),
+      fetch(morePostsUrl, { next: { revalidate: 60 } }),
+    ]);
+
+    if (!postRes.ok) {
+      console.error(`Failed to fetch post from ${postUrl}`);
+      return { post: null, morePosts: [] };
+    }
+
+    if (!morePostsRes.ok) {
+      console.error(`Failed to fetch more posts from ${morePostsUrl}`);
+    }
+
+    const postResponseData = await postRes.json();
+    const morePostsResponseData = await morePostsRes.json();
+
+    if (!Array.isArray(postResponseData.data) || postResponseData.data.length === 0) {
+      return { post: null, morePosts: [] };
+    }
+
+    const postData = postResponseData.data[0];
+    if (!postData) {
+      return { post: null, morePosts: [] };
+    }
+    const post = postData.attributes;
+
+    const morePosts = morePostsResponseData.data.map((item: any) => {
+      const attributes = item.attributes;
+      return {
+        id: item.id,
+        title: attributes.title || "Untitled Post",
+        excerpt: attributes.excerpt || "",
+        slug: attributes.slug || "",
+        featuredImageUrl: attributes.main_image?.data?.attributes?.url
+          ? `${STRAPI_URL}${attributes.main_image.data.attributes.url}`
+          : undefined,
+        featuredImageAlt: attributes.main_image?.data?.attributes?.alternativeText,
+      };
+    });
+
+    return {
+      post: {
+        id: postData.id,
+        title: post.title || "Untitled Post",
+        excerpt: post.excerpt || "",
+        slug: post.slug || "",
+        featuredImageUrl: post.main_image?.data?.attributes?.url
+          ? `${STRAPI_URL}${post.main_image.data.attributes.url}`
+          : undefined,
+        featuredImageAlt: post.main_image?.data?.attributes?.alternativeText,
+        contentBlocks: post.content_blocks || [],
+        metaTitle: post.metaTitle,
+        metaDescription: post.metaDescription,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt || new Date().toISOString(),
+      },
+      morePosts,
+    };
+  } catch (error) {
+    console.error("Error fetching post and more posts:", error);
+    return { post: null, morePosts: [] };
+  }
+}
 
 export type { Post, SitemapPost };

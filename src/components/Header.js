@@ -16,7 +16,7 @@ export default function Header({ darkMode = false }) {
           {/* Reverted back to using next/image for the logo */}
           {darkMode ? (
             <Image
-              src="/logo-dark.svg"
+              src="/logo2.svg"
               alt="Logo"
               width={300}
               height={300}

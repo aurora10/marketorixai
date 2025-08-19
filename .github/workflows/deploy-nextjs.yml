@@ -36,6 +36,7 @@ jobs:
             NEXT_PUBLIC_STRAPI_API_URL=https://${{ secrets.STRAPI_DOMAIN_NAME }}
             GMAIL_USER=${{ secrets.GMAIL_USER }}
             GMAIL_PASS=${{ secrets.GMAIL_PASS }}
+            NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
 
   # JOB 2: DEPLOY TO VPS
   deploy:

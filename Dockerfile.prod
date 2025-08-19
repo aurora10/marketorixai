@@ -17,9 +17,11 @@ COPY . .
 ARG NEXT_PUBLIC_STRAPI_API_URL
 ARG GMAIL_USER
 ARG GMAIL_PASS
+ARG NEXT_PUBLIC_GA_ID
 RUN echo "NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL" > .env.production
 RUN echo "GMAIL_USER=$GMAIL_USER" >> .env.production
 RUN echo "GMAIL_PASS=$GMAIL_PASS" >> .env.production
+RUN echo "NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID" >> .env.production
 
 # Run the build. Next.js will use the .env.production file.
 RUN npm run build

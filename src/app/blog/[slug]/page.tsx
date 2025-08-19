@@ -1,10 +1,9 @@
-import { getPost } from "@/lib/api";
+import { getPostAndMorePosts, Post } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from 'next/image';
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import BlockRendererClient from "@/components/BlockRendererClient";
-import ReactMarkdown from 'react-markdown';
 import { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
@@ -16,7 +15,7 @@ type PostPageProps = {
 };
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const { post } = await getPostAndMorePosts(params.slug);
 
   if (!post) {
     return {
@@ -56,7 +55,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPost(params.slug);
+  const { post, morePosts } = await getPostAndMorePosts(params.slug);
 
   if (!post) {
     notFound();
@@ -121,6 +120,33 @@ export default async function PostPage({ params }: PostPageProps) {
             <BlockRendererClient content={post.contentBlocks} />
           </MotionDivWrapper>
         </div>
+        {morePosts.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-center mb-8">More Posts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {morePosts.map((p: Post) => (
+                <Link href={`/blog/${p.slug}`} key={p.id}>
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    {p.featuredImageUrl && (
+                      <div className="relative h-48">
+                        <Image
+                          src={p.featuredImageUrl}
+                          alt={p.featuredImageAlt || p.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-4">
+                      <h3 className="font-bold text-lg mb-2">{p.title}</h3>
+                      <p className="text-gray-600 text-sm">{p.excerpt}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
