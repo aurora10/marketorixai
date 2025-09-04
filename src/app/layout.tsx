@@ -25,7 +25,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Marketorix",
-  description: "Transform Your Business with AI",
+  description: "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency."
 };
 
 export default function RootLayout({
@@ -33,7 +33,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("GA_ID from env:", process.env.NEXT_PUBLIC_GA_ID);
 
   return (
     <html lang="en">
