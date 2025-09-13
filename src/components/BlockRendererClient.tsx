@@ -2,7 +2,6 @@
 
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const getYouTubeVideoId = (url: string) => {
   let videoId = null;
@@ -31,23 +30,33 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
       {content.map((block, index) => {
         if (block.__component === 'content-blocks.video-embed') {
           const videoId = getYouTubeVideoId(block.video_url);
-          if (!videoId) return <p key={index}>Invalid YouTube URL</p>;
 
-          return (
-            <div key={index} className="my-4">
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${videoId}`}
-                title={block.title || 'YouTube video player'}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          );
+          if (videoId) {
+            return (
+              <div key={index} className="my-4">
+                <iframe
+                  width="560"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={block.title || 'YouTube video player'}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            );
+          } else {
+            // Fallback for non-YouTube videos
+            return (
+              <div key={index} className="my-4">
+                <video controls width="560" height="315">
+                  <source src={block.video_url} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            );
+          }
         } else if (block.__component === 'content.rich-text-block') {
-          // Assuming rich-text-block content is an array of Strapi blocks
           return (
             <div key={index} className="my-4">
               <BlocksRenderer content={block.content} />
@@ -78,7 +87,6 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
             </div>
           );
         }
-        // Fallback for any unhandled block types
         return <p key={index}>Unhandled block type: {block.__component}</p>;
       })}
     </>
