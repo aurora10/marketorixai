@@ -47,10 +47,11 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
             );
           } else {
             // Fallback for non-YouTube videos
+            const videoUrl = block.video_url.endsWith('/download') ? block.video_url : `${block.video_url}/download`;
             return (
               <div key={index} className="my-4">
                 <video controls width="560" height="315">
-                  <source src={block.video_url} />
+                  <source src={videoUrl} />
                   Your browser does not support the video tag.
                 </video>
               </div>

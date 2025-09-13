@@ -14,6 +14,12 @@ const nextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "cld.marketorix.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {
