@@ -38,9 +38,6 @@ interface MotionServiceCardProps {
 
 
 export default function MotionServiceCard({ service, index }: MotionServiceCardProps) {
-    // State to track if animation has run once
-    const [hasAnimated, setHasAnimated] = useState(false);
-
     const cardVariants: Variants = {
       hidden: { opacity: 0, y: 50 },
       visible: { opacity: 1, y: 0 }
@@ -48,30 +45,23 @@ export default function MotionServiceCard({ service, index }: MotionServiceCardP
 
     return (
       <motion.div
-        // Use variants for initial/animate states
         variants={cardVariants}
-        initial="hidden" 
-        // Animate card to visible and stay visible
-        animate="visible" 
-        transition={{ duration: 0.7, ease: "easeOut" }} 
-        // Use onViewportEnter with once: true to set state for children
-        viewport={{ once: true, amount: 0.2 }} 
-        onViewportEnter={() => setHasAnimated(true)}
-        className="service-card bg-white bg-opacity-20 text-xl backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-30 transition-all transform hover:scale-105 w-full" 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="service-card bg-white bg-opacity-20 text-xl backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-30 transition-all transform hover:scale-105 w-full"
       >
         <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
         <p className="mb-4 text-xl">{service.description}</p>
-        <motion.ul 
+        <motion.ul
           className="space-y-2"
-          variants={listVariants} 
-          // Also control list animation with the same state
-          animate={hasAnimated ? "visible" : "hidden"} 
-          initial="hidden" // Set initial state for list
+          variants={listVariants}
         >
           {service.features.map((feature, featureIndex) => (
             <motion.li
               key={featureIndex}
-              variants={itemVariants} 
+              variants={itemVariants}
               className="flex items-center text-lx"
             >
               <Check className="text-yellow-400 mr-2" size={16} />

@@ -73,17 +73,28 @@ export default function LandingPage() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={gridContainerVariants}
             initial="hidden"
-            animate={gridAnimated ? "visible" : "hidden"} // Control via state
-            viewport={{ once: true, amount: 0.1 }} // Trigger once when 10% visible
-            onViewportEnter={() => setGridAnimated(true)} // Set state on enter
+            animate="visible" // Animate when parent is visible
+            viewport={{ once: true, amount: 0.1 }} // Trigger once
           >
-            {services.map((service, index) => (
-              // Link now inherits animation state from the grid wrapper
-              <Link key={service.title} href="/services" className="block h-full"> 
-                {/* MotionServiceCard now inherits animation from parent motion.div */}
-                <MotionServiceCard service={service} index={index} /> 
-              </Link>
-            ))}
+            {services.map((service, index) => {
+              // Define card variants here to be used in the motion component
+              const cardVariants: Variants = {
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0 },
+              };
+
+              return (
+                <motion.div
+                  key={service.title}
+                  variants={cardVariants}
+                  // The parent's staggerChildren will handle the timing
+                >
+                  <Link href="/services" className="block h-full">
+                    <MotionServiceCard service={service} index={index} />
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </section>
       </main>

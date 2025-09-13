@@ -67,13 +67,12 @@ export default function TeamPage() {
         <motion.div 
           className="grid md:grid-cols-2 gap-12 mb-20"
           initial="hidden"
-          animate={teamGridAnimated ? "visible" : "hidden"}
+          whileInView="visible"
           variants={{ // Define simple variant for the container itself if needed, or just use it to trigger children
              hidden: {}, // Can be empty if only controlling children
              visible: { transition: { staggerChildren: 0.1 } } // Stagger children cards
           }}
           viewport={{ once: true, amount: 0.2 }}
-          onViewportEnter={() => setTeamGridAnimated(true)}
         >
           {teamMembers.map((member, index) => (
             <motion.div
@@ -105,10 +104,9 @@ export default function TeamPage() {
         <motion.div
           variants={sectionVariants} // Use common variants
           initial="hidden"
-          animate={devTeamSectionAnimated ? "visible" : "hidden"}
+          whileInView="visible"
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }} // Keep a small delay relative to viewport enter
           viewport={{ once: true, amount: 0.2 }} 
-          onViewportEnter={() => setDevTeamSectionAnimated(true)}
           className="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-8 text-center mb-20" 
         >
           <h2 className="text-3xl font-bold mb-4">Our Development Team</h2>
@@ -127,10 +125,9 @@ export default function TeamPage() {
         <motion.div
           variants={sectionVariants} // Use common variants
           initial="hidden"
-          animate={letsTalkAnimated ? "visible" : "hidden"}
+          whileInView="visible"
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }} // Keep a small delay relative to viewport enter
           viewport={{ once: true, amount: 0.2 }} 
-          onViewportEnter={() => setLetsTalkAnimated(true)}
           className="text-center"
         >
           <Link 
