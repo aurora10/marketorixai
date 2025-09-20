@@ -36,6 +36,25 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Marketorix",
+              "url": "https://www.marketorix.ai",
+              "logo": "https://www.marketorix.ai/logo.svg",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+32465811031",
+                "contactType": "customer service"
+              }
+            })
+          }}
+        />
+      </head>
       {/* 
         FIX #1: The <GoogleAnalytics> component is now inside the <body> tag.
         This is the correct place for React components that render elements.

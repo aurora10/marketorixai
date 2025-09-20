@@ -128,8 +128,21 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": services.map(service => ({
+      "@type": "Service",
+      "name": service.title,
+      "description": service.description
+    }))
+  };
+
   return (
     <div className="relative text-white min-h-screen flex flex-col"> {/* Removed z-0 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Header />
 
       <section id="services" className="container mx-auto px-4 py-20 mb-8">
