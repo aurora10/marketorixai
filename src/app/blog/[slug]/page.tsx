@@ -1,22 +1,14 @@
-import { getPostAndMorePosts, Post } from "@/lib/api";
+import { getPostAndMorePosts } from "@/lib/api";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Image from 'next/image';
-import MotionDivWrapper from "@/components/MotionDivWrapper";
 import BlockRendererClient from "@/components/BlockRendererClient";
 import { Metadata } from "next";
 import Header from "@/components/Header";
-import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
+import Link from "next/link";
 
 export const dynamic = 'force-dynamic';
 
-type PostPageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { post } = await getPostAndMorePosts(params.slug);
 
   if (!post) {
@@ -56,50 +48,36 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({ params }: { params: { slug: string } }) {
   const { post, morePosts } = await getPostAndMorePosts(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    image: post.featuredImageUrl,
-    author: {
-      '@type': 'Person',
-      name: 'Marketorix AI',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Marketorix AI',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://www.marketorix.com/logo.png',
-      },
-    },
-    datePublished: post.createdAt,
-    dateModified: post.updatedAt,
-    description: post.metaDescription || post.excerpt,
-  };
-
   return (
-    <div className="relative text-white min-h-screen flex flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Header />
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(circle at center, #F7B3B9 0%, #FDE1B7 35%, #BFD9F5 70%, #D7C1F0 90%, #FDFCFD 100%)",
+      }}
+    >
+      <Header darkMode={true} />
 
-      <main className="flex-grow container mx-auto px-4 py-12 md:py-16">
-        <article className="max-w-4xl mx-auto">
-          <header className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-8">
+            <div className="mb-8">
+              <Link href="/blog" className="text-gray-600 hover:text-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" className="inline-block mr-2"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back to Blog
+              </Link>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-800 mb-8">
               {post.title}
             </h1>
-            <div className="flex items-center text-lg text-gray-400">
+            <div className="flex items-center text-lg text-gray-600 justify-center mb-8">
               <Image
                 src={"/default-author.png"}
                 alt={"Marketorix"}
@@ -113,27 +91,50 @@ export default async function PostPage({ params }: PostPageProps) {
                 <span>{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}</span>
               </div>
             </div>
-          </header>
-
-          {post.excerpt && (
-            <p className="text-xl text-gray-300 leading-relaxed mb-8">
-              {post.excerpt}
-            </p>
-          )}
-
-          <div className="prose prose-lg prose-invert max-w-none">
-            <BlockRendererClient content={post.contentBlocks} />
+            {post.featuredImageUrl && (
+              <Image
+                src={post.featuredImageUrl}
+                alt={post.title}
+                width={1200}
+                height={630}
+                className="w-full h-auto rounded-lg mb-8 max-w-xl mx-auto"
+              />
+            )}
+            <article>
+              <div className="prose max-w-none text-base font-normal text-gray-600 leading-6">
+                <BlockRendererClient content={post.contentBlocks} />
+              </div>
+            </article>
           </div>
-        </article>
+        </div>
       </main>
 
-      <footer className="py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2023 Marketorix. All rights reserved.</p>
-        </div>
-      </footer>
-
-      <InteractiveScrollToTop />
+      {morePosts.length > 0 && (
+        <aside className="py-12 bg-gray-100">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">More Posts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {morePosts.map((post) => (
+                <a key={post.slug} href={`/blog/${post.slug}`} className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                  {post.featuredImageUrl && (
+                    <Image
+                      src={post.featuredImageUrl}
+                      alt={post.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{post.title}</h3>
+                    <p className="text-gray-600">{post.excerpt}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+      )}
     </div>
   );
 }
