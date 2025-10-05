@@ -79,7 +79,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             </h1>
             <div className="flex items-center text-lg text-gray-600 justify-center mb-8">
               <Image
-                src={"/default-author.png"}
+                src={"/user.png"}
                 alt={"Marketorix"}
                 width={40}
                 height={40}
