@@ -27,7 +27,7 @@ export default function TeamPage() {
       name: "Robert Zimerman",
       role: "CEO & Founder",
       image: "/rob.jpeg",
-      bio: "Robert brings over 10 years of experience in Web Developmen, AI and machine learning. He's passionate about leveraging AI to solve complex business problems.",
+      bio: "Robert brings over 10 years of experience in Web Development, AI and machine learning. He's passionate about leveraging AI to solve complex business problems.",
       linkedin: "#",
       twitter: "#"
     },
