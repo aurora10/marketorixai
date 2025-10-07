@@ -46,6 +46,15 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   const { name, email, message } = await request.json();
 
+  const sanitizedEmail = email.replace(/(\r\n|\r|\n)/g, '');
+  const sanitizedName = name.replace(/(\r\n|\r|\n)/g, '');
+  const sanitizedMessage = message.replace(/(\r\n|\r|\n)/g, '');
+
+  const sqlInjectionPattern = /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|AND|OR)\b)|[\'\;\-\*\/]/gi;
+  const sanitizedSqlName = sanitizedName.replace(sqlInjectionPattern, '');
+  const sanitizedSqlMessage = sanitizedMessage.replace(sqlInjectionPattern, '');
+  const sanitizedSqlEmail = sanitizedEmail.replace(sqlInjectionPattern, '');
+
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -57,8 +66,8 @@ export async function POST(request: Request) {
   const mailOptions = {
     from: process.env.GMAIL_USER,  // Use EMAIL_USER for the sender's address
     to: process.env.GMAIL_USER,     // Ensure this is a valid recipient email
-    subject: `New message from new Marketorix Site ${name}`,
-    text: message,
+    subject: `New message from new Marketorix Site ${sanitizedSqlName}`,
+    text: sanitizedSqlMessage,
   };
 
   try {
