@@ -11,7 +11,8 @@ export default function ContactsPage() {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    honeypot: '' // This is the new honeypot field
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,7 +33,7 @@ export default function ContactsPage() {
 
       if (response.ok) {
         alert('Message sent successfully!')
-        setFormState({ name: '', email: '', message: '' })
+        setFormState({ name: '', email: '', message: '', honeypot: '' })
       } else {
         alert('Failed to send message. Please try again later.')
       }
@@ -100,6 +101,19 @@ export default function ContactsPage() {
                   className="w-full px-4 py-2 rounded-md bg-white bg-opacity-20 focus:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition-all"
                 ></textarea>
               </div>
+
+              {/* Honeypot field */}
+              <div style={{ display: 'none' }}>
+                <label htmlFor="honeypot">Do not fill this out</label>
+                <input
+                  type="text"
+                  id="honeypot"
+                  name="honeypot"
+                  value={formState.honeypot}
+                  onChange={handleInputChange}
+                />
+              </div>
+
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.05 }}

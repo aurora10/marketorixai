@@ -5,7 +5,11 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
-  const { name, email, message } = await request.json();
+  const { name, email, message, honeypot } = await request.json();
+
+  if (honeypot) {
+    return NextResponse.json({ error: 'Spam detected' }, { status: 400 });
+  }
 
   // Comprehensive security pattern to block SQL injection and other malicious inputs
   const securityPattern = /((SELECT|INSERT|UPDATE|DELETE|DROP|UNION|AND|OR|DBMS_PIPE|PG_SLEEP|CHR|CONCAT|CAST|EXEC))|[\;'"()|]/gi;
