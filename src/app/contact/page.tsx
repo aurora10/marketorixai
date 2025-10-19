@@ -22,6 +22,14 @@ export default function ContactsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (formState.honeypot) {
+      // It's a bot. Pretend to be successful but do nothing.
+      alert('Message sent successfully!')
+      setFormState({ name: '', email: '', message: '', honeypot: '' })
+      return
+    }
+
     try {
       const response = await fetch('/api/sendMail', {
         method: 'POST',

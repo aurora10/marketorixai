@@ -8,7 +8,8 @@ export async function POST(request: Request) {
   const { name, email, message, honeypot } = await request.json();
 
   if (honeypot) {
-    return NextResponse.json({ error: 'Spam detected' }, { status: 400 });
+    // This is a bot. Pretend to be successful but do nothing.
+    return NextResponse.json({ message: 'Email sent successfully' });
   }
 
   // Comprehensive security pattern to block SQL injection and other malicious inputs
