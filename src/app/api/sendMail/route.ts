@@ -5,11 +5,27 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
-  const { name, email, message, honeypot } = await request.json();
+  const { name, email, message, honeypot, recaptchaToken } = await request.json();
 
   if (honeypot) {
     // This is a bot. Pretend to be successful but do nothing.
     return NextResponse.json({ message: 'Email sent successfully' });
+  }
+
+  // Verify reCAPTCHA
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+
+  try {
+    const recaptchaResponse = await fetch(verificationUrl, { method: 'POST' });
+    const recaptchaData = await recaptchaResponse.json();
+
+    if (!recaptchaData.success) {
+      return NextResponse.json({ error: 'reCAPTCHA verification failed' }, { status: 400 });
+    }
+  } catch (error) {
+    console.error('Error verifying reCAPTCHA:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 
   // Comprehensive security pattern to block SQL injection and other malicious inputs

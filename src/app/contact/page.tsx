@@ -1,10 +1,11 @@
 
 "use client"
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X, MapPin, Phone } from 'lucide-react' // Removed ChevronDown
 import Header from "@/components/Header"
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop"; // Added import
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function ContactsPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -14,6 +15,9 @@ export default function ContactsPage() {
     message: '',
     honeypot: '' // This is the new honeypot field
   })
+  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -30,18 +34,24 @@ export default function ContactsPage() {
       return
     }
 
+    if (!recaptchaToken) {
+      alert('Please complete the reCAPTCHA.');
+      return;
+    }
+
     try {
       const response = await fetch('/api/sendMail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formState),
+        body: JSON.stringify({ ...formState, recaptchaToken }),
       })
 
       if (response.ok) {
         alert('Message sent successfully!')
         setFormState({ name: '', email: '', message: '', honeypot: '' })
+        recaptchaRef.current?.reset();
       } else {
         alert('Failed to send message. Please try again later.')
       }
@@ -110,7 +120,6 @@ export default function ContactsPage() {
                 ></textarea>
               </div>
 
-              {/* Honeypot field */}
               <div style={{ display: 'none' }}>
                 <label htmlFor="honeypot">Do not fill this out</label>
                 <input
@@ -122,11 +131,18 @@ export default function ContactsPage() {
                 />
               </div>
 
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                onChange={(token) => setRecaptchaToken(token || '')}
+              />
+
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors"
+                disabled={!recaptchaToken}
+                className="bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors disabled:bg-gray-400"
               >
                 Send Message
               </motion.button>
