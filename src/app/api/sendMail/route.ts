@@ -46,8 +46,9 @@ export async function POST(request: Request) {
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: process.env.GMAIL_USER,
-    subject: `New message from new Marketorix Site ${name}`,
-    text: message,
+    subject: `New message from ${name} on Marketorix Site`,
+    text: `You have received a new message from:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    replyTo: email,
   };
 
   try {
