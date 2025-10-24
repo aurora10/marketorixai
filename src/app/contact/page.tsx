@@ -141,7 +141,6 @@ export default function ContactsPage() {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                disabled={!recaptchaToken}
                 className="bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors disabled:bg-gray-400"
               >
                 Send Message
