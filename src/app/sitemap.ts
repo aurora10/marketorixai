@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllPostsForSitemap } from '@/lib/api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://www.marketorix.com';
+  const baseUrl = 'https://marketorix.com';
 
   const posts = await getAllPostsForSitemap();
 
