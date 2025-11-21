@@ -1,5 +1,5 @@
 import { getPostAndMorePosts } from "@/lib/api";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import Image from 'next/image';
 import BlockRendererClient from "@/components/BlockRendererClient";
 import { Metadata } from "next";
@@ -52,7 +52,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
   const { post, morePosts } = await getPostAndMorePosts(params.slug);
 
   if (!post) {
-    notFound();
+    permanentRedirect('/');
   }
 
   return (
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <div className="bg-white rounded-lg shadow-md p-4 md:p-8">
             <div className="mb-8">
               <Link href="/blog" className="text-gray-600 hover:text-gray-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" className="inline-block mr-2"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" className="inline-block mr-2"><path d="M0 0h24v24H0z" fill="none" /><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
                 Back to Blog
               </Link>
             </div>
