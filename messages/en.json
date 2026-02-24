@@ -1,0 +1,231 @@
+{
+    "Navigation": {
+        "home": "Home",
+        "services": "Services",
+        "team": "Team",
+        "blog": "Blog",
+        "contact": "Contact"
+    },
+    "HomePage": {
+        "title": "Marketorix",
+        "description": "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+        "whatWeDo": "What We Do"
+    },
+    "ServicesSection": {
+        "title": "Our Services"
+    },
+    "Services": {
+        "autonomous_agents": {
+            "title": "Autonomous AI Agents",
+            "description": "We design and deploy intelligent AI agents that can independently handle complex tasks and workflows. These agents are customized to your specific needs, transforming repetitive or intricate processes into efficient, automated operations that save time and resources."
+        },
+        "strategy": {
+            "title": "AI Strategy",
+            "description": "We help businesses develop a clear and actionable AI strategy that aligns with their long-term goals. By analyzing your current capabilities and market opportunities, we create a roadmap for AI implementation that drives measurable results and gives you a competitive edge in your industry."
+        },
+        "custom_solutions": {
+            "title": "Custom AI Solutions",
+            "description": "Our team designs and builds AI solutions tailored to your organization’s unique challenges. Whether it’s predictive analytics, real-time data processing, or workflow automation, we create tools that improve decision-making, enhance efficiency, and deliver value across your operations."
+        },
+        "integration": {
+            "title": "AI Integration",
+            "description": "We ensure a smooth and seamless integration of AI into your existing systems. By working closely with your IT and operations teams, we minimize disruption and maximize efficiency, enabling intelligent automation, advanced analytics, and improved productivity across your organization."
+        },
+        "support": {
+            "title": "Ongoing Support",
+            "description": "We provide dedicated, long-term support to ensure your AI solutions remain effective and up-to-date. From maintenance and updates to enhancements and troubleshooting, our team is here to keep your systems optimized and ready to adapt to evolving business needs."
+        },
+        "industry_specific": {
+            "title": "Industry-Specific AI",
+            "description": "We develop AI applications tailored to the unique requirements of your industry. Whether you’re in healthcare, finance, retail, or manufacturing, our solutions leverage domain expertise and advanced AI models to drive innovation, efficiency, and value in your sector."
+        },
+        "nl_to_sql": {
+            "title": "Natural Language to SQL",
+            "description": "Our AI-powered solution transforms natural language queries into precise SQL database interactions. This bridges the gap between human communication and technical data retrieval, enabling non-technical users to access complex insights with simple, conversational input."
+        },
+        "chatbots": {
+            "title": "AI Chatbots",
+            "description": "We create intelligent, conversational AI chatbots that revolutionize customer interaction and support. Designed to understand, respond, and learn from user interactions, our chatbots enhance engagement and streamline communication across multiple platforms and industries."
+        }
+    },
+    "ServicesPage": {
+        "items": {
+            "code_review": {
+                "title": "AI-Generated Code Review & Debug",
+                "description": "Ensure the reliability and performance of AI-generated code through thorough reviews and debugging services.",
+                "features": [
+                    "Code quality assessment",
+                    "Bug detection and resolution",
+                    "Security vulnerability checks",
+                    "Optimization for performance and readability"
+                ]
+            },
+            "recovery": {
+                "title": "AI App Recovery & Enhancement",
+                "description": "We fix broken or underperforming AI-generated applications and enhance them for long-term scalability.",
+                "features": [
+                    "Root-cause analysis of malfunctioning features",
+                    "Rebuilding unstable components",
+                    "Improving UX/UI and system logic",
+                    "Ongoing enhancement for evolving business needs"
+                ]
+            },
+            "autonomous_dev": {
+                "title": "Autonomous AI Agents Development",
+                "description": "Unlock the power of your data with our advanced analytics and management solutions.",
+                "features": [
+                    "Advanced decision-making algorithms",
+                    "Seamless integration with existing systems",
+                    "Increased operational efficiency",
+                    "24/7 autonomous task execution"
+                ]
+            },
+            "chatbot_dev": {
+                "title": "AI Chatbot Development Service",
+                "description": "Harness the power of natural language processing for advanced AI capabilities.",
+                "features": [
+                    "Natural language processing",
+                    "Contextual understanding",
+                    "Multi-language support",
+                    "Personalized conversation flows"
+                ]
+            },
+            "integration": {
+                "title": "AI Integration",
+                "description": "Seamlessly integrate AI technologies with your existing systems and workflows for maximum efficiency.",
+                "features": [
+                    "Legacy system integration",
+                    "API development",
+                    "Cloud migration",
+                    "Performance optimization"
+                ]
+            },
+            "strategy": {
+                "title": "AI Strategy Formulation",
+                "description": "We help businesses develop comprehensive AI strategies aligned with their goals and industry trends.",
+                "features": [
+                    "AI readiness assessment",
+                    "Technology roadmap creation",
+                    "ROI projections",
+                    "Implementation planning"
+                ]
+            },
+            "custom_dev": {
+                "title": "Custom AI Solution Development",
+                "description": "Our team of experts designs and builds tailored AI solutions to address your unique business challenges.",
+                "features": [
+                    "Machine learning models",
+                    "Deep learning algorithms",
+                    "AI-powered applications",
+                    "Prototype development"
+                ]
+            },
+            "support": {
+                "title": "Ongoing Support",
+                "description": "We provide continuous support and maintenance to ensure your AI solutions perform optimally.",
+                "features": [
+                    "24/7 technical support",
+                    "Performance monitoring",
+                    "Regular updates",
+                    "Training and workshops"
+                ]
+            },
+            "industry_apps": {
+                "title": "Industry-Specific AI Applications",
+                "description": "Leverage our expertise in developing AI solutions tailored for various industries.",
+                "features": [
+                    "Healthcare diagnostics",
+                    "Financial fraud detection",
+                    "E-commerce personalization",
+                    "Manufacturing optimization"
+                ]
+            },
+            "nl_to_sql": {
+                "title": "Natural Language to SQL",
+                "description": "Streamline your operations with intelligent automation solutions that learn and adapt.",
+                "features": [
+                    "Advanced semantic understanding",
+                    "Intelligent query translation",
+                    "Multi-dialect SQL support",
+                    "Minimizes human error"
+                ]
+            }
+        }
+    },
+    "OurTeam": {
+        "title": "Our Team",
+        "members": {
+            "robert": {
+                "name": "Robert Zimerman",
+                "role": "CEO & Founder",
+                "bio": "Robert brings over 10 years of experience in Web Development, AI and machine learning. He's passionate about leveraging AI to solve complex business problems."
+            },
+            "lars": {
+                "name": "Lars Nyberg",
+                "role": "CTO",
+                "bio": "Lars is an expert in deep learning and natural language processing. He leads our technical strategy and innovation initiatives."
+            }
+        },
+        "devTeam": {
+            "title": "Our Development Team",
+            "description": "In addition to our leadership, we have a team of highly trained developers available worldwide for individual projects. Our experts specialize in various areas of AI and machine learning, ensuring we can meet the unique needs of each client.",
+            "inquire": "Inquire About Custom Projects"
+        },
+        "letsTalk": "Let's Talk"
+    },
+    "Contact": {
+        "title": "Contact Us",
+        "getInTouch": "Get in Touch",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "message": "Message",
+            "send": "Send Message",
+            "success": "Message sent successfully!",
+            "error": "Failed to send message. Please try again later.",
+            "recaptchaError": "Please complete the reCAPTCHA."
+        },
+        "info": {
+            "title": "Contact Information",
+            "address": {
+                "title": "Address",
+                "line1": "150 Franslaan",
+                "line2": "Nieuwpoort, WF 8620",
+                "country": "Belgium"
+            },
+            "phone": "Phone",
+            "whatsapp": "WhatsApp"
+        }
+    },
+    "Footer": {
+        "copyright": "© 2024 Marketorix. All rights reserved.",
+        "copyright2023": "© 2023 Marketorix. All rights reserved."
+    },
+    "Metadata": {
+        "title": "Marketorix",
+        "description": "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+        "blog": {
+            "title": "Blog | Marketorix",
+            "description": "Read the latest articles from our blog.",
+            "latestPosts": "Latest Blog Posts"
+        }
+    },
+    "CTA": {
+        "title": "Ready to Transform Your Business with AI?",
+        "button": "Get Started Now"
+    },
+    "CookieConsent": {
+        "message": "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
+        "accept": "Accept",
+        "decline": "Decline"
+    },
+    "Blog": {
+        "loading": "Loading more posts...",
+        "scrollLoad": "Scroll down to load more",
+        "endOfPosts": "You have reached the end of the posts.",
+        "imageAlt": "Blog post image",
+        "videoAlt": "YouTube video player",
+        "videoError": "Your browser does not support the video tag.",
+        "unhandledBlock": "Unhandled block type: {type}"
+    }
+}

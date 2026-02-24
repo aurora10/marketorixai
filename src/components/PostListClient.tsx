@@ -77,7 +77,7 @@ export default function PostListClient({
                 <div className="relative w-full md:w-1/3 h-64 md:h-48">
                   <Image
                     src={post.featuredImageUrl}
-                    alt={post.featuredImageAlt || 'Blog post image'}
+                    alt={post.featuredImageAlt || "Blog post image"}
                     fill
                     className="object-cover"
                   />

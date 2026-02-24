@@ -38,7 +38,7 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
                   width="560"
                   height="315"
                   src={`https://www.youtube.com/embed/${videoId}`}
-                  title={block.title || 'YouTube video player'}
+                  title={block.title || "YouTube video player"}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -80,7 +80,7 @@ const BlockRendererClient = ({ content }: { content: any[] }) => {
             <div key={index} className="my-8 flex justify-center">
               <Image
                 src={imageUrl}
-                alt={image.alternativeText || 'Image'}
+                alt={image.alternativeText || "Image"}
                 width={image.width}
                 height={image.height}
                 className="rounded-lg shadow-lg"

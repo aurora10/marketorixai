@@ -1,0 +1,231 @@
+{
+    "Navigation": {
+        "home": "Home",
+        "services": "Diensten",
+        "team": "Team",
+        "blog": "Blog",
+        "contact": "Contact"
+    },
+    "HomePage": {
+        "title": "Marketorix",
+        "description": "Transformeer uw bedrijf met Marketorix, uw expert AI-integrator. Wij bieden op maat gemaakte AI-oplossingen om groei en efficiëntie te stimuleren.",
+        "whatWeDo": "Wat we doen"
+    },
+    "ServicesSection": {
+        "title": "Onze Diensten"
+    },
+    "Services": {
+        "autonomous_agents": {
+            "title": "Autonome AI-agenten",
+            "description": "Wij ontwerpen en implementeren intelligente AI-agenten die onafhankelijk complexe taken en workflows kunnen afhandelen. Deze agenten worden aangepast aan uw specifieke behoeften, waardoor repetitieve of ingewikkelde processen worden getransformeerd in efficiënte, geautomatiseerde operaties die tijd en middelen besparen."
+        },
+        "strategy": {
+            "title": "AI-strategie",
+            "description": "Wij helpen bedrijven bij het ontwikkelen van een duidelijke en bruikbare AI-strategie die aansluit bij hun langetermijndoelen. Door uw huidige capaciteiten en marktkansen te analyseren, creëren we een roadmap voor AI-implementatie die meetbare resultaten oplevert en u een voorsprong geeft op de concurrentie in uw sector."
+        },
+        "custom_solutions": {
+            "title": "AI-oplossingen op maat",
+            "description": "Ons team ontwerpt en bouwt AI-oplossingen die zijn afgestemd op de unieke uitdagingen van uw organisatie. Of het nu gaat om voorspellende analyses, real-time gegevensverwerking of workflowautomatisering, wij creëren tools die de besluitvorming verbeteren, de efficiëntie verhogen en waarde leveren in uw hele bedrijfsvoering."
+        },
+        "integration": {
+            "title": "AI-integratie",
+            "description": "Wij zorgen voor een soepele en naadloze integratie van AI in uw bestaande systemen. Door nauw samen te werken met uw IT- en operationele teams, minimaliseren we verstoringen en maximaliseren we de efficiëntie, waardoor intelligente automatisering, geavanceerde analyses en verbeterde productiviteit in uw hele organisatie mogelijk worden."
+        },
+        "support": {
+            "title": "Continue ondersteuning",
+            "description": "Wij bieden toegewijde, langdurige ondersteuning om ervoor te zorgen dat uw AI-oplossingen effectief en up-to-date blijven. Van onderhoud en updates tot verbeteringen en probleemoplossing, ons team is er om uw systemen geoptimaliseerd te houden en klaar om zich aan te passen aan de veranderende behoeften van uw bedrijf."
+        },
+        "industry_specific": {
+            "title": "Sector-specifieke AI",
+            "description": "Wij ontwikkelen AI-toepassingen die zijn afgestemd op de unieke vereisten van uw sector. Of u nu werkzaam bent in de gezondheidszorg, de financiële sector, de detailhandel of de productie, onze oplossingen maken gebruik van domeinexpertise en geavanceerde AI-modellen om innovatie, efficiëntie en waarde in uw sector te stimuleren."
+        },
+        "nl_to_sql": {
+            "title": "Natuurlijke taal naar SQL",
+            "description": "Onze door AI aangedreven oplossing transformeert zoekopdrachten in natuurlijke taal in nauwkeurige SQL-database-interacties. Dit overbrugt de kloof tussen menselijke communicatie en technische gegevensopvraging, waardoor niet-technische gebruikers toegang krijgen tot complexe inzichten met eenvoudige, conversationele invoer."
+        },
+        "chatbots": {
+            "title": "AI-chatbots",
+            "description": "Wij creëren intelligente, conversationele AI-chatbots die de interactie en ondersteuning van klanten revolutioneren. Ontworpen om te begrijpen, te reageren en te leren van gebruikersinteracties, verbeteren onze chatbots de betrokkenheid en stroomlijnen ze de communicatie over meerdere platforms en sectoren."
+        }
+    },
+    "ServicesPage": {
+        "items": {
+            "code_review": {
+                "title": "Door AI gegenereerde code review & debug",
+                "description": "Zorg voor de betrouwbaarheid en prestaties van door AI gegenereerde code door middel van grondige beoordelingen en debug-services.",
+                "features": [
+                    "Beoordeling van codekwaliteit",
+                    "Bugdetectie en oplossing",
+                    "Beveiligingschecks",
+                    "Optimalisatie voor prestaties en leesbaarheid"
+                ]
+            },
+            "recovery": {
+                "title": "AI-app herstel & verbetering",
+                "description": "Wij repareren kapotte of onderpresterende door AI gegenereerde applicaties en verbeteren ze voor langetermijnschaalbaarheid.",
+                "features": [
+                    "Oorzaakanalyse van defecte functies",
+                    "Herbouw van onstabiele componenten",
+                    "Verbetering van UX/UI en systeemlogica",
+                    "Continue verbetering voor evoluerende behoeften"
+                ]
+            },
+            "autonomous_dev": {
+                "title": "Ontwikkeling van autonome AI-agenten",
+                "description": "Ontgrendel de kracht van uw gegevens met onze geavanceerde analyse- en beheeroplossingen.",
+                "features": [
+                    "Geavanceerde algoritmen voor besluitvorming",
+                    "Naadloze integratie met bestaande systemen",
+                    "Verhoogde operationele efficiëntie",
+                    "24/7 autonome uitvoering van taken"
+                ]
+            },
+            "chatbot_dev": {
+                "title": "AI-chatbot ontwikkelingsservice",
+                "description": "Benut de kracht van natuurlijke taalverwerking voor geavanceerde AI-mogelijkheden.",
+                "features": [
+                    "Natuurlijke taalverwerking",
+                    "Contextueel begrip",
+                    "Ondersteuning voor meerdere talen",
+                    "Gepersonaliseerde gespreksstromen"
+                ]
+            },
+            "integration": {
+                "title": "AI-integratie",
+                "description": "Integreer AI-technologieën naadloos met uw bestaande systemen en workflows voor maximale efficiëntie.",
+                "features": [
+                    "Integratie van legacy-systemen",
+                    "API-ontwikkeling",
+                    "Cloud-migratie",
+                    "Prestatie-optimalisatie"
+                ]
+            },
+            "strategy": {
+                "title": "AI-strategievorming",
+                "description": "Wij helpen bedrijven bij het ontwikkelen van uitgebreide AI-strategieën die aansluiten bij hun doelen en sectortrends.",
+                "features": [
+                    "Beoordeling van AI-gereedheid",
+                    "Creatie van technologie-roadmap",
+                    "ROI-projecties",
+                    "Implementatieplanning"
+                ]
+            },
+            "custom_dev": {
+                "title": "Ontwikkeling van AI-oplossingen op maat",
+                "description": "Ons team van experts ontwerpt en bouwt op maat gemaakte AI-oplossingen om uw unieke zakelijke uitdagingen aan te pakken.",
+                "features": [
+                    "Machine learning modellen",
+                    "Deep learning algoritmen",
+                    "Door AI aangedreven applicaties",
+                    "Ontwikkeling van prototypes"
+                ]
+            },
+            "support": {
+                "title": "Continue ondersteuning",
+                "description": "Wij bieden continue ondersteuning en onderhoud om ervoor te zorgen dat uw AI-oplossingen optimaal presteren.",
+                "features": [
+                    "24/7 technische ondersteuning",
+                    "Prestatiebewaking",
+                    "Regelmatige updates",
+                    "Training en workshops"
+                ]
+            },
+            "industry_apps": {
+                "title": "Sector-specifieke AI-toepassingen",
+                "description": "Profiteer van onze expertise in het ontwikkelen van AI-oplossingen die zijn afgestemd op verschillende sectoren.",
+                "features": [
+                    "Diagnostiek in de gezondheidszorg",
+                    "Fraudedetectie in de financiële sector",
+                    "E-commerce personalisatie",
+                    "Productie-optimalisatie"
+                ]
+            },
+            "nl_to_sql": {
+                "title": "Natuurlijke taal naar SQL",
+                "description": "Stroomlijn uw operaties met intelligente automatiseringsoplossingen die leren en zich aanpassen.",
+                "features": [
+                    "Geavanceerd semantisch begrip",
+                    "Intelligente queryvertaling",
+                    "Ondersteuning voor meerdere SQL-dialecten",
+                    "Minimaliseert menselijke fouten"
+                ]
+            }
+        }
+    },
+    "OurTeam": {
+        "title": "Ons team",
+        "members": {
+            "robert": {
+                "name": "Robert Zimerman",
+                "role": "CEO & Oprichter",
+                "bio": "Robert heeft meer dan 10 jaar ervaring in webontwikkeling, AI en machine learning. Hij is gepassioneerd door het inzetten van AI om complexe zakelijke problemen op te lossen."
+            },
+            "lars": {
+                "name": "Lars Nyberg",
+                "role": "CTO",
+                "bio": "Lars is een expert in deep learning en natuurlijke taalverwerking. Hij leidt onze technische strategie en innovatie-initiatieven."
+            }
+        },
+        "devTeam": {
+            "title": "Ons ontwikkelingsteam",
+            "description": "Naast onze leiding hebben we een team van hoogopgeleide ontwikkelaars die wereldwijd beschikbaar zijn voor individuele projecten. Onze experts zijn gespecialiseerd in verschillende gebieden van AI en machine learning, zodat we aan de unieke behoeften van elke klant kunnen voldoen.",
+            "inquire": "Informeer naar projecten op maat"
+        },
+        "letsTalk": "Laten we praten"
+    },
+    "Contact": {
+        "title": "Contact",
+        "getInTouch": "Neem contact op",
+        "form": {
+            "name": "Naam",
+            "email": "E-mail",
+            "message": "Bericht",
+            "send": "Bericht versturen",
+            "success": "Bericht succesvol verzonden!",
+            "error": "Bericht verzenden mislukt. Probeer het later opnieuw.",
+            "recaptchaError": "Vul de reCAPTCHA in."
+        },
+        "info": {
+            "title": "Contactgegevens",
+            "address": {
+                "title": "Adres",
+                "line1": "150 Franslaan",
+                "line2": "Nieuwpoort, WF 8620",
+                "country": "België"
+            },
+            "phone": "Telefoon",
+            "whatsapp": "WhatsApp"
+        }
+    },
+    "Footer": {
+        "copyright": "© 2024 Marketorix. Alle rechten voorbehouden.",
+        "copyright2023": "© 2023 Marketorix. All rights reserved."
+    },
+    "Metadata": {
+        "title": "Marketorix",
+        "description": "Transformeer uw bedrijf met Marketorix, uw expert AI-integrator. Wij bieden op maat gemaakte AI-oplossingen om groei en efficiëntie te stimuleren.",
+        "blog": {
+            "title": "Blog | Marketorix",
+            "description": "Lees de nieuwste artikelen op onze blog.",
+            "latestPosts": "Laatste blogberichten"
+        }
+    },
+    "CTA": {
+        "title": "Klaar om uw bedrijf te transformeren met AI?",
+        "button": "Nu aan de slag"
+    },
+    "CookieConsent": {
+        "message": "Wij gebruiken cookies om uw ervaring te verbeteren. Door deze site te blijven bezoeken, gaat u akkoord met ons gebruik van cookies.",
+        "accept": "Accepteren",
+        "decline": "Weigeren"
+    },
+    "Blog": {
+        "loading": "Meer berichten laden...",
+        "scrollLoad": "Scroll naar beneden om meer te laden",
+        "endOfPosts": "U heeft het einde van de berichten bereikt.",
+        "imageAlt": "Afbeelding van blogbericht",
+        "videoAlt": "YouTube videospeler",
+        "videoError": "Uw browser ondersteunt de videotag niet.",
+        "unhandledBlock": "Niet-afgehandeld bloktype: {type}"
+    }
+}

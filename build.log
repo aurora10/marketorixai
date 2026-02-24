@@ -1,0 +1,40 @@
+
+> marketorix@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.30
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/5) ...
+   Generating static pages (1/5) 
+   Generating static pages (2/5) 
+   Generating static pages (3/5) 
+ ✓ Generating static pages (5/5)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          873 B          88.1 kB
+├ ƒ /[locale]                            3.54 kB         152 kB
+├ ƒ /[locale]/blog                       14.6 kB         163 kB
+├ ƒ /[locale]/blog/[slug]                2.85 kB         151 kB
+├ ƒ /[locale]/contact                    8.87 kB         157 kB
+├ ƒ /[locale]/services                   3.47 kB         152 kB
+├ ƒ /[locale]/team                       3.59 kB         152 kB
+├ ƒ /api/sendMail                        0 B                0 B
+└ ○ /sitemap.xml                         0 B                0 B
++ First Load JS shared by all            87.2 kB
+  ├ chunks/117-ba4175ec17a0f11b.js       31.6 kB
+  ├ chunks/fd9d1056-b11b2651f33aae7f.js  53.6 kB
+  └ other shared chunks (total)          1.95 kB
+
+
+ƒ Middleware                             37.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function TransformBusinessCTA() {
+  const t = useTranslations("CTA");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -12,7 +15,7 @@ export default function TransformBusinessCTA() {
       className="mt-20 text-center"
     >
       <h2 className="text-3xl font-bold mb-6">
-        Ready to Transform Your Business with AI?
+        {t("title")}
       </h2>
       <Link href="/contact" passHref legacyBehavior>
         <motion.a
@@ -20,7 +23,7 @@ export default function TransformBusinessCTA() {
           whileTap={{ scale: 0.95 }}
           className="bg-yellow-400 text-purple-900 px-8 py-4 mb-10 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-colors inline-block"
         >
-          Get Started Now
+          {t("button")}
         </motion.a>
       </Link>
     </motion.div>

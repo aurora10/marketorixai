@@ -1,14 +1,16 @@
 "use client";
 
 import CookieConsent from "react-cookie-consent";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const CookieConsentBanner = () => {
+  const t = useTranslations("CookieConsent");
+
   return (
     <CookieConsent
       location="bottom"
-      buttonText="Accept"
-      declineButtonText="Decline"
+      buttonText={t("accept")}
+      declineButtonText={t("decline")}
       cookieName="CookieConsent"
       style={{
         background: "hsl(240 10% 3.9%)", // dark.background
@@ -40,16 +42,7 @@ const CookieConsentBanner = () => {
         window.location.reload();
       }}
     >
-      This website uses cookies for analytics to enhance the user experience.{" "}
-      <span style={{ fontSize: "12px" }}>
-        By clicking ”Accept”, you agree to our use of cookies.
-      </span>
-      {/* You can add a link to your privacy policy here if you have one */}
-      {/* 
-      <Link href="/privacy-policy" style={{ color: 'white', textDecoration: 'underline', marginLeft: '10px' }}>
-        Learn More
-      </Link>
-      */}
+      {t("message")}
     </CookieConsent>
   );
 };
