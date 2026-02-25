@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Header from "@/components/Header";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 // Define variants for common fade/slide-up animation
 const sectionVariants: Variants = {
@@ -16,6 +16,8 @@ const sectionVariants: Variants = {
 
 export default function TeamPage() {
   const t = useTranslations("OurTeam");
+  const locale = useLocale();
+  const tFooter = useTranslations("Footer");
 
   const teamMembers = [
     {
@@ -72,7 +74,7 @@ export default function TeamPage() {
               key={member.name}
               variants={teamCardVariants}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-lg rounded-lg p-6 flex flex-col items-center text-center transition-all"
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center text-center shadow-soft hover:shadow-cardHover hover:scale-[1.03] hover:-translate-y-[2px] transition-all duration-[250ms] ease-out"
             >
               <div className="p-4 bg-white rounded-full">
                 <Image
@@ -106,8 +108,8 @@ export default function TeamPage() {
             {t("devTeam.description")}
           </p>
           <Link
-            href="/contact"
-            className="inline-block bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors"
+            href={`/${locale}/contact`}
+            className="inline-block bg-yellow-400 text-purple-900 px-10 py-5 rounded-full font-semibold hover:bg-yellow-300 transition-all duration-300 hover:-translate-y-[2px] hover:shadow-cardHover"
           >
             {t("devTeam.inquire")}
           </Link>
@@ -122,8 +124,8 @@ export default function TeamPage() {
           className="text-center"
         >
           <Link
-            href="/contact"
-            className="inline-block bg-yellow-400 text-purple-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-colors"
+            href={`/${locale}/contact`}
+            className="inline-block bg-yellow-400 text-purple-900 px-10 py-5 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-all duration-300 hover:-translate-y-[2px] hover:shadow-cardHover"
           >
             {t("letsTalk")}
           </Link>
@@ -132,7 +134,7 @@ export default function TeamPage() {
 
       <footer className="py-8 mt-20">
         <div className="container mx-auto px-4 text-center">
-          <p>{useTranslations("Footer")("copyright")}</p>
+          <p>{tFooter("copyright")}</p>
         </div>
       </footer>
 

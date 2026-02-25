@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { getPosts, Post } from "@/lib/api";
+import { useLocale } from "next-intl";
 
 interface PostListClientProps {
   initialPosts: Post[];
@@ -21,6 +22,7 @@ export default function PostListClient({
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialHasMore);
   const loader = useRef(null);
+  const locale = useLocale();
 
   const loadMorePosts = useCallback(async () => {
     if (loading || !hasMore) return;
@@ -65,7 +67,7 @@ export default function PostListClient({
     <>
       <div className="grid gap-8 md:gap-12">
         {posts.map((post: Post) => (
-          <Link href={`/blog/${post.slug}`} key={post.id}>
+          <Link href={`/${locale}/blog/${post.slug}`} key={post.id}>
             <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center">
               <div className="p-4 md:p-8 w-full md:w-2/3">
                 <h2 className="font-bold text-gray-800 mb-4 text-xl md:text-3xl">

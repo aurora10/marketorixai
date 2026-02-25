@@ -10,17 +10,17 @@ const listVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, 
+      staggerChildren: 0.15,
     },
   },
 };
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, x: -20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: "easeOut" } 
+    transition: { duration: 0.5, ease: "easeOut" }
   },
 };
 
@@ -33,42 +33,42 @@ interface Service {
 
 interface MotionServiceCardProps {
   service: Service;
-  index: number; 
+  index: number;
 }
 
 
 export default function MotionServiceCard({ service, index }: MotionServiceCardProps) {
-    const cardVariants: Variants = {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0 }
-    };
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
+  };
 
-    return (
-      <motion.div
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="service-card bg-white bg-opacity-20 text-xl backdrop-blur-lg rounded-lg p-6 hover:bg-opacity-30 transition-all transform hover:scale-105 w-full"
+  return (
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="service-card bg-white bg-opacity-20 text-lg backdrop-blur-lg rounded-2xl p-6 shadow-soft hover:shadow-cardHover transition-all duration-[250ms] transform hover:scale-[1.03] hover:-translate-y-[2px] w-full ease-out"
+    >
+      <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
+      <p className="mb-4 text-lg">{service.description}</p>
+      <motion.ul
+        className="space-y-2"
+        variants={listVariants}
       >
-        <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
-        <p className="mb-4 text-xl">{service.description}</p>
-        <motion.ul
-          className="space-y-2"
-          variants={listVariants}
-        >
-          {service.features.map((feature, featureIndex) => (
-            <motion.li
-              key={featureIndex}
-              variants={itemVariants}
-              className="flex items-center text-lx"
-            >
-              <Check className="text-yellow-400 mr-2" size={16} />
-              <span>{feature}</span>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.div>
-    );
-  }
+        {service.features.map((feature, featureIndex) => (
+          <motion.li
+            key={featureIndex}
+            variants={itemVariants}
+            className="flex items-center text-lg"
+          >
+            <Check className="text-yellow-400 mr-2" size={16} />
+            <span>{feature}</span>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.div>
+  );
+}

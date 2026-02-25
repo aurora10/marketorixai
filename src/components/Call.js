@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function TransformBusinessCTA() {
   const t = useTranslations("CTA");
+  const locale = useLocale();
+  const contactHref = locale ? `/${locale}/contact` : "/contact";
 
   return (
     <motion.div
@@ -17,11 +19,11 @@ export default function TransformBusinessCTA() {
       <h2 className="text-3xl font-bold mb-6">
         {t("title")}
       </h2>
-      <Link href="/contact" passHref legacyBehavior>
+      <Link href={contactHref} passHref legacyBehavior>
         <motion.a
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-yellow-400 text-purple-900 px-8 py-4 mb-10 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-colors inline-block"
+          className="bg-yellow-400 text-purple-900 px-10 py-5 mb-10 rounded-full text-lg font-semibold hover:bg-yellow-300 transition-all duration-300 hover:-translate-y-[2px] hover:shadow-cardHover inline-block"
         >
           {t("button")}
         </motion.a>

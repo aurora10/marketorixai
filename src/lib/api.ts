@@ -136,8 +136,8 @@ export async function getPosts(
   };
 }
 
-// Fetches a single post by its slug
-export async function getPost(slug: string): Promise<Post | null> {
+// Fetches a single post by its slug (and optional locale)
+export async function getPost(slug: string, locale: string = 'en'): Promise<Post | null> {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
   if (!STRAPI_URL) {
     console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
@@ -146,6 +146,7 @@ export async function getPost(slug: string): Promise<Post | null> {
 
   const query = qs.stringify(
     {
+      locale: locale,
       filters: {
         slug: {
           $eq: slug,
@@ -253,7 +254,11 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
   }
 }
 
-export async function getPostAndMorePosts(slug: string): Promise<{ post: Post | null; morePosts: Post[] }> {
+export async function getPostBySlug(slug: string, locale: string = 'en'): Promise<Post | null> {
+  return getPost(slug, locale);
+}
+
+export async function getPostAndMorePosts(slug: string, locale: string = 'en'): Promise<{ post: Post | null; morePosts: Post[] }> {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
   if (!STRAPI_URL) {
     console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
@@ -261,6 +266,7 @@ export async function getPostAndMorePosts(slug: string): Promise<{ post: Post | 
   }
 
   const query = qs.stringify({
+    locale: locale,
     filters: {
       slug: {
         $eq: slug,
@@ -278,6 +284,7 @@ export async function getPostAndMorePosts(slug: string): Promise<{ post: Post | 
   });
 
   const morePostsQuery = qs.stringify({
+    locale: locale,
     filters: {
       slug: {
         $ne: slug,

@@ -79,11 +79,11 @@ export default async function ServicesPage() {
       />
       <Header />
 
-      <section id="services" className="container mx-auto px-4 py-20 mb-8">
+      <section id="services" className="container mx-auto px-4 py-24 md:py-32 mb-8">
         <WhatWeDo />
 
         {/* Ensure grid layout is applied correctly */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-16">
           {services.map((service, index) => (
             <MotionServiceCardService
               key={service.title}

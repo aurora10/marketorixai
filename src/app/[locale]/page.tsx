@@ -1,14 +1,17 @@
 "use client"; // Add this if not already present
 
-import { useState } from 'react'; // Import useState
+import { useState, useRef } from 'react'; // Import useState
 import { motion, Variants } from 'framer-motion'; // Import motion and Variants
+import { useGSAP } from "@gsap/react";
+import { scrollReveal } from "@/lib/animations/scrollReveal";
+import { initGsap } from "@/lib/animations/config";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import MotionServiceCard from "@/components/MotionServiceCard";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 // Define variants for the grid container to stagger children
 const gridContainerVariants: Variants = {
@@ -23,8 +26,15 @@ const gridContainerVariants: Variants = {
 
 export default function LandingPage() {
   const t = useTranslations();
+  const locale = useLocale();
   // State to track if the service grid has animated
   const [gridAnimated, setGridAnimated] = useState(false);
+  const comp = useRef(null);
+
+  useGSAP(() => {
+    initGsap();
+    scrollReveal(".reveal-text");
+  }, { scope: comp });
 
   const services = [
     {
@@ -65,12 +75,12 @@ export default function LandingPage() {
     <div className="relative flex flex-col overflow-hidden">
       <Header darkMode={false} />
 
-      <main className="flex-grow">
-        <section id="services" className="container mx-auto px-4 py-16 md:py-20">
-          <h2 className="text-5xl text-white md:text-5xl font-bold mb-10 text-center">{t("HomePage.whatWeDo")}</h2>
+      <main className="flex-grow" ref={comp}>
+        <section id="services" className="container mx-auto px-4 py-24 md:py-32">
+          <h2 className="reveal-text opacity-0 text-5xl text-white md:text-5xl font-bold mb-10 text-center tracking-tight">{t("HomePage.whatWeDo")}</h2>
           {/* Wrap grid in motion.div for animation control */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
             variants={gridContainerVariants}
             initial="hidden"
             animate="visible" // Animate when parent is visible
@@ -89,7 +99,7 @@ export default function LandingPage() {
                   variants={cardVariants}
                 // The parent's staggerChildren will handle the timing
                 >
-                  <Link href="/services" className="block h-full">
+                  <Link href={`/${locale}/services`} className="block h-full">
                     <MotionServiceCard service={service} index={index} />
                   </Link>
                 </motion.div>

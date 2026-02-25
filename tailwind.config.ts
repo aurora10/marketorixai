@@ -64,6 +64,14 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        soft: "0 10px 30px rgba(0,0,0,0.05)",
+        cardHover: "0 20px 40px rgba(0,0,0,0.08)",
+      },
+      letterSpacing: {
+        tighter: "-0.04em",
+        tight: "-0.02em",
+      },
       typography: ({ theme }: { theme: any }) => ({
         DEFAULT: {
           css: {

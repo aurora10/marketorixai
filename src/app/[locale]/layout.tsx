@@ -59,7 +59,7 @@ export default async function RootLayout({
       </head>
 
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <CSPostHogProvider>
             {children}
           </CSPostHogProvider>

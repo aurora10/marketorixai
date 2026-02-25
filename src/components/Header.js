@@ -4,26 +4,36 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image"; // Reverted back to next/image
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header({ darkMode = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const textColor = darkMode ? "text-gray-800" : "text-gray-200";
   const t = useTranslations("Navigation");
+  const locale = useLocale();
+
+  // Helper to build localized URL
+  const getHref = (path) => {
+    if (locale && path.startsWith('/')) {
+      const isRoot = path === '/';
+      return `/${locale}${isRoot ? '' : path}`;
+    }
+    return path;
+  };
 
   const menuItems = [
-    { name: t("home"), href: "/" },
-    { name: t("services"), href: "/services" },
-    { name: t("team"), href: "/team" },
-    { name: t("blog"), href: "/blog" },
-    { name: t("contact"), href: "/contact" },
+    { name: t("home"), href: getHref("/") },
+    { name: t("services"), href: getHref("/services") },
+    { name: t("team"), href: getHref("/team") },
+    { name: t("blog"), href: getHref("/blog") },
+    { name: t("contact"), href: getHref("/contact") },
   ];
 
   return (
     <header className={`container mx-auto px-4 py-6 ${textColor}`}>
       <nav className="flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold" aria-label="Marketorix Home">
+        <Link href={getHref("/")} className="text-2xl font-bold" aria-label="Marketorix Home">
           {/* Reverted back to using next/image for the logo */}
           {darkMode ? (
             <Image

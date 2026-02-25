@@ -1,15 +1,18 @@
-import { getPostAndMorePosts } from "@/lib/api";
+import { getPostAndMorePosts, getPostBySlug } from "@/lib/api";
 import { permanentRedirect } from "next/navigation";
 import Image from 'next/image';
 import BlockRendererClient from "@/components/BlockRendererClient";
 import { Metadata } from "next";
 import Header from "@/components/Header";
 import Link from "next/link";
+import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { post } = await getPostAndMorePosts(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string, locale: string } }): Promise<Metadata> {
+  const { slug, locale } = params;
+  const post = await getPostBySlug(slug, locale);
 
   if (!post) {
     return {
@@ -48,8 +51,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { post, morePosts } = await getPostAndMorePosts(params.slug);
+export default async function PostPage({ params }: { params: { slug: string, locale: string } }) {
+  const { slug, locale } = params;
+  const { post, morePosts } = await getPostAndMorePosts(slug, locale);
 
   if (!post) {
     permanentRedirect('/');
@@ -69,9 +73,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-4 md:p-8">
             <div className="mb-8">
-              <Link href="/blog" className="text-gray-600 hover:text-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" className="inline-block mr-2"><path d="M0 0h24v24H0z" fill="none" /><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
-                Back to Blog
+              {/* Use localized link */}
+              <Link
+                href={`/${locale}/blog`}
+                className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 transition-colors"
+              >
+                ← Back to Blog
               </Link>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-800 mb-8">
@@ -115,7 +122,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">More Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {morePosts.map((post) => (
-                <a key={post.slug} href={`/blog/${post.slug}`} className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <a key={post.slug} href={`/${locale}/blog/${post.slug}`} className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                   {post.featuredImageUrl && (
                     <Image
                       src={post.featuredImageUrl}

@@ -141,7 +141,7 @@ export default function ContactsPage() {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-colors disabled:bg-gray-400"
+                className="bg-yellow-400 text-purple-900 px-10 py-5 rounded-full font-semibold hover:bg-yellow-300 transition-all duration-300 hover:-translate-y-[2px] hover:shadow-cardHover disabled:bg-gray-400"
               >
                 {t("form.send")}
               </motion.button>
