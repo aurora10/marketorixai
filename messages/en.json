@@ -8,193 +8,193 @@
     },
     "HomePage": {
         "title": "Marketorix",
-        "description": "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+        "description": "Stop experimenting. Start scaling. Marketorix fixes, secures, and deploys enterprise-grade AI. We transform broken AI apps and scattered data into secure, autonomous workflows that drive real ROI.",
         "whatWeDo": "What We Do"
     },
     "ServicesSection": {
-        "title": "Our Services"
+        "title": "Our Expertise"
     },
     "Services": {
         "autonomous_agents": {
-            "title": "Autonomous AI Agents",
-            "description": "We design and deploy intelligent AI agents that can independently handle complex tasks and workflows. These agents are customized to your specific needs, transforming repetitive or intricate processes into efficient, automated operations that save time and resources."
+            "title": "Multi-Agent Workflows",
+            "description": "Move beyond simple prompts. We deploy autonomous, multi-agent systems that don't just answer questions—they execute complex, multi-step tasks across your ERP, CRM, and internal APIs without human intervention."
         },
         "strategy": {
-            "title": "AI Strategy",
-            "description": "We help businesses develop a clear and actionable AI strategy that aligns with their long-term goals. By analyzing your current capabilities and market opportunities, we create a roadmap for AI implementation that drives measurable results and gives you a competitive edge in your industry."
+            "title": "AI Strategy & FinOps",
+            "description": "Stop wasting budget on bloated API calls. We audit your AI readiness, optimize your architecture for cost-efficiency (AI FinOps), and build a strategic roadmap that guarantees measurable ROI and compliance with upcoming AI regulations."
         },
         "custom_solutions": {
-            "title": "Custom AI Solutions",
-            "description": "Our team designs and builds AI solutions tailored to your organization’s unique challenges. Whether it’s predictive analytics, real-time data processing, or workflow automation, we create tools that improve decision-making, enhance efficiency, and deliver value across your operations."
+            "title": "RAG & Custom AI Solutions",
+            "description": "We build highly secure, custom AI architectures using Retrieval-Augmented Generation (RAG). By grounding advanced language models in your proprietary data, we eliminate hallucinations and deliver absolute accuracy."
         },
         "integration": {
-            "title": "AI Integration",
-            "description": "We ensure a smooth and seamless integration of AI into your existing systems. By working closely with your IT and operations teams, we minimize disruption and maximize efficiency, enabling intelligent automation, advanced analytics, and improved productivity across your organization."
+            "title": "Enterprise Data & Integration",
+            "description": "AI is only as good as your data. We engineer robust data pipelines, implement vector databases, and seamlessly integrate local or cloud-based AI models into your legacy systems to securely power your modern operations."
         },
         "support": {
-            "title": "Ongoing Support",
-            "description": "We provide dedicated, long-term support to ensure your AI solutions remain effective and up-to-date. From maintenance and updates to enhancements and troubleshooting, our team is here to keep your systems optimized and ready to adapt to evolving business needs."
+            "title": "Model Monitoring & Support",
+            "description": "AI requires continuous calibration. We provide 24/7 monitoring to detect model drift, optimize prompt efficiency, and ensure your AI systems remain secure, accurate, and aligned with your evolving business goals."
         },
         "industry_specific": {
             "title": "Industry-Specific AI",
-            "description": "We develop AI applications tailored to the unique requirements of your industry. Whether you’re in healthcare, finance, retail, or manufacturing, our solutions leverage domain expertise and advanced AI models to drive innovation, efficiency, and value in your sector."
+            "description": "Generic models don't solve niche problems. We fine-tune Open-Source and proprietary models to master the specific compliance, terminology, and operational requirements of healthcare, finance, manufacturing, and retail."
         },
         "nl_to_sql": {
-            "title": "Natural Language to SQL",
-            "description": "Our AI-powered solution transforms natural language queries into precise SQL database interactions. This bridges the gap between human communication and technical data retrieval, enabling non-technical users to access complex insights with simple, conversational input."
+            "title": "Conversational BI",
+            "description": "Democratize your data. We build secure interfaces that allow your executive and operational teams to bypass complex dashboards and extract real-time insights, charts, and metrics using natural, conversational language."
         },
         "chatbots": {
-            "title": "AI Chatbots",
-            "description": "We create intelligent, conversational AI chatbots that revolutionize customer interaction and support. Designed to understand, respond, and learn from user interactions, our chatbots enhance engagement and streamline communication across multiple platforms and industries."
+            "title": "Action-Driven AI Copilots",
+            "description": "Basic chatbots are dead. We engineer intelligent AI Copilots that sit alongside your employees and customers. They understand deep context, trigger real-world actions, and resolve complex support tickets end-to-end."
         }
     },
     "ServicesPage": {
         "items": {
             "code_review": {
-                "title": "AI-Generated Code Review & Debug",
-                "description": "Ensure the reliability and performance of AI-generated code through thorough reviews and debugging services.",
+                "title": "AI-Generated Code Audit & Security",
+                "description": "Developers are using AI to code faster, but injecting complex vulnerabilities. We audit, debug, and secure AI-generated code to protect your enterprise.",
                 "features": [
-                    "Code quality assessment",
-                    "Bug detection and resolution",
-                    "Security vulnerability checks",
-                    "Optimization for performance and readability"
+                    "Detection of LLM-generated logic flaws",
+                    "Security vulnerability & compliance checks",
+                    "Code optimization and technical debt reduction",
+                    "Implementation of secure coding guardrails"
                 ]
             },
             "recovery": {
-                "title": "AI App Recovery & Enhancement",
-                "description": "We fix broken or underperforming AI-generated applications and enhance them for long-term scalability.",
+                "title": "AI App Recovery & Scaling",
+                "description": "Did your initial AI project fail to scale or suffer from massive API costs? We are the experts who step in to fix, rebuild, and optimize underperforming AI applications.",
                 "features": [
-                    "Root-cause analysis of malfunctioning features",
-                    "Rebuilding unstable components",
-                    "Improving UX/UI and system logic",
-                    "Ongoing enhancement for evolving business needs"
+                    "Hallucination reduction & stability fixes",
+                    "API cost optimization and model routing (FinOps)",
+                    "RAG pipeline restructuring for accuracy",
+                    "Scalable cloud infrastructure migration"
                 ]
             },
             "autonomous_dev": {
-                "title": "Autonomous AI Agents Development",
-                "description": "Unlock the power of your data with our advanced analytics and management solutions.",
+                "title": "Autonomous Agent Engineering",
+                "description": "We build digital workers. Our multi-agent frameworks handle repetitive, high-logic workflows 24/7, dramatically reducing your operational overhead.",
                 "features": [
-                    "Advanced decision-making algorithms",
-                    "Seamless integration with existing systems",
-                    "Increased operational efficiency",
-                    "24/7 autonomous task execution"
+                    "Multi-agent orchestration (CrewAI, AutoGen)",
+                    "Direct API & internal system execution",
+                    "Self-correcting decision algorithms",
+                    "Secure, human-in-the-loop oversight"
                 ]
             },
             "chatbot_dev": {
-                "title": "AI Chatbot Development Service",
-                "description": "Harness the power of natural language processing for advanced AI capabilities.",
+                "title": "Action-Driven Copilot Development",
+                "description": "Upgrade from FAQ bots to capable Copilots. We build conversational agents that actually perform tasks, process transactions, and resolve issues.",
                 "features": [
-                    "Natural language processing",
-                    "Contextual understanding",
-                    "Multi-language support",
-                    "Personalized conversation flows"
+                    "Deep CRM & ERP integration",
+                    "Advanced context & memory retention",
+                    "Omnichannel deployment (Web, WhatsApp, Slack)",
+                    "Zero-hallucination guardrails"
                 ]
             },
             "integration": {
-                "title": "AI Integration",
-                "description": "Seamlessly integrate AI technologies with your existing systems and workflows for maximum efficiency.",
+                "title": "Data Pipeline & Legacy Integration",
+                "description": "We bridge the gap between cutting-edge AI and your existing legacy systems, ensuring your proprietary data is securely prepared for machine learning.",
                 "features": [
-                    "Legacy system integration",
-                    "API development",
-                    "Cloud migration",
-                    "Performance optimization"
+                    "Vector database architecture",
+                    "Unstructured data cleaning & chunking",
+                    "Local/On-Premise LLM deployment for privacy",
+                    "Secure API gateway management"
                 ]
             },
             "strategy": {
-                "title": "AI Strategy Formulation",
-                "description": "We help businesses develop comprehensive AI strategies aligned with their goals and industry trends.",
+                "title": "AI Governance & Strategy",
+                "description": "Navigate the complexities of AI adoption. We deliver actionable roadmaps focused on security, legal compliance, and tangible financial returns.",
                 "features": [
-                    "AI readiness assessment",
-                    "Technology roadmap creation",
-                    "ROI projections",
-                    "Implementation planning"
+                    "AI TRiSM (Trust, Risk, and Security Management)",
+                    "EU AI Act & Data Privacy compliance",
+                    "Technology selection (Open Source vs. Commercial)",
+                    "ROI and workflow impact analysis"
                 ]
             },
             "custom_dev": {
-                "title": "Custom AI Solution Development",
-                "description": "Our team of experts designs and builds tailored AI solutions to address your unique business challenges.",
+                "title": "Custom RAG & LLM Development",
+                "description": "Stop relying on generic models. We fine-tune and build highly specialized architectures designed specifically around your proprietary knowledge base.",
                 "features": [
-                    "Machine learning models",
-                    "Deep learning algorithms",
-                    "AI-powered applications",
-                    "Prototype development"
+                    "Advanced RAG (Retrieval-Augmented Generation)",
+                    "Small Language Model (SLM) fine-tuning",
+                    "Proprietary knowledge base integration",
+                    "Secure, isolated model environments"
                 ]
             },
             "support": {
-                "title": "Ongoing Support",
-                "description": "We provide continuous support and maintenance to ensure your AI solutions perform optimally.",
+                "title": "Continuous AI FinOps & Support",
+                "description": "AI isn't set-and-forget. We actively manage your deployments to prevent performance degradation and keep your cloud computing costs highly optimized.",
                 "features": [
-                    "24/7 technical support",
-                    "Performance monitoring",
-                    "Regular updates",
-                    "Training and workshops"
+                    "Real-time model drift monitoring",
+                    "Prompt engineering updates",
+                    "Token usage tracking and cost reduction",
+                    "24/7 incident response"
                 ]
             },
             "industry_apps": {
-                "title": "Industry-Specific AI Applications",
-                "description": "Leverage our expertise in developing AI solutions tailored for various industries.",
+                "title": "Industry-Specific AI Engineering",
+                "description": "Deploy AI solutions that speak your industry's language, respecting the strict compliance and operational nuances of your specific sector.",
                 "features": [
-                    "Healthcare diagnostics",
-                    "Financial fraud detection",
-                    "E-commerce personalization",
-                    "Manufacturing optimization"
+                    "HIPAA/GDPR compliant healthcare AI",
+                    "Financial predictive modeling & fraud detection",
+                    "Supply chain automation & forecasting",
+                    "Retail hyper-personalization engines"
                 ]
             },
             "nl_to_sql": {
-                "title": "Natural Language to SQL",
-                "description": "Streamline your operations with intelligent automation solutions that learn and adapt.",
+                "title": "Conversational Business Intelligence",
+                "description": "Turn your databases into conversational partners. Allow leadership to extract complex data insights instantly by asking simple questions.",
                 "features": [
-                    "Advanced semantic understanding",
-                    "Intelligent query translation",
-                    "Multi-dialect SQL support",
-                    "Minimizes human error"
+                    "High-accuracy Natural Language to SQL translation",
+                    "Real-time dynamic dashboard generation",
+                    "Role-based data access & security",
+                    "Multi-dialect database support (PostgreSQL, MySQL, etc.)"
                 ]
             }
         }
     },
     "OurTeam": {
-        "title": "Our Team",
+        "title": "Our Leadership",
         "members": {
             "robert": {
                 "name": "Robert Zimerman",
                 "role": "CEO & Founder",
-                "bio": "Robert brings over 10 years of experience in Web Development, AI and machine learning. He's passionate about leveraging AI to solve complex business problems."
+                "bio": "With over a decade bridging the gap between enterprise software and AI, Robert specializes in translating complex machine learning capabilities into scalable, high-ROI business solutions."
             },
             "lars": {
                 "name": "Lars Nyberg",
                 "role": "CTO",
-                "bio": "Lars is an expert in deep learning and natural language processing. He leads our technical strategy and innovation initiatives."
+                "bio": "Lars is an expert in advanced NLP, RAG architectures, and AI security. He leads our engineering teams to build robust, hallucination-free AI systems for enterprise clients."
             }
         },
         "devTeam": {
-            "title": "Our Development Team",
-            "description": "In addition to our leadership, we have a team of highly trained developers available worldwide for individual projects. Our experts specialize in various areas of AI and machine learning, ensuring we can meet the unique needs of each client.",
-            "inquire": "Inquire About Custom Projects"
+            "title": "Global Engineering Talent",
+            "description": "Beyond our core leadership, Marketorix commands a curated, global network of elite AI engineers, data scientists, and prompt architects. We scale our dedicated teams to match the exact technical requirements of your enterprise projects.",
+            "inquire": "Inquire About Dedicated Teams"
         },
-        "letsTalk": "Let's Talk"
+        "letsTalk": "Book a Discovery Call"
     },
     "Contact": {
         "title": "Contact Us",
-        "getInTouch": "Get in Touch",
+        "getInTouch": "Start Your AI Transformation",
         "form": {
             "name": "Name",
-            "email": "Email",
-            "message": "Message",
-            "send": "Send Message",
-            "success": "Message sent successfully!",
-            "error": "Failed to send message. Please try again later.",
-            "recaptchaError": "Please complete the reCAPTCHA."
+            "email": "Corporate Email",
+            "message": "Tell us about your AI challenges or goals",
+            "send": "Request Consultation",
+            "success": "Your request has been received. An AI strategist will contact you shortly.",
+            "error": "Transmission failed. Please try again or email us directly.",
+            "recaptchaError": "Please verify you are human."
         },
         "info": {
-            "title": "Contact Information",
+            "title": "Headquarters",
             "address": {
                 "title": "Address",
                 "line1": "150 Franslaan",
                 "line2": "Nieuwpoort, WF 8620",
                 "country": "Belgium"
             },
-            "phone": "Phone",
-            "whatsapp": "WhatsApp"
+            "phone": "Direct Line",
+            "whatsapp": "WhatsApp Support"
         }
     },
     "Footer": {
@@ -202,30 +202,30 @@
         "copyright2023": "© 2023 Marketorix. All rights reserved."
     },
     "Metadata": {
-        "title": "Marketorix",
-        "description": "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+        "title": "Marketorix | Enterprise AI Engineering & Integration",
+        "description": "Marketorix fixes, secures, and scales enterprise AI. We specialize in RAG architectures, AI code audits, autonomous agents, and AI cost optimization.",
         "blog": {
-            "title": "Blog | Marketorix",
-            "description": "Read the latest articles from our blog.",
-            "latestPosts": "Latest Blog Posts"
+            "title": "Insights | Marketorix",
+            "description": "Expert perspectives on AI integration, LLM security, and scaling enterprise tech.",
+            "latestPosts": "Latest AI Insights"
         }
     },
     "CTA": {
-        "title": "Ready to Transform Your Business with AI?",
-        "button": "Get Started Now"
+        "title": "Ready to move your AI from prototype to production?",
+        "button": "Schedule an AI Audit"
     },
     "CookieConsent": {
-        "message": "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
-        "accept": "Accept",
-        "decline": "Decline"
+        "message": "We use cookies to optimize your experience and analyze site traffic. By continuing to use our site, you consent to our data practices.",
+        "accept": "Accept All",
+        "decline": "Decline Non-Essential"
     },
     "Blog": {
-        "loading": "Loading more posts...",
-        "scrollLoad": "Scroll down to load more",
-        "endOfPosts": "You have reached the end of the posts.",
-        "imageAlt": "Blog post image",
-        "videoAlt": "YouTube video player",
-        "videoError": "Your browser does not support the video tag.",
-        "unhandledBlock": "Unhandled block type: {type}"
+        "loading": "Fetching insights...",
+        "scrollLoad": "Scroll for more articles",
+        "endOfPosts": "You're all caught up.",
+        "imageAlt": "AI Technology insight graphic",
+        "videoAlt": "Marketorix video presentation",
+        "videoError": "Your browser cannot play this video format.",
+        "unhandledBlock": "Unsupported content format: {type}"
     }
 }
