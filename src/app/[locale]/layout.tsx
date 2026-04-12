@@ -23,8 +23,17 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.marketorix.com"),
   title: "Marketorix",
-  description: "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency."
+  description: "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en': '/en',
+      'nl': '/nl',
+      'x-default': '/en',
+    },
+  },
 };
 
 export default async function RootLayout({

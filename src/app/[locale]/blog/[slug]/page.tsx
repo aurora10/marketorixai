@@ -26,10 +26,18 @@ export async function generateMetadata({ params }: { params: { slug: string, loc
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
+    alternates: {
+      canonical: `https://www.marketorix.com/${locale}/blog/${post.slug}`,
+      languages: {
+        'en': `https://www.marketorix.com/en/blog/${post.slug}`,
+        'nl': `https://www.marketorix.com/nl/blog/${post.slug}`,
+        'x-default': `https://www.marketorix.com/en/blog/${post.slug}`,
+      },
+    },
     openGraph: {
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
-      url: `/blog/${post.slug}`,
+      url: `https://www.marketorix.com/${locale}/blog/${post.slug}`,
       siteName: 'Marketorix AI',
       images: [
         {
@@ -38,7 +46,7 @@ export async function generateMetadata({ params }: { params: { slug: string, loc
           height: 630,
         },
       ],
-      locale: 'en_US',
+      locale: locale === 'nl' ? 'nl_NL' : 'en_US',
       type: 'article',
     },
     twitter: {
