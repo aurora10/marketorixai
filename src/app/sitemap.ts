@@ -1,25 +1,44 @@
 import { MetadataRoute } from 'next';
 import { getAllPostsForSitemap } from '@/lib/api';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://marketorix.com';
+const locales = ['en', 'nl'] as const;
+const baseUrl = 'https://www.marketorix.com';
 
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPostsForSitemap();
 
-  const postUrls = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt),
-  }));
+  const entries: MetadataRoute.Sitemap = [];
 
-  return [
-    {
-      url: baseUrl,
+  // Homepage and blog listing for each locale
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/blog`,
+    });
+
+    entries.push({
+      url: `${baseUrl}/${locale}/blog`,
       lastModified: new Date(),
-    },
-    ...postUrls,
-  ];
+    });
+  }
+
+  // Blog post entries for each locale, with hreflang alternates
+  for (const post of posts) {
+    for (const locale of locales) {
+      const otherLocale = locales.find(l => l !== locale)!;
+
+      entries.push({
+        url: `${baseUrl}/${locale}/blog/${post.slug}`,
+        lastModified: new Date(post.updatedAt),
+        alternates: {
+          languages: {
+            [locale]: `${baseUrl}/${locale}/blog/${post.slug}`,
+            [otherLocale]: `${baseUrl}/${otherLocale}/blog/${post.slug}`,
+          },
+        },
+      });
+    }
+  }
+
+  return entries;
 }
