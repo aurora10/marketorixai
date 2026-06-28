@@ -11,6 +11,8 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import MotionServiceCard from "@/components/MotionServiceCard";
+import CaseStudies from "@/components/CaseStudies";
+import ProcessTimeline from "@/components/ProcessTimeline";
 import { useTranslations, useLocale } from 'next-intl';
 
 // Define variants for the grid container to stagger children
@@ -76,8 +78,62 @@ export default function LandingPage() {
       <Header darkMode={false} />
 
       <main className="flex-grow" ref={comp}>
+        {/* ── Hero Section ── */}
+        <section className="container mx-auto px-4 pt-24 pb-16 md:pt-40 md:pb-24 text-center relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
+          >
+            <p className="text-yellow-400 font-semibold text-sm md:text-base uppercase tracking-widest mb-4">
+              {t("HomePage.heroSubheadline")}
+            </p>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
+              {t("HomePage.heroHeadline")}
+            </h1>
+            <p className="text-lg md:text-xl text-white/75 mb-10 leading-relaxed max-w-3xl mx-auto">
+              {t("HomePage.description")}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={`/${locale}/contact`}
+                className="bg-yellow-400 text-purple-900 px-10 py-4 rounded-full text-lg font-semibold hover:bg-yellow-300 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 inline-block"
+              >
+                {t("HomePage.ctaPrimary")}
+              </Link>
+              <Link
+                href={`/${locale}/services#pricing`}
+                className="border-2 border-white/30 text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 inline-block"
+              >
+                {t("HomePage.ctaSecondary")}
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Trust metrics strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-4xl mx-auto"
+          >
+            {(["metric1", "metric2", "metric3", "metric4"] as const).map((key) => (
+              <div key={key} className="text-center">
+                <div className="text-3xl md:text-4xl font-extrabold text-yellow-400 tracking-tight">
+                  {t(`HomePage.trustMetrics.${key}Value`)}
+                </div>
+                <div className="text-xs md:text-sm text-white/50 mt-1 uppercase tracking-wider font-medium">
+                  {t(`HomePage.trustMetrics.${key}Label`)}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* ── Services Grid ── */}
         <section id="services" className="container mx-auto px-4 py-24 md:py-32">
-          <h2 className="reveal-text opacity-0 text-5xl text-white md:text-5xl font-bold mb-10 text-center tracking-tight">{t("HomePage.whatWeDo")}</h2>
+          <h2 className="reveal-text opacity-0 text-4xl md:text-5xl text-white font-bold mb-10 text-center tracking-tight">{t("HomePage.whatWeDo")}</h2>
           {/* Wrap grid in motion.div for animation control */}
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
@@ -107,6 +163,9 @@ export default function LandingPage() {
             })}
           </motion.div>
         </section>
+
+        <CaseStudies />
+        <ProcessTimeline />
       </main>
 
       <footer className="py-8">

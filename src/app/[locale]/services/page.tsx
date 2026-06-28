@@ -3,6 +3,8 @@ import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import MotionServiceCardService from "@/components/MotionServiceCardService";
 import Call from "@/components/Call";
 import WhatWeDo from "@/components/WhatWeDo";
+import EngagementModels from "@/components/EngagementModels";
+import FAQAccordion from "@/components/FAQAccordion";
 import { getTranslations } from 'next-intl/server';
 
 export default async function ServicesPage() {
@@ -95,6 +97,9 @@ export default async function ServicesPage() {
 
         <Call />
       </section>
+
+      <EngagementModels />
+      <FAQAccordion />
 
       <footer className="py-8">
         <div className="container mx-auto px-4 text-center">

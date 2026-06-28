@@ -9,17 +9,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const entries: MetadataRoute.Sitemap = [];
 
-  // Homepage and blog listing for each locale
-  for (const locale of locales) {
-    entries.push({
-      url: `${baseUrl}/${locale}`,
-      lastModified: new Date(),
-    });
+  // Static pages for each locale
+  const staticPages = ['', '/services', '/team', '/contact', '/blog'];
 
-    entries.push({
-      url: `${baseUrl}/${locale}/blog`,
-      lastModified: new Date(),
-    });
+  for (const locale of locales) {
+    for (const page of staticPages) {
+      entries.push({
+        url: `${baseUrl}/${locale}${page}`,
+        lastModified: new Date(),
+        alternates: {
+          languages: {
+            'en': `${baseUrl}/en${page}`,
+            'nl': `${baseUrl}/nl${page}`,
+            'x-default': `${baseUrl}/en${page}`,
+          },
+        },
+      });
+    }
   }
 
   // Blog post entries for each locale, with hreflang alternates

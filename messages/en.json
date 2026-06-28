@@ -8,185 +8,199 @@
     },
     "HomePage": {
         "title": "Marketorix",
-        "description": "Stop experimenting. Start scaling. Marketorix fixes, secures, and deploys enterprise-grade AI. We transform broken AI apps and scattered data into secure, autonomous workflows that drive real ROI.",
-        "whatWeDo": "What We Do"
+        "heroHeadline": "AI That Works For Your Business",
+        "heroSubheadline": "Stop experimenting. Start seeing results.",
+        "description": "We fix broken AI tools, connect your business systems, and build smart automations — so you save time, cut costs, and stay ahead of the competition.",
+        "ctaPrimary": "Book a Free Consultation",
+        "ctaSecondary": "See Our Pricing",
+        "whatWeDo": "What We Do",
+        "trustMetrics": {
+            "metric1Value": "200+",
+            "metric1Label": "Hours Saved Monthly",
+            "metric2Value": "99%",
+            "metric2Label": "AI Accuracy Rate",
+            "metric3Value": "3x",
+            "metric3Label": "Faster Customer Response",
+            "metric4Value": "6 Weeks",
+            "metric4Label": "From Start to Live"
+        }
     },
     "ServicesSection": {
         "title": "Our Expertise"
     },
     "Services": {
         "autonomous_agents": {
-            "title": "Multi-Agent Workflows",
-            "description": "Move beyond simple prompts. We deploy autonomous, multi-agent systems that don't just answer questions—they execute complex, multi-step tasks across your ERP, CRM, and internal APIs without human intervention."
+            "title": "Workflow Automation",
+            "description": "Stop doing manually what AI can handle. We build smart automations that process orders, generate reports, handle data entry, and manage routine tasks — without your team lifting a finger."
         },
         "strategy": {
-            "title": "AI Strategy & FinOps",
-            "description": "Stop wasting budget on bloated API calls. We audit your AI readiness, optimize your architecture for cost-efficiency (AI FinOps), and build a strategic roadmap that guarantees measurable ROI and compliance with upcoming AI regulations."
+            "title": "AI Roadmap & Cost Control",
+            "description": "Not sure where to start with AI? Or already spending too much on tools that underdeliver? We assess your business, find the highest-impact opportunities, and build a clear plan with concrete ROI."
         },
         "custom_solutions": {
-            "title": "RAG & Custom AI Solutions",
-            "description": "We build highly secure, custom AI architectures using Retrieval-Augmented Generation (RAG). By grounding advanced language models in your proprietary data, we eliminate hallucinations and deliver absolute accuracy."
+            "title": "AI Trained on Your Business",
+            "description": "Generic AI gives generic answers. We build custom AI that knows your products, policies, pricing, and processes — so it gives accurate, useful answers every time, to your team and your customers."
         },
         "integration": {
-            "title": "Enterprise Data & Integration",
-            "description": "AI is only as good as your data. We engineer robust data pipelines, implement vector databases, and seamlessly integrate local or cloud-based AI models into your legacy systems to securely power your modern operations."
+            "title": "Connect Your Systems",
+            "description": "Your CRM doesn't talk to your accounting software. Your webshop data lives in a different world than your inventory. We connect your tools so AI can actually use your business data."
         },
         "support": {
-            "title": "Model Monitoring & Support",
-            "description": "AI requires continuous calibration. We provide 24/7 monitoring to detect model drift, optimize prompt efficiency, and ensure your AI systems remain secure, accurate, and aligned with your evolving business goals."
+            "title": "Ongoing AI Support",
+            "description": "AI tools degrade over time. We keep your automations running smoothly, fix issues before they become problems, and make sure your monthly AI costs stay predictable and under control."
         },
         "industry_specific": {
-            "title": "Industry-Specific AI",
-            "description": "Generic models don't solve niche problems. We fine-tune Open-Source and proprietary models to master the specific compliance, terminology, and operational requirements of healthcare, finance, manufacturing, and retail."
+            "title": "AI For Your Industry",
+            "description": "Every industry has its own rules, language, and compliance requirements. We build AI solutions that understand the specifics of healthcare, logistics, finance, retail, and manufacturing."
         },
         "nl_to_sql": {
-            "title": "Conversational BI",
-            "description": "Democratize your data. We build secure interfaces that allow your executive and operational teams to bypass complex dashboards and extract real-time insights, charts, and metrics using natural, conversational language."
+            "title": "Ask Your Data Questions",
+            "description": "Skip the complex reports and dashboards. We build tools where you or your team can simply ask 'What sold best last quarter?' and get an instant, accurate answer from your own data."
         },
         "chatbots": {
-            "title": "Action-Driven AI Copilots",
-            "description": "Basic chatbots are dead. We engineer intelligent AI Copilots that sit alongside your employees and customers. They understand deep context, trigger real-world actions, and resolve complex support tickets end-to-end."
+            "title": "Smart Customer Support",
+            "description": "Not just another FAQ bot. We build AI assistants that actually answer questions, process requests, and resolve issues — across your website, WhatsApp, and email."
         }
     },
     "ServicesPage": {
         "items": {
             "code_review": {
-                "title": "AI-Generated Code Audit & Security",
-                "description": "Developers are using AI to code faster, but injecting complex vulnerabilities. We audit, debug, and secure AI-generated code to protect your enterprise.",
+                "title": "AI App Health Check & Security",
+                "description": "Your developer used ChatGPT to build it. But is the code secure? Does it actually scale? We audit, debug, and fix AI-generated code before it becomes a costly problem.",
                 "features": [
-                    "Detection of LLM-generated logic flaws",
-                    "Security vulnerability & compliance checks",
-                    "Code optimization and technical debt reduction",
-                    "Implementation of secure coding guardrails"
+                    "Detection of hidden bugs in AI-generated code",
+                    "Security vulnerability & data privacy checks",
+                    "Performance optimization for faster, cheaper operation",
+                    "Implementation of guardrails to prevent future issues"
                 ]
             },
             "recovery": {
-                "title": "AI App Recovery & Scaling",
-                "description": "Did your initial AI project fail to scale or suffer from massive API costs? We are the experts who step in to fix, rebuild, and optimize underperforming AI applications.",
+                "title": "AI App Rescue & Optimization",
+                "description": "Your AI chatbot gives wrong answers? Your automation costs are spiraling? We step in to fix, rebuild, and optimize AI tools that aren't delivering on their promise.",
                 "features": [
-                    "Hallucination reduction & stability fixes",
-                    "API cost optimization and model routing (FinOps)",
-                    "RAG pipeline restructuring for accuracy",
-                    "Scalable cloud infrastructure migration"
+                    "Fixing inaccurate or 'hallucinating' AI responses",
+                    "Reducing monthly AI tool costs (often by 30–50%)",
+                    "Rebuilding data pipelines for better accuracy",
+                    "Migrating to more cost-effective infrastructure"
                 ]
             },
             "autonomous_dev": {
-                "title": "Autonomous Agent Engineering",
-                "description": "We build digital workers. Our multi-agent frameworks handle repetitive, high-logic workflows 24/7, dramatically reducing your operational overhead.",
+                "title": "Workflow Automation",
+                "description": "We build digital assistants that handle your team's most repetitive work — order processing, document handling, data entry, email triage — running 24/7 without errors.",
                 "features": [
-                    "Multi-agent orchestration (CrewAI, AutoGen)",
-                    "Direct API & internal system execution",
-                    "Self-correcting decision algorithms",
-                    "Secure, human-in-the-loop oversight"
+                    "Multi-step task automation across your tools",
+                    "Direct connection to your CRM, email, and admin systems",
+                    "Self-correcting logic that handles edge cases",
+                    "Human approval steps for important decisions"
                 ]
             },
             "chatbot_dev": {
-                "title": "Action-Driven Copilot Development",
-                "description": "Upgrade from FAQ bots to capable Copilots. We build conversational agents that actually perform tasks, process transactions, and resolve issues.",
+                "title": "Smart Customer Support Bot",
+                "description": "Go beyond a basic FAQ page. We build AI assistants that actually resolve customer issues, check order status, process returns, and book appointments — all automatically.",
                 "features": [
-                    "Deep CRM & ERP integration",
-                    "Advanced context & memory retention",
-                    "Omnichannel deployment (Web, WhatsApp, Slack)",
-                    "Zero-hallucination guardrails"
+                    "Integration with your CRM & order management",
+                    "Remembers conversation context and customer history",
+                    "Works on your website, WhatsApp, and email",
+                    "Accurate answers grounded in your actual business data"
                 ]
             },
             "integration": {
-                "title": "Data Pipeline & Legacy Integration",
-                "description": "We bridge the gap between cutting-edge AI and your existing legacy systems, ensuring your proprietary data is securely prepared for machine learning.",
+                "title": "System Integration & Data Preparation",
+                "description": "AI is only as good as the data it can access. We connect your existing tools — CRM, accounting, webshop, documents — so AI can actually work with your real business information.",
                 "features": [
-                    "Vector database architecture",
-                    "Unstructured data cleaning & chunking",
-                    "Local/On-Premise LLM deployment for privacy",
-                    "Secure API gateway management"
+                    "Structured storage for AI-ready business data",
+                    "Cleaning and organizing messy documents and records",
+                    "Option to run AI on your own servers for maximum privacy",
+                    "Secure connections between all your business tools"
                 ]
             },
             "strategy": {
-                "title": "AI Governance & Strategy",
-                "description": "Navigate the complexities of AI adoption. We deliver actionable roadmaps focused on security, legal compliance, and tangible financial returns.",
+                "title": "AI Roadmap & Compliance",
+                "description": "Not sure where AI can save you time and money? We assess your business processes, identify the biggest opportunities, and deliver a concrete plan with clear costs and expected returns.",
                 "features": [
-                    "AI TRiSM (Trust, Risk, and Security Management)",
-                    "EU AI Act & Data Privacy compliance",
-                    "Technology selection (Open Source vs. Commercial)",
-                    "ROI and workflow impact analysis"
+                    "Risk assessment and data security review",
+                    "EU AI Act & GDPR compliance guidance",
+                    "Recommendations: build custom vs. use existing tools",
+                    "Clear ROI projection per automation opportunity"
                 ]
             },
             "custom_dev": {
-                "title": "Custom RAG & LLM Development",
-                "description": "Stop relying on generic models. We fine-tune and build highly specialized architectures designed specifically around your proprietary knowledge base.",
+                "title": "AI Trained on Your Knowledge",
+                "description": "Your business has unique expertise — product specs, policies, pricing rules, procedures. We build AI that's trained specifically on your knowledge base, so it gives accurate, company-specific answers.",
                 "features": [
-                    "Advanced RAG (Retrieval-Augmented Generation)",
-                    "Small Language Model (SLM) fine-tuning",
-                    "Proprietary knowledge base integration",
-                    "Secure, isolated model environments"
+                    "Custom AI grounded in your documents and data",
+                    "Fine-tuned for your industry's terminology",
+                    "Integrated with your internal knowledge base",
+                    "Runs in a secure, isolated environment"
                 ]
             },
             "support": {
-                "title": "Continuous AI FinOps & Support",
-                "description": "AI isn't set-and-forget. We actively manage your deployments to prevent performance degradation and keep your cloud computing costs highly optimized.",
+                "title": "Ongoing AI Management & Support",
+                "description": "AI isn't a set-and-forget tool. We actively manage your AI systems to keep them accurate, fast, and cost-effective — so you don't have to worry about it.",
                 "features": [
-                    "Real-time model drift monitoring",
-                    "Prompt engineering updates",
-                    "Token usage tracking and cost reduction",
-                    "24/7 incident response"
+                    "Continuous monitoring for accuracy issues",
+                    "Regular updates to keep responses current",
+                    "Monthly cost tracking and optimization",
+                    "Priority support when something breaks"
                 ]
             },
             "industry_apps": {
-                "title": "Industry-Specific AI Engineering",
-                "description": "Deploy AI solutions that speak your industry's language, respecting the strict compliance and operational nuances of your specific sector.",
+                "title": "AI For Your Industry",
+                "description": "Every sector has unique compliance rules and workflows. We build AI solutions that speak your industry's language and respect its specific requirements.",
                 "features": [
-                    "HIPAA/GDPR compliant healthcare AI",
-                    "Financial predictive modeling & fraud detection",
-                    "Supply chain automation & forecasting",
-                    "Retail hyper-personalization engines"
+                    "GDPR-compliant AI for healthcare practices",
+                    "Financial forecasting & anomaly detection",
+                    "Supply chain optimization & demand planning",
+                    "Personalized recommendations for retail & e-commerce"
                 ]
             },
             "nl_to_sql": {
-                "title": "Conversational Business Intelligence",
-                "description": "Turn your databases into conversational partners. Allow leadership to extract complex data insights instantly by asking simple questions.",
+                "title": "Ask Your Data Questions",
+                "description": "Stop waiting for reports. We build tools that let you and your team ask business questions in plain language — and get instant answers from your own databases.",
                 "features": [
-                    "High-accuracy Natural Language to SQL translation",
-                    "Real-time dynamic dashboard generation",
-                    "Role-based data access & security",
-                    "Multi-dialect database support (PostgreSQL, MySQL, etc.)"
+                    "Ask questions like 'What sold best in Q3?' and get answers",
+                    "Automatic charts and dashboards from your questions",
+                    "Access controls so each team sees only their data",
+                    "Works with your existing database (MySQL, PostgreSQL, etc.)"
                 ]
             }
         }
     },
     "OurTeam": {
-        "title": "Our Leadership",
+        "title": "Our Team",
         "members": {
             "robert": {
                 "name": "Robert Zimerman",
                 "role": "CEO & Founder",
-                "bio": "With over a decade bridging the gap between enterprise software and AI, Robert specializes in translating complex machine learning capabilities into scalable, high-ROI business solutions."
+                "bio": "Over a decade of experience helping businesses bridge the gap between complex AI technology and practical, results-driven solutions. Robert translates technical possibilities into clear business value."
             },
             "lars": {
                 "name": "Lars Nyberg",
                 "role": "CTO",
-                "bio": "Lars is an expert in advanced NLP, RAG architectures, and AI security. He leads our engineering teams to build robust, hallucination-free AI systems for enterprise clients."
+                "bio": "Expert in building reliable, accurate AI systems. Lars leads our engineering team to deliver solutions that work in the real world — secure, fast, and built to handle your specific business data."
             }
         },
         "devTeam": {
-            "title": "Global Engineering Talent",
-            "description": "Beyond our core leadership, Marketorix commands a curated, global network of elite AI engineers, data scientists, and prompt architects. We scale our dedicated teams to match the exact technical requirements of your enterprise projects.",
-            "inquire": "Inquire About Dedicated Teams"
+            "title": "Flexible Team, Right-Sized For You",
+            "description": "Beyond our core team, we have a trusted network of specialized AI engineers and data experts. We scale our team up or down to match your project — you only pay for what you need.",
+            "inquire": "Ask About Our Team"
         },
-        "letsTalk": "Book a Discovery Call"
+        "letsTalk": "Book a Free Consultation"
     },
     "Contact": {
         "title": "Contact Us",
-        "getInTouch": "Start Your AI Transformation",
+        "getInTouch": "Let's Talk About Your Business",
         "form": {
             "name": "Name",
-            "email": "Corporate Email",
-            "message": "Tell us about your AI challenges or goals",
-            "send": "Request Consultation",
-            "success": "Your request has been received. An AI strategist will contact you shortly.",
-            "error": "Transmission failed. Please try again or email us directly.",
+            "email": "Email",
+            "message": "Tell us about your business and what you'd like to improve",
+            "send": "Send Message",
+            "success": "Your message has been received. We'll get back to you within one business day.",
+            "error": "Something went wrong. Please try again or email us directly.",
             "recaptchaError": "Please verify you are human."
         },
         "info": {
-            "title": "Headquarters",
+            "title": "Our Office",
             "address": {
                 "title": "Address",
                 "line1": "150 Franslaan",
@@ -194,7 +208,7 @@
                 "country": "Belgium"
             },
             "phone": "Direct Line",
-            "whatsapp": "WhatsApp Support"
+            "whatsapp": "WhatsApp"
         }
     },
     "Footer": {
@@ -202,22 +216,115 @@
         "copyright2023": "© 2023 Marketorix. All rights reserved."
     },
     "Metadata": {
-        "title": "Marketorix | Enterprise AI Engineering & Integration",
-        "description": "Marketorix fixes, secures, and scales enterprise AI. We specialize in RAG architectures, AI code audits, autonomous agents, and AI cost optimization.",
+        "title": "Marketorix | AI Solutions for Business",
+        "description": "Marketorix builds, fixes, and manages AI tools for businesses. Smart automation, customer support bots, data integration, and AI strategy — with clear pricing and real results.",
         "blog": {
             "title": "Insights | Marketorix",
-            "description": "Expert perspectives on AI integration, LLM security, and scaling enterprise tech.",
+            "description": "Practical advice on AI for business: automation, cost savings, and real-world implementation tips.",
             "latestPosts": "Latest AI Insights"
         }
     },
     "CTA": {
-        "title": "Ready to move your AI from prototype to production?",
-        "button": "Schedule an AI Audit"
+        "title": "Ready to see what AI can do for your business?",
+        "button": "Book a Free Consultation"
     },
     "CookieConsent": {
         "message": "We use cookies to optimize your experience and analyze site traffic. By continuing to use our site, you consent to our data practices.",
         "accept": "Accept All",
         "decline": "Decline Non-Essential"
+    },
+    "EngagementModels": {
+        "title": "Pricing & Packages",
+        "description": "Clear pricing, no surprises. Choose the package that fits where you are in your AI journey.",
+        "models": {
+            "audit": {
+                "title": "AI Quick Scan",
+                "price": "From $5,000",
+                "duration": "2 Weeks",
+                "description": "We analyze your business processes, tools, and data. You get a concrete report showing where AI can save you the most time and money — with clear cost estimates.",
+                "features": ["Process & Tools Inventory", "Data Privacy & GDPR Check", "Cost-Benefit Analysis per Opportunity", "Prioritized Action Plan"]
+            },
+            "poc": {
+                "title": "Working Prototype",
+                "price": "From $25,000",
+                "duration": "4–6 Weeks",
+                "description": "We build and deploy a working AI tool — a smart chatbot, automated workflow, or data assistant — connected to your real business data. You test it, we refine it.",
+                "features": ["Custom AI Built for Your Use Case", "Connected to Your Existing Systems", "Tested with Your Real Data", "Ready for Production Deployment"]
+            },
+            "retainer": {
+                "title": "Ongoing AI Partner",
+                "price": "From $3,000/month",
+                "duration": "Ongoing",
+                "description": "Continuous access to our AI team for maintenance, optimization, new automations, and support. Think of us as your external AI department.",
+                "features": ["Monthly Optimization & Updates", "Priority Support", "New Automation Development", "Dedicated Contact Person"]
+            }
+        },
+        "ctaButton": "Get Started",
+        "ctaButtonRetainer": "Book a Call"
+    },
+    "Process": {
+        "title": "How We Work",
+        "description": "A clear, proven process — so you always know exactly what's happening and what comes next.",
+        "steps": {
+            "step1": {
+                "title": "1. Free Consultation",
+                "description": "We talk about your business, your challenges, and where AI could help. No jargon, no sales pitch — just an honest assessment."
+            },
+            "step2": {
+                "title": "2. Analysis & Plan",
+                "description": "We map your processes, assess your data, and deliver a concrete plan with costs, timeline, and expected savings."
+            },
+            "step3": {
+                "title": "3. Build & Test",
+                "description": "We build your AI solution, connect it to your systems, and test it with your real data. You're involved every step of the way."
+            },
+            "step4": {
+                "title": "4. Launch & Support",
+                "description": "We deploy, train your team, and provide ongoing support to make sure everything keeps running smoothly."
+            }
+        }
+    },
+    "CaseStudies": {
+        "title": "Real Results For Real Businesses",
+        "description": "We don't just build AI — we deliver measurable time and cost savings.",
+        "items": {
+            "fintech": {
+                "title": "Logistics Company — Admin Automation",
+                "metric": "40% Less Admin",
+                "description": "Automated order processing and document handling for a Belgian logistics firm, saving their team over 30 hours per week on manual data entry."
+            },
+            "healthcare": {
+                "title": "Medical Practice — Patient Intake",
+                "metric": "99% Accuracy",
+                "description": "Built a GDPR-compliant AI assistant that handles patient intake forms, appointment scheduling, and FAQ — reducing receptionist workload by half."
+            },
+            "retail": {
+                "title": "E-commerce — Customer Support",
+                "metric": "60% Automated",
+                "description": "Deployed a smart support bot for an online retailer that handles product questions, order tracking, and returns — resolving 6 out of 10 requests without human help."
+            }
+        }
+    },
+    "FAQ": {
+        "title": "Frequently Asked Questions",
+        "items": {
+            "q1": {
+                "question": "Is my business data safe when using AI?",
+                "answer": "Absolutely. We can run AI models in isolated environments or even on your own servers — your data never leaves your control and never trains public AI models. We're fully GDPR compliant."
+            },
+            "q2": {
+                "question": "Our AI tool costs are getting out of hand. Can you help?",
+                "answer": "This is one of our specialties. We typically reduce AI running costs by 30–50% through smarter model selection (using cheaper models for simple tasks), better prompt design, and optimized infrastructure."
+            },
+            "q3": {
+                "question": "How long before we see results?",
+                "answer": "A working prototype is typically ready in 4–6 weeks. For simpler automations like a customer support bot, you can be live even sooner. Our approach is iterative — you see progress every week, not just at the end."
+            },
+            "q4": {
+                "question": "We already tried AI and it didn't work. Can you fix it?",
+                "answer": "Yes — a large part of our work is rescuing underperforming AI projects. Whether it's a chatbot giving wrong answers or an automation that's too expensive to run, we diagnose the issue and fix it, often within days."
+            }
+        }
     },
     "Blog": {
         "loading": "Fetching insights...",

@@ -24,8 +24,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.marketorix.com"),
-  title: "Marketorix",
-  description: "Transform your business with Marketorix, your expert AI Integrator. We provide custom AI solutions to drive growth and efficiency.",
+  title: "Marketorix | AI Solutions for Business",
+  description: "Marketorix builds, fixes, and manages AI tools for businesses. Smart automation, customer support bots, data integration, and AI strategy — with clear pricing and real results.",
 };
 
 export default async function RootLayout({
@@ -47,8 +47,8 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Marketorix",
-              "url": "https://www.marketorix.ai",
-              "logo": "https://www.marketorix.ai/logo.svg",
+              "url": "https://www.marketorix.com",
+              "logo": "https://www.marketorix.com/logo.svg",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+32465811031",
