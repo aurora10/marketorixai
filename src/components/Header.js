@@ -84,8 +84,7 @@ export default function Header({ darkMode = false }) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          // Use card background, shadow, and consistent rounding for mobile menu
-          className="md:hidden mt-4 bg-card shadow-md rounded-lg p-4"
+          className="md:hidden mt-4 bg-white bg-opacity-10 backdrop-blur-lg border border-white/10 shadow-lg rounded-2xl p-4 text-white"
         >
           {menuItems.map((item) => (
             <Link
@@ -99,8 +98,8 @@ export default function Header({ darkMode = false }) {
               <span className="absolute bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
-          <div className="mt-4 pt-4 border-t border-border">
-            <LanguageSwitcher darkMode={true} />
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <LanguageSwitcher darkMode={darkMode} />
           </div>
         </motion.div>
       )}

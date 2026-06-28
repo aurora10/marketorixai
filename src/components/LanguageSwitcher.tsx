@@ -19,20 +19,20 @@ export default function LanguageSwitcher({ darkMode = false }: { darkMode?: bool
         router.replace(newPath);
     };
 
-    const textColor = darkMode ? "text-gray-800" : "text-gray-200";
+    const textColor = darkMode ? "text-gray-900" : "text-white";
 
     return (
-        <div className={`flex items-center space-x-2 ${textColor}`}>
+        <div className={`flex items-center space-x-3 ${textColor}`}>
             <button
                 onClick={() => switchLanguage('en')}
-                className={`text-sm tracking-wider ${locale === 'en' ? 'font-bold' : 'opacity-60 hover:opacity-100 hover:font-bold'}`}
+                className={`text-base font-medium tracking-wider transition-all duration-300 ${locale === 'en' ? 'text-yellow-400 scale-110' : 'opacity-70 hover:opacity-100 hover:text-yellow-400'}`}
             >
                 EN
             </button>
-            <span className="opacity-40">|</span>
+            <span className="opacity-30">|</span>
             <button
                 onClick={() => switchLanguage('nl')}
-                className={`text-sm tracking-wider ${locale === 'nl' ? 'font-bold' : 'opacity-60 hover:opacity-100 hover:font-bold'}`}
+                className={`text-base font-medium tracking-wider transition-all duration-300 ${locale === 'nl' ? 'text-yellow-400 scale-110' : 'opacity-70 hover:opacity-100 hover:text-yellow-400'}`}
             >
                 NL
             </button>
