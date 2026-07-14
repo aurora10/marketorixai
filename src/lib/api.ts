@@ -30,6 +30,7 @@ interface PaginatedPosts {
 interface SitemapPost {
   slug: string;
   updatedAt: string;
+  locales: string[]; // which locales this post is available in
 }
 
 // Fetches a list of posts with pagination
@@ -209,7 +210,7 @@ export async function getPost(slug: string, locale: string = 'en'): Promise<Post
   }
 }
 
-// Fetches all posts for the sitemap
+// Fetches all posts for the sitemap, grouped by locale availability
 export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
   if (!STRAPI_URL) {
@@ -217,36 +218,62 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
     return [];
   }
 
-  const query = qs.stringify(
-    {
-      fields: ["slug", "updatedAt"],
-      pagination: {
-        pageSize: 1000, // Adjust as needed
-      },
-    },
-    {
-      encodeValuesOnly: true,
-    }
-  );
+  const locales = ['en', 'nl'];
 
-  const url = `${STRAPI_URL}/api/posts?${query}`;
   try {
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    // Fetch posts for each locale in parallel
+    const perLocaleResults = await Promise.all(
+      locales.map(async (locale) => {
+        const query = qs.stringify(
+          {
+            locale,
+            fields: ["slug", "updatedAt"],
+            pagination: {
+              pageSize: 1000,
+            },
+          },
+          {
+            encodeValuesOnly: true,
+          }
+        );
 
-    if (!res.ok) {
-      console.error(`Failed to fetch posts for sitemap from ${url}`);
-      return [];
+        const url = `${STRAPI_URL}/api/posts?${query}`;
+        const res = await fetch(url, { next: { revalidate: 60 } });
+
+        if (!res.ok) {
+          console.error(`Failed to fetch posts for sitemap (locale: ${locale}) from ${url}`);
+          return { locale, slugs: [] as string[] };
+        }
+
+        const responseData = await res.json();
+
+        if (!Array.isArray(responseData.data)) {
+          return { locale, slugs: [] as string[] };
+        }
+
+        return {
+          locale,
+          slugs: responseData.data.map((item: any) => item.attributes.slug as string),
+        };
+      })
+    );
+
+    // Merge results: build a map of slug -> { updatedAt, locales }
+    const postMap = new Map<string, { updatedAt: string; locales: string[] }>();
+
+    for (const { locale, slugs } of perLocaleResults) {
+      for (const slug of slugs) {
+        if (!postMap.has(slug)) {
+          postMap.set(slug, { updatedAt: new Date().toISOString(), locales: [] });
+        }
+        postMap.get(slug)!.locales.push(locale);
+      }
     }
 
-    const responseData = await res.json();
-
-    if (!Array.isArray(responseData.data)) {
-      return [];
-    }
-
-    return responseData.data.map((item: any) => ({
-      slug: item.attributes.slug,
-      updatedAt: item.attributes.updatedAt || new Date().toISOString(),
+    return Array.from(postMap.entries()).map(([slug, data]) => ({
+      slug,
+      updatedAt: data.updatedAt,
+      locales: data.locales,
     }));
   } catch (error) {
     console.error("Error fetching posts for sitemap:", error);

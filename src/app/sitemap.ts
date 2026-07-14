@@ -28,19 +28,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Blog post entries for each locale, with hreflang alternates
+  // Blog post entries — only generate URLs for locales the post actually exists in
   for (const post of posts) {
-    for (const locale of locales) {
-      const otherLocale = locales.find(l => l !== locale)!;
+    for (const locale of post.locales) {
+      const alternates: Record<string, string> = {
+        [locale]: `${baseUrl}/${locale}/blog/${post.slug}`,
+        'x-default': `${baseUrl}/en/blog/${post.slug}`,
+      };
+
+      // Add other locales that this post also exists in
+      for (const otherLocale of post.locales) {
+        if (otherLocale !== locale) {
+          alternates[otherLocale] = `${baseUrl}/${otherLocale}/blog/${post.slug}`;
+        }
+      }
+      // Ensure en exists in alternates even if it's not a locale of this post
+      // (used for x-default)
+      if (!alternates['en']) {
+        alternates['en'] = `${baseUrl}/en/blog/${post.slug}`;
+      }
 
       entries.push({
         url: `${baseUrl}/${locale}/blog/${post.slug}`,
         lastModified: new Date(post.updatedAt),
         alternates: {
-          languages: {
-            [locale]: `${baseUrl}/${locale}/blog/${post.slug}`,
-            [otherLocale]: `${baseUrl}/${otherLocale}/blog/${post.slug}`,
-          },
+          languages: alternates,
         },
       });
     }
