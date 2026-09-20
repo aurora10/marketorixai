@@ -9,6 +9,7 @@ import AnalyticsWrapper from "@/components/AnalyticsWrapper";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { SITE_URL, alternatesFor } from '@/lib/site';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,11 +23,28 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.marketorix.com"),
-  title: "Marketorix | AI Solutions for Business",
-  description: "Marketorix builds, fixes, and manages AI tools for businesses. Smart automation, customer support bots, data integration, and AI strategy — with clear pricing and real results.",
-};
+/**
+ * Default metadata for the locale segment. Because `page.tsx` for the home
+ * route is a client component it cannot export metadata itself, so the
+ * `alternates` here describe the home page: `/en` or `/nl`.
+ *
+ * Next.js replaces (does not deep-merge) a top-level metadata field, so every
+ * child route — services, team, contact, blog, blog/[slug] — sets its own
+ * `alternates` and will not inherit this canonical. If you add a new route,
+ * give it its own canonicals.
+ */
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: "Marketorix | AI Solutions for Business",
+    description: "Marketorix builds, fixes, and manages AI tools for businesses. Smart automation, customer support bots, data integration, and AI strategy — with clear pricing and real results.",
+    alternates: alternatesFor(locale),
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -47,8 +65,8 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Marketorix",
-              "url": "https://www.marketorix.com",
-              "logo": "https://www.marketorix.com/logo.svg",
+              "url": SITE_URL,
+              "logo": `${SITE_URL}/logo.svg`,
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+32465811031",

@@ -33,6 +33,12 @@ interface SitemapPost {
   locales: string[]; // which locales this post is available in
 }
 
+// Per-locale fetch result used while assembling the sitemap
+interface SitemapPostRef {
+  slug: string;
+  updatedAt: string;
+}
+
 // Fetches a list of posts with pagination
 export async function getPosts(
   page: number,
@@ -242,18 +248,23 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
 
         if (!res.ok) {
           console.error(`Failed to fetch posts for sitemap (locale: ${locale}) from ${url}`);
-          return { locale, slugs: [] as string[] };
+          return { locale, posts: [] as SitemapPostRef[] };
         }
 
         const responseData = await res.json();
 
         if (!Array.isArray(responseData.data)) {
-          return { locale, slugs: [] as string[] };
+          return { locale, posts: [] as SitemapPostRef[] };
         }
 
         return {
           locale,
-          slugs: responseData.data.map((item: any) => item.attributes.slug as string),
+          posts: responseData.data
+            .map((item: any) => ({
+              slug: item?.attributes?.slug as string,
+              updatedAt: item?.attributes?.updatedAt as string,
+            }))
+            .filter((post: SitemapPostRef) => Boolean(post.slug)),
         };
       })
     );
@@ -261,12 +272,23 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
     // Merge results: build a map of slug -> { updatedAt, locales }
     const postMap = new Map<string, { updatedAt: string; locales: string[] }>();
 
-    for (const { locale, slugs } of perLocaleResults) {
-      for (const slug of slugs) {
-        if (!postMap.has(slug)) {
-          postMap.set(slug, { updatedAt: new Date().toISOString(), locales: [] });
+    for (const { locale, posts } of perLocaleResults) {
+      for (const post of posts) {
+        const existing = postMap.get(post.slug);
+
+        if (!existing) {
+          postMap.set(post.slug, { updatedAt: post.updatedAt, locales: [locale] });
+          continue;
         }
-        postMap.get(slug)!.locales.push(locale);
+
+        // A post can be edited in either locale; report the most recent edit.
+        const previous = Date.parse(existing.updatedAt);
+        const candidate = Date.parse(post.updatedAt);
+        if (!Number.isNaN(candidate) && (Number.isNaN(previous) || candidate > previous)) {
+          existing.updatedAt = post.updatedAt;
+        }
+
+        existing.locales.push(locale);
       }
     }
 

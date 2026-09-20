@@ -6,6 +6,21 @@ import WhatWeDo from "@/components/WhatWeDo";
 import EngagementModels from "@/components/EngagementModels";
 import FAQAccordion from "@/components/FAQAccordion";
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+import { alternatesFor } from '@/lib/site';
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  return {
+    title: 'Services | Marketorix',
+    description:
+      'AI code review, broken AI project recovery, autonomous development and AI strategy for businesses.',
+    alternates: alternatesFor(locale, '/services'),
+  };
+}
 
 export default async function ServicesPage() {
   const t = await getTranslations("ServicesPage");

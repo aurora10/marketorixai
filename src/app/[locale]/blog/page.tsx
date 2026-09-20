@@ -2,19 +2,13 @@ import PostListClient from "@/components/PostListClient";
 import { getPosts } from "@/lib/api";
 import Header from "@/components/Header";
 import { Metadata } from 'next';
+import { alternatesFor } from '@/lib/site';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   return {
     title: 'Latest Blog Posts | Marketorix',
     description: 'Read the latest updates and insights from Marketorix.',
-    alternates: {
-      canonical: `https://www.marketorix.com/${locale}/blog`,
-      languages: {
-        'en': `https://www.marketorix.com/en/blog`,
-        'nl': `https://www.marketorix.com/nl/blog`,
-        'x-default': `https://www.marketorix.com/en/blog`,
-      },
-    },
+    alternates: alternatesFor(locale, '/blog'),
   };
 }
 

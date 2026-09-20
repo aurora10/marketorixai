@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import { getTranslations } from "next-intl/server";
+import { SITE_URL, alternatesFor, localeUrl } from "@/lib/site";
 
 export const dynamic = 'force-dynamic';
 
@@ -21,23 +22,19 @@ export async function generateMetadata({ params }: { params: { slug: string, loc
     };
   }
 
-  const defaultImageUrl = "https://www.marketorix.com/logo.png";
+  // NOTE: /logo.png does not exist as a static asset; the old value pointed at
+  // the www host (404) and then at an HTML soft-404. logo.svg is a real asset.
+  // A dedicated 1200x630 PNG/JPG would be better for social previews.
+  const defaultImageUrl = `${SITE_URL}/logo.svg`;
 
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
-    alternates: {
-      canonical: `https://www.marketorix.com/${locale}/blog/${post.slug}`,
-      languages: {
-        'en': `https://www.marketorix.com/en/blog/${post.slug}`,
-        'nl': `https://www.marketorix.com/nl/blog/${post.slug}`,
-        'x-default': `https://www.marketorix.com/en/blog/${post.slug}`,
-      },
-    },
+    alternates: alternatesFor(locale, `/blog/${post.slug}`),
     openGraph: {
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
-      url: `https://www.marketorix.com/${locale}/blog/${post.slug}`,
+      url: localeUrl(locale, `/blog/${post.slug}`),
       siteName: 'Marketorix AI',
       images: [
         {
