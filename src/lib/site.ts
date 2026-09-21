@@ -66,3 +66,20 @@ export function alternatesFor(locale: string, path = '') {
     languages: languageAlternates(path),
   };
 }
+
+/**
+ * Alternates for content that exists in one locale only.
+ *
+ * Use this instead of `alternatesFor` whenever the other locale has no
+ * equivalent page: emitting an `nl` hreflang for English-only content points
+ * Google at a 404, which is worse than declaring no alternate at all.
+ */
+export function singleLocaleAlternates(locale: string, path = '') {
+  return {
+    canonical: localeUrl(locale, path),
+    languages: {
+      [locale]: localeUrl(locale, path),
+      'x-default': localeUrl(locale, path),
+    },
+  };
+}

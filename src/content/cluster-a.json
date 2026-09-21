@@ -1,0 +1,919 @@
+{
+  "cluster": "A - Fix my AI (rescue intent) + illustrative scenarios hub",
+  "locale": "en",
+  "url_pattern": "/en/{slug} (fix pages under /en/fix/<slug>)",
+  "version": "v2-expanded",
+  "pages": [
+    {
+      "slug": "ai-project-failing",
+      "meta_title": "AI Project Failing? How to Rescue It",
+      "meta_description": "5 failure modes that kill AI projects, a rescue-vs-rebuild decision framework, and realistic recovery costs. Written for SME owners, not engineers.",
+      "h1": "Your AI Project Is Failing. Here's How to Decide What Happens Next.",
+      "intro": "Most AI projects don't fail loudly. They fade. The demo worked, the pilot sort of worked, and six months later nobody uses the thing and nobody can quite explain why. The vendor has moved on, your team has lost confidence, and the budget line is still there like an unanswered question. If that sounds familiar, you are not in an unusual situation — the majority of AI initiatives in small and mid-sized businesses end up somewhere on this spectrum. What is unusual is dealing with it properly: diagnosing what actually went wrong, making an honest rescue-versus-rebuild decision, and getting to a working system without throwing good money after bad. That is exactly what this page walks you through. No jargon, no sales pitch — a structured way to think, the same one we use when we're called in to triage failing projects.",
+      "sections": [
+        {
+          "h2": "The 5 failure modes behind almost every stalled AI project",
+          "format": "checklist",
+          "body": "After reviewing dozens of stalled initiatives, the causes collapse into five buckets. Mode 1: solved the wrong problem. The tool works technically, but it automates something that was never costing real money or time — impressive, irrelevant. Mode 2: the data wasn't ready. The AI was built on incomplete, inconsistent, or inaccessible data, so its output is unreliable and nobody trusts it. This is the single most common root cause we find. Mode 3: no owner. After launch, nobody internally owns accuracy, monitoring, and improvement — so quality quietly decays until users abandon it. AI systems are not appliances you install once; they're more like new employees who need management. Mode 4: demo-grade build. It worked in a controlled demo on clean examples, but was never engineered for real-world volume, edge cases, and messy inputs. Mode 5: no success metric. 'Implement AI' was the goal instead of a measurable outcome, so nobody can say whether it worked — which guarantees it eventually gets treated as a failure regardless of its actual value. Diagnosing which mode(s) you're in is the first half of any rescue."
+        },
+        {
+          "h2": "Rescue, rebuild, or kill: the honest decision framework",
+          "format": "table",
+          "body": "The right next move depends on a small number of factual questions: Do you own and can you access the code? Was the underlying use case real? Is the core architecture sound, or was the gap in data, quality, or ownership? Plan for 4–8 weeks at 30–50% of the original budget. Rebuild makes sense when the foundation is wrong — but note that even a rebuild is cheaper the second time, because you keep the lessons. And sometimes the right answer is to kill the project cleanly, document what was learned, and redirect the budget. A clear kill decision is a success, not a defeat.",
+          "table": {
+            "columns": [
+              "Signal in your project",
+              "Points to rescue",
+              "Points to rebuild or kill"
+            ],
+            "rows": [
+              [
+                "You own and can access the code",
+                "Strong rescue candidate",
+                "—"
+              ],
+              [
+                "Data quality was the core issue",
+                "Fix data layer, rescue the rest",
+                "Rebuild only if data cannot realistically be fixed"
+              ],
+              [
+                "It never worked outside the demo",
+                "Diagnose root cause first",
+                "Often rebuild — architecture suspect"
+              ],
+              [
+                "No internal owner after launch",
+                "Assign owner, add monitoring",
+                "—"
+              ],
+              [
+                "The use case itself was wrong",
+                "—",
+                "Kill, redirect budget to a real problem"
+              ],
+              [
+                "Vendor won't hand over assets",
+                "Depends on contract",
+                "Rebuild cleanly, learn the lesson"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "What a rescue actually looks like, week by week",
+          "format": "process",
+          "body": "Weeks 1–2 are a forensic audit. We review the code, the prompts, the data pipelines, the integrations, and any logs that exist. The output is a written diagnosis — what failed, why, and what it's worth fixing — plus a fixed-price rescue plan, so you know the full cost before committing anything further. This step alone is valuable even if you never proceed: it converts 'the project failed somehow' into a factual document you can act on or learn from. Weeks 3–6 are the fix itself. In most rescues the work concentrates in the same places: retrieval and data quality, error handling, integration with the systems people actually use, and building an evaluation setup so accuracy becomes a number you can watch instead of a feeling you argue about. Weeks 7–8 are handover: monitoring dashboards, a trained internal owner, and a runbook for when things break. The goal is that six months later you're not calling us again about the same system."
+        },
+        {
+          "h2": "What it costs — and how to think about it",
+          "format": "narrative",
+          "body": "Indicative numbers for this type of work: our indicative range for a diagnostic audit is €2,500–5,000 depending on system complexity, and is deductible from the rescue if you proceed. Budget €8,000–25,000 for a rescue of this scope. The right comparison is not 'that's expensive' but three other figures: the sunk cost of the original project (often €20–60k), the ongoing monthly cost of the process still being done manually, and the cost of doing nothing while competitors automate. A useful mental rule: if the rescued system would save or earn more than €1,500/month, a mid-range rescue pays for itself within a year. If it wouldn't, say so in the diagnosis and close the project — which is exactly what a good audit tells you."
+        },
+        {
+          "h2": "An illustrative rescue scenario",
+          "format": "narrative",
+          "body": "An illustrative scenario — a composite example, not a specific client: a distribution company had spent around €40,000 on an AI order-processing system that performed well in testing but failed on real orders, and was abandoned within two months of launch. The diagnosis found the problem wasn't the AI at all — the original vendor had never handled the ERP's inconsistent product codes and supplier naming, so real-world inputs broke the extraction. In other words: a data problem wearing an AI costume. The rescue took six weeks: a normalization layer in front of the extraction, re-tuned handling of exception cases, and an accuracy dashboard so the operations manager could see performance daily. In this illustrative scenario the finished system processes roughly 70% of incoming orders untouched, with the remainder routed to a human queue with the AI's draft already attached. Your situation will differ in the details — but the pattern, demo-grade build plus unhandled data reality, is the single most common thing we find."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I know if my AI project can be saved?",
+          "a": "If you own the code and data and the original use case was real, it usually can. A diagnostic audit answers the question definitively within 1–2 weeks, before you commit to anything larger."
+        },
+        {
+          "q": "We built it with another agency. Will you work on their code?",
+          "a": "Yes, provided you have legal access to it. If the agency won't hand over the code, that fact itself informs the rescue-vs-rebuild decision."
+        },
+        {
+          "q": "What does rescuing a failed AI project typically cost?",
+          "a": "As a planning assumption, 30–50% of the original project budget, with the diagnostic audit (€2,500–5,000) fixed in advance and deducted if you proceed."
+        },
+        {
+          "q": "What if the honest answer is to kill the project?",
+          "a": "Then that's the recommendation, in writing, with the reasoning documented. A clean kill decision that stops ongoing spend is a legitimate outcome of the audit."
+        }
+      ],
+      "cta_primary": "Book a rescue diagnostic — free 30-min consultation",
+      "cta_secondary": "Estimate your AI ROI with our calculator",
+      "internal_links": [
+        "/en/ai-implementation-roi-guide",
+        "/en/fix/ai-agency-underdelivering",
+        "/en/fix/ai-not-integrated-with-systems",
+        "/en/case-studies",
+        "/en/blog/ai-roi-calculator-a-guide-for-sme-cf-os"
+      ]
+    },
+    {
+      "slug": "chatbot-not-converting",
+      "meta_title": "Chatbot Not Converting? Causes and Fixes",
+      "meta_description": "Your chatbot answers questions but doesn't generate leads or sales. A conversion audit checklist, the 7 most common causes, and realistic fixes.",
+      "h1": "Your Chatbot Talks. It Doesn't Convert. Here's Why.",
+      "intro": "Somewhere between the vendor demo and your website, most chatbots lose sight of their actual job. That job is not 'answering questions' — it's moving visitors toward a decision: a booked call, a requested quote, a captured email, a completed order. If your chatbot gets traffic but produces no measurable business outcome, you have a conversion problem, and here's the important part: it is almost never the AI model's fault. Conversion failure is a design problem, a goals problem, and a measurement problem — all fixable without replacing your technology. This page gives you the audit we run, the seven causes we find most often, and what a proper fix involves.",
+      "sections": [
+        {
+          "h2": "The 7 conversion killers we find in audits",
+          "format": "checklist",
+          "body": "One: no defined conversion goal. The bot was specified as 'answer customer questions', so that is exactly all it does — a chatbot without a goal is an FAQ page with extra steps. Two: purely reactive. It waits passively for questions instead of engaging visitors when behavior signals intent — lingering on pricing, comparing plans, revisiting a service page. Three: no escalation path. When the bot can't help, the conversation simply dies instead of routing to a human with context attached. Four: generic answers. The bot doesn't know your actual prices, availability, delivery times, or differentiators, so its answers could belong to any company in your sector. Five: no capture mechanism. Conversations end with nothing — no email, no phone number, no booking. Six: bad placement. The bot lives on the contact page instead of the high-intent pages where buying decisions actually happen. Seven: nobody reads transcripts. The single richest source of voice-of-customer data in your company sits unexamined. Most failing bots have three or more of these."
+        },
+        {
+          "h2": "The chatbot conversion audit — run it yourself this week",
+          "format": "process",
+          "body": "Step 1: export 50 recent conversations. Count how many ended with a concrete next step — a booked meeting, submitted email, sent quote — versus polite dead air. As a rule of thumb, a healthy bot turns 15–25% of conversations on high-intent pages into that next step; most broken ones are under 5%. Step 2: categorize what people actually ask. Expect 5–8 topics to cover 80% of volume. These topics are your conversion content priorities. Step 3: check how the bot answers those top topics — with your specifics (your prices, your process, your timelines) or with generic filler text. Generic answers are the silent killer: the visitor asked for a reason to choose you and got Wikipedia. Step 4: test the failure path. Ask something the bot can't answer and watch what happens. If the answer is some variation of 'I don't understand' with no human fallback, you're losing your highest-value visitors — the ones with complex, specific, expensive needs. Step 5: check what happens after the chat. Does anyone follow up? Is there a record in your CRM? If conversations vanish into a tool nobody opens, even successful chats produce nothing."
+        },
+        {
+          "h2": "What a conversion rebuild involves",
+          "format": "narrative",
+          "body": "Notice what's not on this list: a new AI model. A conversion rebuild involves four things. First, conversation flows redesigned around your top visitor intents, each ending in a concrete next step. Second, real data connections — the bot plugged into your pricing, calendar, stock levels, and knowledge base so answers are yours, not generic. Third, human handover done properly: when the bot escalates, the human receives the full transcript and context, so the visitor never repeats themselves. Fourth, measurement: every conversation tagged with outcome, so conversion rate becomes a number you manage rather than a suspicion. Timeline: three to five weeks. The technology you already have is usually fine — it's the system around the model that gets rebuilt."
+        },
+        {
+          "h2": "Illustrative targets: what good actually looks like",
+          "format": "table",
+          "body": "To calibrate expectations, these are illustrative ranges for a conversion rebuild, not measured averages from a client base. Treat them as orientation, not guarantees — your traffic quality matters most.",
+          "table": {
+            "columns": [
+              "Metric",
+              "A broken bot (illustrative)",
+              "After a rebuild (illustrative target)"
+            ],
+            "rows": [
+              [
+                "Conversation-to-lead rate",
+                "Under 5%",
+                "15–25% on high-intent pages"
+              ],
+              [
+                "After-hours lead capture",
+                "Near zero",
+                "A large share of total leads — B2B conversations commonly cluster outside office hours"
+              ],
+              [
+                "Escalation experience",
+                "'I don't understand', dead end",
+                "Human receives full context within minutes"
+              ],
+              [
+                "Response time to sales query",
+                "Hours (contact form)",
+                "Seconds"
+              ],
+              [
+                "Visibility into outcomes",
+                "None",
+                "Every conversation tagged and reported"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "An illustrative rebuild scenario",
+          "format": "narrative",
+          "body": "An illustrative scenario — a composite example, not a specific client: a professional services firm had a chatbot handling roughly 400 conversations a month and producing a handful of leads — around 3 in a typical month, a conversion rate under 1%. The audit found the usual stack of problems: no goal, generic answers, no calendar connection, dead-end escalations. The rebuild kept the same underlying AI model and the same traffic, but rebuilt flows around the firm's five real inquiry types, connected booking directly to consultants' calendars, and added human handover for complex questions. In this illustrative scenario, conversion moves to the 15–25% range — the same traffic simply starts producing what it should have produced all along, on the order of dozens of qualified leads per month instead of a few. The lesson generalizes: traffic is rarely the problem. The machine between the traffic and the lead is."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can a chatbot genuinely generate leads, or does it just deflect support questions?",
+          "a": "It can genuinely qualify and capture leads — but only when designed around that goal from the start. FAQ-style bots don't convert because nobody built them to."
+        },
+        {
+          "q": "Do we need to replace our current chatbot platform to fix conversion?",
+          "a": "Usually not. Most platforms support the flows, integrations, and tracking needed. Conversion failure is rarely a platform problem."
+        },
+        {
+          "q": "How long does a conversion rebuild take?",
+          "a": "Plan for 3–5 weeks including measurement setup, so you can prove the improvement with before/after numbers."
+        },
+        {
+          "q": "What conversion rate should we realistically expect?",
+          "a": "On high-intent traffic, 15–25% conversation-to-lead is a realistic target range to design for. Sustained rates under 5% mean something structural is broken."
+        }
+      ],
+      "cta_primary": "Get a free chatbot conversion review",
+      "cta_secondary": "See our pricing approach",
+      "internal_links": [
+        "/en/fix/chatbot-gives-wrong-answers",
+        "/en/ai-automation-cost-guide",
+        "/en/fix/legacy-chatbot-replacement",
+        "/en/solutions/ai-customer-support-professional-services"
+      ]
+    },
+    {
+      "slug": "ai-pilot-stuck-in-poc",
+      "meta_title": "AI Pilot Stuck in POC? Get to Production",
+      "meta_description": "Why most AI pilots never reach production and what production-grade actually requires: security, data pipelines, ownership, and a realistic roadmap.",
+      "h1": "Your AI Pilot Works. It Will Never Reach Production Without This.",
+      "intro": "Here's a pattern playing out in thousands of companies right now: an AI pilot was approved, built, and demonstrated successfully. Leadership was impressed. And then... nothing. The pilot is still a pilot, six or twelve months later — not dead exactly, but not in production either, living in a strange limbo where everyone's afraid to turn it on for real. Industry research consistently suggests the large majority of AI pilots never cross into production, and the reason is almost never the AI itself. The reason is that a proof of concept and a production system are two different things, and nobody scoped, budgeted, or owned the distance between them. That distance is concrete and knowable. This page shows you exactly what it consists of and how to cross it.",
+      "sections": [
+        {
+          "h2": "The production gap: what a pilot never had to survive",
+          "format": "narrative",
+          "body": "A pilot proves the AI can work under laboratory conditions: clean prepared data, a handful of test cases, the project team watching, and no real consequences when it's wrong. Production is the opposite of every one of those conditions. Production means the system eats raw, messy, real-world data without anyone pre-cleaning it. It connects to live systems where mistakes have consequences. It runs at 3am when nobody is watching. It serves people who didn't build it and don't care how it works. It must handle the weird cases — the malformed file, the angry customer, the edge case nobody predicted — gracefully rather than catastrophically. And it must keep doing all of this after the pilot team moves on. None of this was in the pilot scope, which is precisely why pilots stall: the organization looks at the gap, realizes it's real work, and quietly shelves the whole thing. The gap isn't a reason for despair. It's a checklist."
+        },
+        {
+          "h2": "The production readiness checklist",
+          "format": "checklist",
+          "body": "Seven things separate a demo from a dependable system. 1. Data pipeline: inputs flow automatically, bad inputs are caught and flagged rather than silently processed. 2. Real integration: two-way connection to your live systems — not a human copy-pasting between screens. 3. Defined failure behavior: when the AI is uncertain or wrong, a specific thing happens — usually a human review queue — instead of a confident mistake going through. 4. Security and access: documented who-sees-what, audit logs, GDPR-compliant data handling. 5. Evaluated accuracy: a test set of real cases with known-correct answers, so quality is a measured number. 6. Ownership: a named internal person responsible for the system's ongoing health. 7. A runbook: what to check, in what order, when something breaks at the worst possible moment. Score your pilot against these seven. Whatever's missing is your production scope."
+        },
+        {
+          "h2": "The realistic roadmap from pilot to production",
+          "format": "process",
+          "body": "Weeks 1–2: gap assessment against the seven-point checklist, producing a scoped production plan with fixed costs. Weeks 3–8: close the gaps — in practice this concentrates on hardening the data pipeline, building the real integration, and setting up the human review workflow. Weeks 8–12: staged rollout, and this staging matters more than any technology decision. Stage one is shadow mode: the AI produces outputs, humans do the work as before, and you compare — building an evidence base of correctness. Stage two is supervised automation: the AI acts, humans approve each action with one click. Stage three is full automation for the low-risk cases, humans handling exceptions. This progression isn't caution for its own sake — it's how you build organizational trust. People extend trust to systems they have watched be right a hundred times, and that trust is the actual deliverable of a staged rollout."
+        },
+        {
+          "h2": "What crossing the gap costs — and why to budget it from day one",
+          "format": "narrative",
+          "body": "A reliable rule of thumb: production-hardening costs roughly the same as the pilot itself. Plan on €10,000–20,000 to turn a €15,000 pilot into a dependable production system — the range depends mainly on how messy the data reality is and how many systems need connecting. The organizations whose pilots succeed share one habit: they budget production from day one, treating the pilot as phase one of a funded project rather than an experiment hoping for a second budget. The organizations whose pilots die almost uniformly did the opposite — funded an experiment, got an exciting result, and then discovered there was no money or mandate to make it real. If you're about to start a pilot, the single best decision you can make is to define and budget production before the pilot begins."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How long should an AI pilot run before going to production?",
+          "a": "4–8 weeks is enough to prove value on a well-scoped pilot. If a pilot has been 'almost ready' for 6+ months, it isn't validating anymore — it's stuck."
+        },
+        {
+          "q": "What's the single biggest blocker to production?",
+          "a": "Data. Pilots run on prepared data; production eats raw reality. Building the pipeline that handles real-world input is usually the largest missing piece."
+        },
+        {
+          "q": "Do we need to rehire whoever built the pilot?",
+          "a": "No. A cleanly built pilot can be hardened by any competent AI engineering team — what matters is that you own the code, the data flows, and the documentation."
+        },
+        {
+          "q": "How do we keep staff trust as automation increases?",
+          "a": "Staged rollout with human review. People trust systems they've watched be right many times; the shadow and supervised phases create exactly that evidence."
+        }
+      ],
+      "cta_primary": "Book a pilot-to-production assessment",
+      "cta_secondary": "See how we deliver in 6-week cycles",
+      "internal_links": [
+        "/en/fix/ai-roi-not-visible",
+        "/en/ai-consulting-process",
+        "/en/fix/ai-project-failing",
+        "/en/blog/how-to-scale-ai-successfully-across-your-organization"
+      ]
+    },
+    {
+      "slug": "chatbot-gives-wrong-answers",
+      "meta_title": "Chatbot Giving Wrong Answers? Causes and Fixes",
+      "meta_description": "Why your AI chatbot makes things up: retrieval quality, missing guardrails, no evaluation. A root-cause guide with fixes that actually work.",
+      "h1": "Why Your Chatbot Makes Things Up — and How to Fix It Permanently",
+      "intro": "A chatbot that occasionally invents an answer isn't a minor bug. It's worse than no chatbot at all, because it uses your brand's voice to tell customers things that aren't true — wrong prices, invented policies, features that don't exist. If this is happening, first some reassurance: wrong answers are not a mysterious property of AI that you must either tolerate or abandon. They have specific, diagnosable engineering causes, and in a bounded business domain they can be driven close to zero. The companies running reliable chatbots aren't lucky and aren't using secret models — their systems are built and measured correctly. Here's the root-cause guide, in plain language.",
+      "sections": [
+        {
+          "h2": "The 4 root causes of wrong answers",
+          "format": "checklist",
+          "body": "Cause 1: the bot can't find the right information. Your knowledge base is incomplete, outdated, or badly structured, so when the system searches it for relevant content it retrieves the wrong paragraph or nothing at all — and the AI, designed to be helpful, improvises the rest. This is the most common cause by a wide margin. Cause 2: no grounding requirement. The bot is permitted to answer from the model's general training knowledge instead of strictly from your approved content. General knowledge about 'companies like yours' is exactly where plausible-sounding nonsense comes from. Cause 3: vague questions get confident answers. The bot never asks clarifying questions and was never given instructions to say 'I don't know, let me connect you to a person.' Cause 4: nobody measures accuracy. Errors are discovered by customers, in public, instead of by you, in a test report, weeks earlier. Each cause has a specific fix — wrong answers are a solvable category, not a permanent condition."
+        },
+        {
+          "h2": "What 'grounding' means in practice",
+          "format": "narrative",
+          "body": "The single most important architectural choice in a business chatbot is grounding. A properly grounded bot works in two stages: first it retrieves the relevant pieces of your actual content — your documents, product data, price lists, policies — and then it constructs its answer using only that retrieved material, with explicit instructions to decline when the material doesn't contain the answer. Where an ungrounded bot answers the question 'what would a helpful response sound like?', a grounded bot answers the question 'what do our documents actually say?'. This one change eliminates the large majority of hallucinations in practice. If you're evaluating your current system, this is the first question to ask your vendor or team: when it answers, is it quoting our content or improvising? If the answer is unclear, that is your answer — and it's also the fix, because grounding is a well-understood, standard engineering pattern, not research."
+        },
+        {
+          "h2": "The accuracy improvement process",
+          "format": "process",
+          "body": "Step 1: assemble 50–100 real questions with known correct answers. Your support inbox and sales calls are the source — real phrasing, real topics, real difficulty. This becomes your permanent test set. Step 2: run the test set through the bot and score every answer as right, wrong, or partial. This produces your baseline — the first honest accuracy number your chatbot has ever had, and frequently a sobering one. Step 3: fix by error category. Missing or weak content gets written. Retrieval configuration gets tuned. Answer instructions get tightened. Refusal and handover behavior gets added. Step 4: re-test until you reach target. For bounded business domains — your products, your services, your policies — accuracy of 95% or higher is an achievable engineering target, not an aspiration. Step 5: keep the test set forever and re-run it after every change to content, prompts, or model. Accuracy is not a project with an end date; it's a number you manage, like cash flow."
+        },
+        {
+          "h2": "What good looks like in production",
+          "format": "narrative",
+          "body": "A well-built business chatbot on a bounded domain exhibits four visible traits. Answers you can verify: each response is based on, and ideally references, the source document it came from, so a human can check it in seconds. Honest limits: out-of-scope questions get a clean 'that's outside what I can help with — let me connect you' rather than an improvised guess. Graceful uncertainty: borderline cases route to a human with the full conversation attached, so the customer never has to repeat themselves. And measured quality: a dashboard showing accuracy sampled weekly, so degradation is caught in days rather than discovered via a screenshot on social media. None of this is exotic. It is the standard of care for putting AI in front of customers, and if your current system doesn't meet it, that gap is fixable in weeks, not quarters."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can AI chatbots be 100% accurate?",
+          "a": "No system is 100%. But for bounded business domains, 95%+ accuracy with clean human handover for the remainder is achievable — and that combination is operationally excellent."
+        },
+        {
+          "q": "Is this a model problem? Should we switch from GPT to another model?",
+          "a": "Almost never. Wrong answers are usually caused by retrieval quality, missing grounding, or content gaps — not model choice. Switching models without fixing the system changes nothing."
+        },
+        {
+          "q": "How do we measure accuracy if we've never done it?",
+          "a": "Build a test set of 50–100 real questions with known correct answers and score the bot against it. This takes days, not months, and is the standard first step of any fix engagement."
+        },
+        {
+          "q": "What about legal or compliance exposure from wrong answers?",
+          "a": "The controls are grounding, refusal behavior on sensitive topics, human escalation paths, and clear disclaimers. For regulated advice, the bot should never be the final authority — design it as a first responder that routes."
+        }
+      ],
+      "cta_primary": "Get your chatbot's accuracy measured — free review",
+      "cta_secondary": "Read about GDPR-compliant AI deployment",
+      "internal_links": [
+        "/en/fix/chatbot-not-converting",
+        "/en/fix/ai-accuracy-too-low",
+        "/en/gdpr-compliant-ai",
+        "/en/case-studies"
+      ]
+    },
+    {
+      "slug": "ai-tool-too-expensive",
+      "meta_title": "AI Tools Cost Too Much? Audit Your Spend",
+      "meta_description": "AI subscription sprawl is real. A practical cost audit method, build-vs-subscribe math, and what businesses actually pay monthly for working AI.",
+      "h1": "Your AI Bills Keep Growing. Here's How to Find Out What You're Actually Paying For.",
+      "intro": "It never starts as a decision. It starts with one tool, then a colleague adds another, then a per-seat plan quietly renews, then an API bill arrives that nobody can explain. Eighteen months later the company is spending thousands per month on AI-related tools and exactly nobody can say what the total is or what it returns. This is AI spend sprawl, and it's the natural consequence of pricing models designed to grow invisibly: low entry points, per-seat expansion, usage-based billing. The fix isn't to spend less on AI — it's to spend knowingly. This page gives you the audit method we run with clients, the build-vs-subscribe math, and honest calibration ranges for what working AI actually costs per month.",
+      "sections": [
+        {
+          "h2": "The 4 places AI money leaks",
+          "format": "checklist",
+          "body": "Leak 1: overlapping subscriptions. Three tools that do substantially the same thing, because marketing bought one, operations another, and someone signed up for a third with a credit card. Nobody ever compared them because nobody owns the category. Leak 2: per-seat pricing on ghost seats — you're paying for 25 seats, the usage dashboard shows 7 active humans. Leak 3: unmonitored API usage. Usage-based pricing means a single inefficient automation — one that re-processes entire datasets instead of deltas, or loops without limits — can burn hundreds of euros monthly with no one watching the meter. Leak 4: enterprise tiers bought for a feature that was never switched on. The audit usually finds all four, and the surprising part is rarely the total — it's how little of it connects to outcomes anyone can name."
+        },
+        {
+          "h2": "The AI spend audit: one focused afternoon",
+          "format": "process",
+          "body": "Step 1: pull every AI-related charge from accounting — tool subscriptions, API invoices, per-seat licenses. Don't forget the credit cards: shadow signups are normal, not a scandal. Step 2: for each line item, answer four questions: who uses it, for which process, how often, and what happens if it disappears tomorrow. That last question is the honest one — 'nothing much' tells you everything. Step 3: open the usage dashboards. Every serious tool shows active users; compare that number to what you're paying for. Step 4: for usage-based spend, identify the top three consumption sources. In practice one workflow usually dominates the bill, and often it's an inefficiently built one — the fix is engineering, not budget. Step 5: mark every line keep, consolidate, downgrade, or kill. In an illustrative audit of this kind, 30–50% of current spend is identified as recoverable — before anything changes about how the work actually gets done."
+        },
+        {
+          "h2": "Build vs subscribe: the honest math",
+          "format": "table",
+          "body": "The question isn't 'which is better' but 'which fits this situation'. Subscriptions win for light, generic, uncertain uses. Custom-built automation wins at volume, when deep integration matters, and when you're paying for several overlapping tools that one purpose-built system replaces. Breakeven versus stacked subscriptions arrives at around 12–24 months.",
+          "table": {
+            "columns": [
+              "Situation",
+              "Subscribe",
+              "Build custom"
+            ],
+            "rows": [
+              [
+                "Light, generic use; low volume",
+                "Best fit",
+                "Overkill"
+              ],
+              [
+                "High volume with per-use pricing",
+                "Costs scale linearly forever",
+                "Usually wins from year 1–2"
+              ],
+              [
+                "Needs deep integration with your systems",
+                "Often impossible",
+                "Design strength"
+              ],
+              [
+                "Unproven use case",
+                "Validate cheaply first",
+                "Build after validation"
+              ],
+              [
+                "3–5 overlapping subscriptions",
+                "Consolidate",
+                "Often fully replaced by one system"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "What businesses actually pay — indicative ranges",
+          "format": "narrative",
+          "body": "Illustrative reference ranges for an SME: uncontrolled sprawl totals in the region of €1,000–5,000 per month across tools, seats, and usage. A consolidated stack — one or two subscriptions plus one or two purpose-built automations with managed API usage — runs in the region of €300–800 per month ongoing, with better outcomes attached. The purpose-built pieces carry a one-time build cost (€8,000–25,000 depending on scope), which is where the 12–24 month breakeven comes from. Two implications worth stating plainly. First, if someone proposes building custom AI while you're at €300/month in effective subscriptions, that's usually the wrong advice — custom earns its cost at volume. Second, if you're at €3,000/month of sprawl with no measurable outcome, the problem isn't the amount — it's that you can't name what any of it does. The audit fixes that in an afternoon."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I find all the AI tools my company is paying for?",
+          "a": "Pull accounting records by vendor category, then run a quick team survey for credit-card signups — shadow subscriptions are normal in every company we audit."
+        },
+        {
+          "q": "Are API costs really that unpredictable?",
+          "a": "Yes. Usage-based billing means one inefficient automation or one heavy month can spike costs. Monitoring dashboards and budget alerts are essential, not optional."
+        },
+        {
+          "q": "When does building custom actually save money?",
+          "a": "When per-transaction pricing or several overlapping subscriptions exceed the amortized build cost — typically at 12–24 months of the subscription alternative."
+        },
+        {
+          "q": "Can you run this audit for us?",
+          "a": "Yes — a spend audit is a fixed-price engagement, scoped to pay for itself from identified savings alone, before any optimization work begins."
+        }
+      ],
+      "cta_primary": "Get a fixed-price AI cost audit",
+      "cta_secondary": "Read the full AI automation cost guide",
+      "internal_links": [
+        "/en/ai-automation-cost-guide",
+        "/en/build-vs-buy-ai",
+        "/en/fix/ai-roi-not-visible",
+        "/en/blog/5-ways-ai-can-reduce-operational-costs"
+      ]
+    },
+    {
+      "slug": "ai-agency-underdelivering",
+      "meta_title": "AI Agency Not Delivering? Recover Your Project",
+      "meta_description": "Your AI agency overpromised and underdelivered. How to evaluate what you got, secure your code and IP, and recover the project. Practical steps.",
+      "h1": "Your AI Agency Overpromised. Here's How to Recover.",
+      "intro": "The run-up was exciting: impressive presentations, confident timelines, references that checked out. Then came the reality — missed milestones, demos that only work on the presenter's laptop, invoices that arrive more reliably than features, and lately, communication that takes days. If you're in this situation, two things are true at once: it's one of the most common situations in the current AI market, where demand for 'AI agencies' vastly exceeds the supply of teams that can actually deliver; and it is recoverable, if you move methodically instead of emotionally. This page is the method: secure your assets, get an independent verdict, then decide from facts.",
+      "sections": [
+        {
+          "h2": "Step 1: Secure your assets before anything else",
+          "format": "checklist",
+          "body": "Before any confrontation, quiet or otherwise, make sure you control what you'd need to walk away. One: the source code — full repository access with history, not ZIP snapshots and not a deployed black box. Two: your data and all configurations — prompts, fine-tuning setups, knowledge bases, integration settings. Three: every credential — API keys, cloud accounts, admin panels — and here's the critical part: in accounts registered to your company, not the agency's. Four: whatever documentation exists. While you do this, find your contract and read the IP clause. In a properly written contract you own the work product you've paid for. In far too many AI projects the IP situation is ambiguous — which is expensive to fix later and free to check now. If access is refused or delayed at this stage, that refusal is itself crucial diagnostic information about what's happening on the other side."
+        },
+        {
+          "h2": "Step 2: Get an independent technical assessment",
+          "format": "narrative",
+          "body": "You cannot make the next decision — finish, fix, or walk away — on the basis of status reports from the people who created the situation. What you need is an independent review that answers four factual questions: Does what exists actually work? Is it architecturally sound or fundamentally flawed? How complete is it, honestly, as a percentage? And what would finishing or fixing it realistically cost? A competent independent assessment takes one to two weeks and costs in the region of €2,000–5,000. Two cautions. First, independent means independent: beware an 'assessment' from a party angling to sell you a rebuild — the incentive corrupts the verdict. Second, get findings in writing, in business language, with the technical detail attached. The document matters as much as the verdict: it's what you present to partners, boards, or in the worst case, lawyers. It's cheap insurance on a five-figure decision."
+        },
+        {
+          "h2": "Step 3: Decide — finish, fix, or walk away",
+          "format": "table",
+          "body": "With facts in hand the decision usually clarifies quickly. The trap to avoid is sunk-cost reasoning: money already spent is gone from every option, so compare only future cost against future value. A €40,000 spend doesn't make a bad project worth €20,000 more.",
+          "table": {
+            "columns": [
+              "Situation per the assessment",
+              "Right move",
+              "Why"
+            ],
+            "rows": [
+              [
+                "70%+ sound, you own the assets",
+                "Finish with a new team",
+                "Cheapest path to value"
+              ],
+              [
+                "Core works, quality/integration poor",
+                "Fix (targeted rescue)",
+                "Foundation has value"
+              ],
+              [
+                "Foundation flawed or assets not yours",
+                "Walk away, rebuild clean",
+                "Second time is cheaper and faster"
+              ],
+              [
+                "Use case itself was wrong",
+                "Stop entirely",
+                "Redirect budget to a real problem"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "How to never be in this position again",
+          "format": "checklist",
+          "body": "Every failed engagement we've reviewed showed warning signs that contract structure would have caught. The patterns that predict failure: payments decoupled from demonstrable progress; no acceptance criteria ('working AI' is not a criterion — 'correctly processes 95% of this test set' is); code you cannot see until the end; and confidence instead of cadence — 'trust us' instead of a demo every two weeks. The corrective structure, which we would recommend for any AI engagement with anyone including us: payments tied to milestone demos of working software, repository access from day one, measurable acceptance criteria in the contract, IP assignment in unambiguous writing, and a break clause at each milestone. An agency that resists this structure has told you something important before you've spent anything. An agency that proposes it is probably safe to work with."
+        }
+      ],
+      "faq": [
+        {
+          "q": "The agency won't hand over the code. What are my options?",
+          "a": "Check your contract's IP clause first — often you're entitled to it. If genuinely unclear, legal advice is warranted, but also price the alternative: a clean rebuild is sometimes cheaper than a fight."
+        },
+        {
+          "q": "How do I know if what they built is actually any good?",
+          "a": "You can't from the inside — get an independent technical assessment. One to two weeks, written findings, factual basis for the next decision."
+        },
+        {
+          "q": "Can another team finish a half-built AI project?",
+          "a": "Usually yes, if you own the code and data. Completion is often cheaper than restart — but only an honest assessment can tell you whether the foundation deserves it."
+        },
+        {
+          "q": "What must an AI project contract contain?",
+          "a": "IP assignment, milestone payments tied to working demos, measurable acceptance criteria, continuous code access, full credential handover, and milestone break clauses."
+        }
+      ],
+      "cta_primary": "Book an independent project assessment",
+      "cta_secondary": "See how we structure projects differently",
+      "internal_links": [
+        "/en/fix/ai-project-failing",
+        "/en/how-to-choose-ai-agency",
+        "/en/ai-consulting-process",
+        "/en/case-studies"
+      ]
+    },
+    {
+      "slug": "legacy-chatbot-replacement",
+      "meta_title": "Replace Your Old Chatbot With AI: Guide",
+      "meta_description": "Still running a rule-based chatbot? The migration path to modern AI: what to keep, what to replace, realistic timeline and costs. No downtime.",
+      "h1": "Your Rule-Based Chatbot Is Costing You Customers. Here's the Migration Path.",
+      "intro": "You know the moment. A customer types a real question — phrased their way, not your way — and the bot responds with 'Sorry, I didn't understand that. Please choose one of the following options.' The customer chooses none of the options and leaves, probably to a competitor whose phone gets answered. Rule-based chatbots — the decision-tree, button-menu generation — were a reasonable bet five years ago. Today they sit on websites actively demonstrating that their owners don't care, which is the opposite of why they were bought. Modern AI chatbots genuinely solve the understanding problem. But replacement done carelessly means losing your integrations, your data, and weeks of service. Here's how to migrate without breaking anything.",
+      "sections": [
+        {
+          "h2": "Signs your legacy bot has crossed from asset to liability",
+          "format": "checklist",
+          "body": "Four diagnostic signals. Signal 1: containment below 30% — most conversations either escalate to a human anyway or simply die, meaning the bot adds friction without resolving anything. Signal 2: 'human, agent, person' are among the most-typed phrases in your transcripts — visitors have learned the bot is a tollbooth to pass, not help to receive. Signal 3: every new question type requires someone to manually build a new branch, so coverage improvement has stopped; the tree you have is the tree you'll die with. Signal 4: maintenance has become its own part-time job — updating flows, fixing broken branches, chasing the tool's quirks. If three or more ring true, you're paying maintenance on a liability. The replacement question isn't whether but how."
+        },
+        {
+          "h2": "What to keep, what to replace",
+          "format": "table",
+          "body": "Migration done right is selective surgery, not demolition. Most of what makes your current setup valuable survives the move.",
+          "table": {
+            "columns": [
+              "Component",
+              "Verdict",
+              "Notes"
+            ],
+            "rows": [
+              [
+                "Conversation transcripts",
+                "KEEP",
+                "Gold: they reveal your real top customer intents and train the new system"
+              ],
+              [
+                "Integrations (CRM, ticketing, booking)",
+                "KEEP",
+                "Re-connected, not rebuilt"
+              ],
+              [
+                "Escalation rules and team routing",
+                "KEEP",
+                "Usually the best-designed part of the old system"
+              ],
+              [
+                "Brand voice and tone guidelines",
+                "KEEP",
+                "Becomes the new bot's style instructions"
+              ],
+              [
+                "Decision-tree engine",
+                "REPLACE",
+                "With grounded AI over your knowledge base"
+              ],
+              [
+                "Flow-building interface",
+                "REPLACE",
+                "No more hand-built branches"
+              ],
+              [
+                "Maintenance model",
+                "REPLACE",
+                "Update a document instead of rebuilding a tree"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "The migration path — with zero downtime",
+          "format": "process",
+          "body": "Weeks 1–2: mine your transcripts. Hundreds or thousands of real conversations are the single best source of what customers actually ask, in their own words. This produces your top 20–30 intents with real phrasing — the new system's foundation. Weeks 3–4: build the AI system against your knowledge base, wire the integrations, and configure human handover so escalations carry full context. Week 5: parallel running — the AI goes live alongside the legacy bot, handling conversations while the old system remains as fallback. This is when accuracy gets measured against real traffic and tuned. Week 6: cutover, once the numbers hold. At no point does a customer meet a gap; the worst case during migration is that they get the same mediocre experience they already had, while the upside builds beside it. Total elapsed: five to six weeks."
+        },
+        {
+          "h2": "What to expect after migration",
+          "format": "narrative",
+          "body": "Illustrative trajectory when a rule-based bot is replaced by a properly grounded AI system: containment moves from the roughly 30% ceiling of decision trees to the 70–85% range, because understanding free text is the entire point of the new architecture. Customer satisfaction rises measurably — people get answers instead of menus. Maintenance inverts: improving the bot means editing a document, which a service agent can do, instead of rebuilding a flow, which requires the vendor. And an emergent benefit appears that nobody budgets for: for the first time you have clean analytics on what your customers actually ask, in volume, in their own words — which quietly becomes one of the most valuable inputs to your marketing and service design. Running costs for the AI layer land in the region of €100–500 per month depending on conversation volume — usually offset before anything else by reduced maintenance effort alone."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Will we lose our existing integrations when we switch?",
+          "a": "No. CRM, ticketing, and booking integrations get reconnected to the new system as a planned part of migration — not rebuilt from scratch."
+        },
+        {
+          "q": "Can the new AI use our old conversation data?",
+          "a": "Yes, and it should — your transcripts are the best available map of real customer intents and the right foundation for the new knowledge base."
+        },
+        {
+          "q": "How long does migration take, and is there downtime?",
+          "a": "Plan for 5–6 weeks including a parallel-running phase. No customer-facing downtime — the old bot stays live until the new one proves itself."
+        },
+        {
+          "q": "Is a modern AI chatbot more expensive to run?",
+          "a": "Usage runs in the region of €100–500/month depending on volume. Against that: maintenance effort falls sharply, and containment can roughly double, so total cost of ownership usually falls."
+        }
+      ],
+      "cta_primary": "Get a migration assessment for your current bot",
+      "cta_secondary": "See indicative AI cost ranges",
+      "internal_links": [
+        "/en/fix/chatbot-not-converting",
+        "/en/fix/chatbot-gives-wrong-answers",
+        "/en/ai-automation-cost-guide",
+        "/en/case-studies"
+      ]
+    },
+    {
+      "slug": "ai-not-integrated-with-systems",
+      "meta_title": "AI Not Connected to Your Systems? Fix It",
+      "meta_description": "ChatGPT on the side doesn't change your business. How AI integration actually works — APIs, middleware, RPA — and what a connected system looks like.",
+      "h1": "AI That Isn't Connected to Your Systems Is an Expensive Toy.",
+      "intro": "The most common AI setup in small and mid-sized businesses looks like this: a few people have chatbot subscriptions, they paste things in, they copy things out. It makes those individuals a bit faster at some tasks. It changes nothing about how the business runs — the orders, the invoices, the customer emails all flow exactly as before, untouched by any of it. This isn't a criticism of the people doing it; it's a structural diagnosis. Value from AI appears when the AI sits inside the flow of work, connected to the systems where that work happens. An isolated assistant is a productivity tip. An integrated system is an operational change. This page explains how integration actually works, in plain language, with the security requirements that make it safe.",
+      "sections": [
+        {
+          "h2": "Why isolated AI fails to produce ROI",
+          "format": "narrative",
+          "body": "Copy-paste AI has four structural failure modes. First, manual data shuttling: every use requires a human to carry data in and out, which caps volume at that human's attention and reintroduces exactly the labor the AI was meant to remove. Second, stale context: the AI only knows what was pasted to it — last week's export, not this morning's reality — so its answers quietly diverge from the truth. Third, no audit trail: when something goes wrong, there's no record of what the AI saw, said, or did. Fourth, and most quietly corrosive: it lives in individual habit rather than process. When the enthusiastic employee is on holiday, the 'AI transformation' is on holiday too. These aren't reasons to avoid AI — they're the specification of what must be built instead: AI as plumbing, not as a destination."
+        },
+        {
+          "h2": "The 3 integration patterns, explained plainly",
+          "format": "table",
+          "body": "Nearly every real-world integration is one of these three patterns, or a combination.",
+          "table": {
+            "columns": [
+              "Pattern",
+              "How it works",
+              "Best for"
+            ],
+            "rows": [
+              [
+                "API integration",
+                "Systems talk directly: an order email arrives, AI extracts it, the order appears in your ERP, exceptions flagged",
+                "Structured, high-volume processes with modern software"
+              ],
+              [
+                "Middleware / automation layer",
+                "A central hub (n8n, Make, or custom) routes data between AI and your tools, with logging and error handling",
+                "Connecting several systems without rebuilding any of them"
+              ],
+              [
+                "RPA (robotic process automation)",
+                "Software operates an existing interface like a human — clicks, reads screens, types",
+                "Legacy systems with no API at all"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "What a properly integrated workflow actually looks like",
+          "format": "narrative",
+          "body": "Make it concrete. A request for quote arrives by email at a distribution company. An AI system reads the email, identifies the customer, and extracts the products and quantities — handling the customer's own naming, not just yours. It checks current pricing and stock against the ERP, in real time. It drafts a complete quote, formatted per your template, priced per your rules. That draft goes to a salesperson for one review — a glance, a click, occasionally an adjustment — then sends, logs itself to the CRM, and starts a follow-up timer that nudges the customer if three days pass without a reply. The human touched the process exactly once, at the moment judgment actually adds value. Everything else — the reading, the extracting, the checking, the formatting, the logging, the reminding — simply stopped being human work. That is the difference between having AI and having integrated AI: not a faster typist, but a shorter process."
+        },
+        {
+          "h2": "The security requirements that are not optional",
+          "format": "checklist",
+          "body": "The moment AI touches live business systems, four requirements become mandatory, and any implementation proposal missing them should be rejected on sight. Least-privilege access: the integration's credentials read and write only what the workflow needs — a quote-drafting AI has no business with payroll. Audit logging: every action the AI takes is recorded — what it read, what it wrote, when, and why — so any question about its behavior has a factual answer. GDPR-compliant processing: where data goes, under which agreements, with EU hosting or appropriate safeguards, documented. Human gates on irreversible actions: sending quotes, changing prices, deleting anything — these require a click from a person until trust is earned, case by case. None of this is exotic. It's the standard of care for any system that can act on your business, and it's cheaper to build in from the start than to retrofit after an incident."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Our software is old and has no API. Can AI still connect?",
+          "a": "Usually yes — via RPA or middleware reading screens and exports. Less elegant than an API, but reliable in practice for many legacy setups."
+        },
+        {
+          "q": "What systems do you typically integrate with?",
+          "a": "ERPs (Exact, AFAS, Odoo, SAP Business One), CRMs (HubSpot, Salesforce, Teamleader), email, SharePoint, and sector-specific software via API or file exchange."
+        },
+        {
+          "q": "How long does an integration project take?",
+          "a": "Plan for 4–8 weeks for a single well-defined workflow, from kickoff to production, including testing and staged rollout with human review."
+        },
+        {
+          "q": "What if the AI makes a mistake inside our live systems?",
+          "a": "Design prevents it: human approval for consequential actions, complete audit logs, and alerting that catches anomalies. Mistakes surface in the review queue, not in your ERP."
+        }
+      ],
+      "cta_primary": "Map your integration opportunity — free consultation",
+      "cta_secondary": "Browse per-tool integration guides",
+      "internal_links": [
+        "/en/integrations/exact-online",
+        "/en/integrations/hubspot",
+        "/en/fix/ai-pilot-stuck-in-poc",
+        "/en/solutions/ai-order-processing-wholesale-distribution",
+        "/en/blog/how-to-integrate-ai-with-your-existing-legacy-systems"
+      ]
+    },
+    {
+      "slug": "ai-accuracy-too-low",
+      "meta_title": "How to Improve AI Accuracy: A Business Guide",
+      "meta_description": "AI accuracy isn't a feeling — it's a number. How to measure it properly, when to re-prompt vs retrain, and how to reach 95%+ on business tasks.",
+      "h1": "Your AI Is 'Pretty Accurate'. That's Not a Number — and That's the Problem.",
+      "intro": "Ask a business running AI how accurate it is, and you typically get one of two answers: a shrug, or an anecdote — 'it handled the Johnson case beautifully'. Neither is a number, and the absence of the number is the actual problem. Accuracy you don't measure, you can't improve — and you certainly can't trust it with customers, prices, or anything signed. The good news is that measuring AI accuracy is neither mysterious nor expensive. It's a discipline borrowed from quality control, it takes days to set up, and it converts every future argument about 'is the AI any good?' into a look at a dashboard. This page is the method, start to finish.",
+      "sections": [
+        {
+          "h2": "Step 1: Build a test set from reality, not imagination",
+          "format": "process",
+          "body": "A test set is 50–100 real inputs your AI actually faces — genuine customer questions, actual documents you process, real orders — each paired with the verified correct output, confirmed by a human expert on your team. The sources are already in your business: the support inbox, last quarter's processed documents, the order archive. What matters is that it's real. Real phrasing contains typos, vagueness, halves of thoughts. Real documents contain the weird formats. Synthetic tests written in a meeting will flatter your system; reality won't. Effort estimate: one to two days of domain-expert time, once. This artifact becomes a permanent company asset — every future change to the AI gets scored against it, which means every future vendor claim gets tested against it too."
+        },
+        {
+          "h2": "Step 2: Score it, and categorize every error",
+          "format": "narrative",
+          "body": "Run the test set through your system and score each output: right, wrong, or partially right. You now possess your baseline — for most companies, the first honest accuracy number they've ever had, and frequently an uncomfortable one. Then the diagnostically crucial step: categorize every error. Was the wrong information retrieved? Was the input misunderstood? Did the system reason incorrectly? Did it format the answer wrongly? Or was the necessary data simply absent upstream? The distribution across these categories is your repair plan in embryo, because each category has a different fix, a different cost, and a different owner. Without categorization, teams 'improve the AI' generically and hope. With it, you fix the two categories that account for 80% of errors and watch the number move. In production, keep the discipline alive with random sampling — five to ten outputs a week, human-checked, fifteen minutes — so drift is caught in days rather than discovered via complaint."
+        },
+        {
+          "h2": "Step 3: The escalation ladder — cheapest fix first",
+          "format": "table",
+          "body": "When accuracy falls short, the industry reflex is to reach for expensive technology first. Do the opposite. Most accuracy problems break at the cheap rungs of this ladder.",
+          "table": {
+            "columns": [
+              "Fix",
+              "Cost/effort",
+              "When it's the right answer"
+            ],
+            "rows": [
+              [
+                "Better instructions/prompting",
+                "Hours",
+                "Format errors, misunderstanding of task, missing refusal behavior"
+              ],
+              [
+                "Retrieval/knowledge base repair",
+                "Days",
+                "Right information exists but isn't found, or content is stale"
+              ],
+              [
+                "Task decomposition + validation",
+                "Days–weeks",
+                "Complex reasoning: split into steps, check each before proceeding"
+              ],
+              [
+                "Model upgrade",
+                "Config change + retest",
+                "Reasoning ceiling genuinely reached after the above"
+              ],
+              [
+                "Fine-tuning",
+                "Weeks",
+                "Consistent style/judgment needed across thousands of similar cases"
+              ],
+              [
+                "Custom model training",
+                "Rarely justified",
+                "Almost never the answer for SME use cases"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "What's achievable — and what 'enough' means",
+          "format": "narrative",
+          "body": "For bounded business tasks — answering from your documents, extracting from your standard forms, classifying your request types — accuracy of 95% and above is an engineering target, not a hope. Systems in this class are running in production across ordinary businesses now. The more useful question is what to do about the remaining few percent, and the answer separates mature deployments from fragile ones: you design for it. Low-confidence outputs route to humans with the AI's draft attached; the human resolves in seconds what would otherwise be a customer-facing error. '95% with graceful handover' outperforms '99% with silent failure' in every real-world measure, because trust is won or lost on how a system fails, not on how often. Define per use case what an acceptable number is — an internal summarizer and a customer-facing pricing bot deserve different bars — write it down, and manage to it."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do we measure accuracy without technical staff?",
+          "a": "The test-set method needs only a domain expert marking answers right or wrong in a spreadsheet. We set up the harness in the first week of an engagement."
+        },
+        {
+          "q": "How often should accuracy be measured?",
+          "a": "The full test set after every change to the system; light random sampling (5–10 items weekly) continuously in production, to catch drift."
+        },
+        {
+          "q": "Is 95% accuracy enough to automate a process?",
+          "a": "Depends what's at stake — but 95% with human review of low-confidence cases is usually the right operating point. Design the handover; 100% doesn't exist."
+        },
+        {
+          "q": "Why did our AI's accuracy degrade over time?",
+          "a": "Usually drift: the business changed (new products, new phrasing) and the system didn't. Weekly sampling plus periodic test-set refreshes catch this in days."
+        }
+      ],
+      "cta_primary": "Get your AI accuracy measured",
+      "cta_secondary": "See how wrong answers get fixed",
+      "internal_links": [
+        "/en/fix/chatbot-gives-wrong-answers",
+        "/en/fix/ai-roi-not-visible",
+        "/en/ai-readiness-assessment",
+        "/en/case-studies"
+      ]
+    },
+    {
+      "slug": "ai-roi-not-visible",
+      "meta_title": "Can't Prove AI ROI? Measure What It Returns",
+      "meta_description": "AI without measurable return is a cost, not an investment. The ROI measurement framework: baselines, metrics per use case, and honest reporting.",
+      "h1": "If You Can't Prove Your AI's ROI, You Don't Have ROI.",
+      "intro": "A forecast you can set your calendar by: at some future budget meeting, someone will ask what the company gets for its AI spend, and the quality of the answer will determine whether the budget survives. 'We think it saves time' does not survive. 'It saves €6,400 a month against €2,100 in costs, here's the one-pager' survives and compounds. Unmeasured AI is uniquely vulnerable because it's simultaneously expensive, fashionable to question, and — here's the tragedy — often genuinely valuable, just never proven to be. This page is the measurement framework: what to measure per use case, how to handle the missing-baseline problem honestly, and how to report it so the value becomes undeniable.",
+      "sections": [
+        {
+          "h2": "Why AI ROI stays invisible in most companies",
+          "format": "narrative",
+          "body": "Three causes, all structural rather than malicious. First, no baseline: nobody measured the old process — its time, its error rate, its cost — before the AI arrived, so there is precisely nothing to compare against, and improvement becomes unfalsifiable in both directions. Second, diffuse value: the benefit lands as twenty minutes saved here and forty there across a dozen people. Each fragment is below the threshold of anyone's attention; the aggregate might be a full-time salary's worth. Diffuse value is invisible by default and must be made visible by design. Third, absent ownership: IT deployed the system, the business uses it, finance questions it — and measuring it is, therefore, nobody's job. Until someone owns the number, there is no number. Notice that all three causes are fixable in an afternoon of decisions: pick the metric, assign the owner, take the baseline. The hard part was never the measurement; it's the prior decade of habit."
+        },
+        {
+          "h2": "The baseline problem: measure first, or reconstruct honestly",
+          "format": "process",
+          "body": "The correct approach, for anything not yet deployed: before go-live, record how the current process actually performs — time per task measured with a stopwatch on real cases, not estimated; error rate from a sample; monthly cost in loaded hours. Two to four weeks of measurement buys you a permanently credible before-picture. If the AI is already live without a baseline — the common situation — reconstruct one honestly: time the manual process now on a sample of current work; mine your systems for before/after throughput (tickets closed, orders processed, quotes sent); interview the people who lived both eras. Then apply the credibility rule: round down, not up. A conservative number that survives skepticism is worth ten optimistic ones that collapse at the first probing question from a CFO. Your reconstruction method, documented on one page, is itself a defense — it shows the number came from a process, not from enthusiasm."
+        },
+        {
+          "h2": "The right metric for each use case",
+          "format": "table",
+          "body": "Measure what the system was bought to change, in units that convert to money.",
+          "table": {
+            "columns": [
+              "Use case",
+              "Primary metrics",
+              "Conversion to money"
+            ],
+            "rows": [
+              [
+                "Customer support AI",
+                "Cost per resolved conversation; resolution time; escalation rate",
+                "Deflected tickets × cost per manual ticket"
+              ],
+              [
+                "Document processing",
+                "Minutes per document; error rate; throughput",
+                "Hours saved × loaded hourly cost"
+              ],
+              [
+                "Sales & lead handling",
+                "Leads qualified; time-to-first-response; conversion rate",
+                "Margin on incremental converted leads"
+              ],
+              [
+                "Internal copilots/assistants",
+                "Hours saved per person per week (diary sampling)",
+                "Pool of hours × loaded cost, discounted 50% for realism"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "The honest cost side — where ROI claims usually cheat",
+          "format": "narrative",
+          "body": "An ROI figure is only as credible as its denominator, and AI costs are easy to understate. Count all of it: subscriptions and usage fees; the amortized build cost (a €24,000 build is €1,000/month over two years, and should appear as such); the internal hours spent managing, correcting, and feeding the system; and — the line item nobody includes — the cost of its residual errors, the human review time and the occasional mistake that gets through. Illustrative worked example: a document-processing system saves roughly 180 hours a month against €6,300 of loaded labor cost; its all-in costs are €1,800 monthly. Net €4,500 a month, honestly counted — payback inside five months. That figure survives a finance review precisely because the costs were overstated rather than hidden. The discipline generalizes: an ROI claim that includes its own costs is believed; one that omits them teaches your finance team to discount everything you say next."
+        },
+        {
+          "h2": "The one-page monthly AI report",
+          "format": "process",
+          "body": "Everything above converges into a single artifact: one page, monthly, per system. Four numbers per system — baseline cost, current cost, hours saved, net euro value — plus a running ROI and one line of commentary. No dashboards requiring logins, no appendices; the format's austerity is the point, because the audience is a busy executive deciding whether this continues. This one page, maintained for six months, transforms AI from an article of faith into a managed investment with a track record. It changes budget conversations from 'should we keep paying?' to 'where's the next one of these?' — which is exactly the position you want to be arguing from. We build this reporting into every engagement as standard, because work we can't show the value of is work we don't expect to keep."
+        }
+      ],
+      "faq": [
+        {
+          "q": "What's a realistic ROI for SME AI projects?",
+          "a": "Our planning model for well-chosen automation assumes payback within 6–12 months and 200–400% annual ROI thereafter — an illustration to reason with, not a promise — but only measured projects ever find out which side of that they're on."
+        },
+        {
+          "q": "We deployed a year ago with no baseline. Is it too late?",
+          "a": "No. Reconstruct conservatively from system data and current manual timing samples. Imperfect, honest measurement beats perfect memories."
+        },
+        {
+          "q": "How do we count soft benefits like better decisions?",
+          "a": "Don't — keep the ROI math to hard time and cost, and mention soft benefits separately. One inflated line discredits ten solid ones."
+        },
+        {
+          "q": "Who should own AI ROI measurement?",
+          "a": "The business owner of the automated process, with finance reviewing the method — never the team that built the system grading its own work."
+        }
+      ],
+      "cta_primary": "Run your numbers in our AI ROI calculator",
+      "cta_secondary": "Book a free measurement consultation",
+      "internal_links": [
+        "/en/ai-implementation-roi-guide",
+        "/en/ai-automation-cost-guide",
+        "/en/fix/ai-tool-too-expensive",
+        "/en/blog/ai-roi-calculator-a-guide-for-sme-cf-os"
+      ]
+    },
+    {
+      "slug": "case-studies",
+      "meta_title": "Illustrative AI Scenarios: What the Work Looks Like",
+      "meta_description": "Illustrative AI scenarios: what breaks, what the fix involves, what it costs, and what it can return. Composite examples, not client testimonials.",
+      "h1": "Illustrative Scenarios: What AI Delivery Actually Looks Like",
+      "intro": "Most AI marketing runs on vague claims — ‘transformative’, ‘game-changing’, ‘10x’. This page goes the other way: composite scenarios built from the kinds of problems we are asked to fix, written the way we would want to read them as a buyer. What breaks, and in what kind of company. What the fix involves, and what it costs. What it can return, and how to measure it honestly. These are illustrative examples, not client testimonials. The companies are composites and the figures are indicative ranges, not measured results from named clients. Where a real engagement can be documented and the client consents, we will publish it here as a genuine case study — and nothing on this page should be read as one until that happens.",
+      "sections": [
+        {
+          "h2": "What you'll find in every scenario",
+          "format": "checklist",
+          "body": "Each scenario follows the same discipline, because comparability is what makes them useful. The starting point: what was broken or manual, quantified where possible — hours, error rates, costs as they were. The build: what was actually implemented, in plain language, including what we chose not to build and why. The investment: indicative cost ranges and timeline, because scenarios without prices are brochures. The return: measured outcomes using the baseline method described in our ROI guide — never vibes. And the honest margins: what went wrong during the project, what we'd do differently, and what didn't deliver as hoped. That last section is the one that matters most. Any vendor can show you a success. Only an honest one shows you the variance."
+        },
+        {
+          "h2": "Three illustrative scenarios",
+          "format": "narrative",
+          "body": "Scenario 1 — Order processing, distribution. A wholesaler taking orders by email in whatever format each customer prefers, with a team keying them in by hand. The fix: extraction plus ERP integration, with human review of exceptions. Investments of this kind sit in the mid five figures; in the scenario we use for planning, the system handles the large majority of orders untouched and the team moves to exceptions and customer relationships. Scenario 2 — Support response, professional services. A firm whose contact form produced replies in days. The fix: grounded AI over their own knowledge base, with clean human handover. In this scenario, time-to-first-response falls from hours to seconds, and after-hours enquiries that were previously lost entirely become a genuine source of new conversations. Scenario 3 — Pilot rescue, light manufacturing. A proof of concept eighteen months old and written off internally. The fix: production hardening against a standard gap checklist, shipped in under three months. Each of these is a composite built from the shape of work we do. We have deliberately attached no client name, no logo, and no percentage we cannot evidence. When we can publish a documented engagement, it will replace one of these scenarios and be labelled as a real case study."
+        },
+        {
+          "h2": "How to read anyone's case studies",
+          "format": "narrative",
+          "body": "Because you'll read many vendors' case studies while choosing a partner, some defense equipment: Ask where the baseline came from. A claimed saving with no stated before-measurement is an estimate wearing a number's clothing. Ask what's excluded from the costs — build only, or subscriptions, maintenance, and internal time too? Ask about the failures; how a vendor discusses projects that underdelivered predicts your own worst-case experience. And check the timescale — results measured in month one, during the honeymoon of attention, decay; ask what month six looked like. We welcome every one of these questions about the work behind these scenarios. They're not hostile due diligence; they're the questions of a buyer who will be a pleasure to work with, because they understand what they're buying."
+        },
+        {
+          "h2": "Your project could anchor this page",
+          "format": "narrative",
+          "body": "A standing offer, and we mean it: for clients willing to be documented — numbers, setbacks, and all, anonymized as much as needed — we offer preferential commercial terms in exchange for the honesty. It's a fair trade. You get measurable results at a better price; future clients get proof instead of promises; and we get the marketing asset money genuinely can't buy: a public record of measured work. If you have a process that frustrates you — something manual, repetitive, and quietly expensive — that frustration is the beginning of a case study. Start with a free consultation, and let's find out whether the numbers justify the story."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are these real client case studies?",
+          "a": "No. They are illustrative composites built from the shape of work we do — not named clients and not measured results. We publish a genuine case study only when a client consents and the numbers can be evidenced, and it will be labelled as such."
+        },
+        {
+          "q": "Why are the companies not named?",
+          "a": "Because they are composites rather than specific clients, so there is no company to name. When a documented engagement is publishable, it replaces a scenario here and carries the client name if they agree to it."
+        },
+        {
+          "q": "So how do we know you can actually do this?",
+          "a": "Ask us for a reference call. Where a client is willing, we arrange one, and we will say plainly when none is available rather than imply one. You can also judge the work by what we publish: a vendor willing to describe failures is easier to trust than one showing only wins."
+        },
+        {
+          "q": "If a project of ours underdelivers, will it end up here?",
+          "a": "Only with your agreement — but we will ask, and we are willing to publish the complicated ones. Ask us directly about a project that went badly and we will walk you through what went wrong and what changed as a result."
+        }
+      ],
+      "cta_primary": "Start your project — free consultation",
+      "cta_secondary": "Estimate your ROI first",
+      "internal_links": [
+        "/en/fix/ai-project-failing",
+        "/en/ai-implementation-roi-guide",
+        "/en/services",
+        "/en/contact"
+      ]
+    }
+  ],
+  "content_policy": {
+    "scenarios": "illustrative",
+    "note": "Every engagement scenario, cost figure and outcome range in this cluster is an illustrative composite, not a measured client result. Do not publish it as a case study, testimonial, or claim of past performance. Real engagements replace a scenario only once the client has consented and the numbers are evidenced."
+  },
+  "forthcoming_paths": [
+    "/en/ai-automation-cost-guide",
+    "/en/ai-consulting-process",
+    "/en/ai-implementation-roi-guide",
+    "/en/ai-readiness-assessment",
+    "/en/build-vs-buy-ai",
+    "/en/gdpr-compliant-ai",
+    "/en/how-to-choose-ai-agency",
+    "/en/integrations/exact-online",
+    "/en/integrations/hubspot",
+    "/en/solutions/ai-customer-support-professional-services",
+    "/en/solutions/ai-order-processing-wholesale-distribution"
+  ]
+}

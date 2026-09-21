@@ -1,0 +1,1067 @@
+{
+  "_note": "Regenerated with complete field coverage. Earlier versions of this file searched only section bodies, which is how the case-studies FAQ (\"Yes - real engagements... the numbers are as measured\") and the benchmark table went unlisted. This version covers meta, h1, intro, cta, sections, table cells and FAQ.",
+  "source_file": "src/content/cluster-a.json",
+  "source_version": "v2-expanded",
+  "content_policy": {
+    "scenarios": "illustrative",
+    "note": "Every engagement scenario, cost figure and outcome range in this cluster is an illustrative composite, not a measured client result. Do not publish it as a case study, testimonial, or claim of past performance. Real engagements replace a scenario only once the client has consented and the numbers are evidenced."
+  },
+  "total_claims": 66,
+  "by_category": {
+    "other_figure": 30,
+    "illustrative_or_planning": 13,
+    "own_pricing_to_confirm": 4,
+    "timeline_estimate": 4,
+    "target_range": 15
+  },
+  "verify_before_publish": [
+    "own_pricing_to_confirm: these are commercial commitments. Confirm each range matches what you actually charge, or they become the claim a prospect holds you to.",
+    "Every engagement scenario is now labelled illustrative. Do not re-label any of it as a client case study, testimonial, or proof of past performance without a real, evidenced engagement."
+  ],
+  "claims": [
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].meta_description",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "5 failure modes that kill AI projects, a rescue-vs-rebuild decision framework, and realistic recovery costs."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].cta_primary",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Book a rescue diagnostic — free 30-min consultation"
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The 5 failure modes behind almost every stalled AI project"
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[0].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Mode 1: solved the wrong problem.",
+        "Mode 2: the data wasn't ready.",
+        "Mode 3: no owner.",
+        "Mode 4: demo-grade build.",
+        "Mode 5: no success metric."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[1].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [
+          "30–50%"
+        ],
+        "duration": [
+          "4–8 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Plan for 4–8 weeks at 30–50% of the original budget."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[2].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Weeks 1–2 are a forensic audit.",
+        "Weeks 3–6 are the fix itself.",
+        "Weeks 7–8 are handover: monitoring dashboards, a trained internal owner, and a runbook for when things break."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[3].body",
+      "category": "own_pricing_to_confirm",
+      "figures": {
+        "money": [
+          "€2,500–5,000",
+          "€8,000–25,000",
+          "€20–60k",
+          "€1,500"
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Indicative numbers for this type of work: our indicative range for a diagnostic audit is €2,500–5,000 depending on system complexity, and is deductible from the rescue if you proceed.",
+        "Budget €8,000–25,000 for a rescue of this scope.",
+        "The right comparison is not 'that's expensive' but three other figures: the sunk cost of the original project (often €20–60k), the ongoing monthly cost of the process still being done manually, and the cost of doing nothing while competitors automate.",
+        "A useful mental rule: if the rescued system would save or earn more than €1,500/month, a mid-range rescue pays for itself within a year."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].sections[4].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [
+          "€40,000"
+        ],
+        "percent": [
+          "70%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "An illustrative scenario — a composite example, not a specific client: a distribution company had spent around €40,000 on an AI order-processing system that performed well in testing but failed on real orders, and was abandoned within two months of launch.",
+        "In this illustrative scenario the finished system processes roughly 70% of incoming orders untouched, with the remainder routed to a human queue with the AI's draft already attached."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].faq[0].a",
+      "category": "timeline_estimate",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "1–2 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "A diagnostic audit answers the question definitively within 1–2 weeks, before you commit to anything larger."
+      ]
+    },
+    {
+      "page": "ai-project-failing",
+      "json_path": "pages[0].faq[2].a",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [
+          "€2,500–5,000"
+        ],
+        "percent": [
+          "30–50%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "As a planning assumption, 30–50% of the original project budget, with the diagnostic audit (€2,500–5,000) fixed in advance and deducted if you proceed."
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].meta_description",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "A conversion audit checklist, the 7 most common causes, and realistic fixes."
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The 7 conversion killers we find in audits"
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].sections[1].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "20–30%",
+          "5%",
+          "80%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 1: export 50 recent conversations.",
+        "A healthy bot converts 20–30% of engaged conversations into a next step; most broken ones are under 5%.",
+        "Step 2: categorize what people actually ask.",
+        "Expect 5–8 topics to cover 80% of volume.",
+        "Step 3: check how the bot answers those top topics — with your specifics (your prices, your process, your timelines) or with generic filler text.",
+        "Step 4: test the failure path.",
+        "Step 5: check what happens after the chat."
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].sections[3].table",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [
+          "5%",
+          "15–25%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "{\"columns\":[\"Metric\",\"A broken bot (illustrative)\",\"After a rebuild (illustrative target)\"],\"rows\":[[\"Conversation-to-lead rate\",\"Under 5%\",\"15–25% on high-intent pages\"],[\"After-hours lead capture\",\"Near zero\",\"A large share of total leads — B2B conversations commonly cluster outside office hours\"],[\"Escalation experience\",\"'I don't understand', dead end\",\"Human receives full context within minutes\"],[\"Response time to sales query\",\"Hours (contact form)\",\"Seconds\"],[\"Visibility into outcomes\",\"None\",\"Every conversation tagged and reported\"]]}"
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].sections[4].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [
+          "1%",
+          "15–25%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "An illustrative scenario — a composite example, not a specific client: a professional services firm had a chatbot handling roughly 400 conversations a month and producing a handful of leads — around 3 in a typical month, a conversion rate under 1%.",
+        "In this illustrative scenario, conversion moves to the 15–25% range — the same traffic simply starts producing what it should have produced all along, on the order of dozens of qualified leads per month instead of a few."
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].faq[2].a",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "3–5 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Plan for 3–5 weeks including measurement setup, so you can prove the improvement with before/after numbers."
+      ]
+    },
+    {
+      "page": "chatbot-not-converting",
+      "json_path": "pages[1].faq[3].a",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "15–25%",
+          "5%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "On high-intent traffic, 15–25% conversation-to-lead is a realistic target range to design for.",
+        "Sustained rates under 5% mean something structural is broken."
+      ]
+    },
+    {
+      "page": "ai-pilot-stuck-in-poc",
+      "json_path": "pages[2].cta_secondary",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "See how we deliver in 6-week cycles"
+      ]
+    },
+    {
+      "page": "ai-pilot-stuck-in-poc",
+      "json_path": "pages[2].sections[0].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "It runs at 3am when nobody is watching."
+      ]
+    },
+    {
+      "page": "ai-pilot-stuck-in-poc",
+      "json_path": "pages[2].sections[2].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Weeks 1–2: gap assessment against the seven-point checklist, producing a scoped production plan with fixed costs.",
+        "Weeks 3–8: close the gaps — in practice this concentrates on hardening the data pipeline, building the real integration, and setting up the human review workflow.",
+        "Weeks 8–12: staged rollout, and this staging matters more than any technology decision."
+      ]
+    },
+    {
+      "page": "ai-pilot-stuck-in-poc",
+      "json_path": "pages[2].sections[3].body",
+      "category": "own_pricing_to_confirm",
+      "figures": {
+        "money": [
+          "€10,000–20,000",
+          "€15,000"
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Plan on €10,000–20,000 to turn a €15,000 pilot into a dependable production system — the range depends mainly on how messy the data reality is and how many systems need connecting."
+      ]
+    },
+    {
+      "page": "ai-pilot-stuck-in-poc",
+      "json_path": "pages[2].faq[0].a",
+      "category": "timeline_estimate",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "4–8 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "4–8 weeks is enough to prove value on a well-scoped pilot.",
+        "If a pilot has been 'almost ready' for 6+ months, it isn't validating anymore — it's stuck."
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The 4 root causes of wrong answers"
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].sections[0].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Cause 1: the bot can't find the right information.",
+        "Cause 2: no grounding requirement.",
+        "Cause 3: vague questions get confident answers.",
+        "The bot never asks clarifying questions and was never given instructions to say 'I don't know, let me connect you to a person.' Cause 4: nobody measures accuracy."
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].sections[2].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 1: assemble 50–100 real questions with known correct answers.",
+        "Step 2: run the test set through the bot and score every answer as right, wrong, or partial.",
+        "Step 3: fix by error category.",
+        "Step 4: re-test until you reach target.",
+        "For bounded business domains — your products, your services, your policies — accuracy of 95% or higher is an achievable engineering target, not an aspiration.",
+        "Step 5: keep the test set forever and re-run it after every change to content, prompts, or model."
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].faq[0].q",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "100%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Can AI chatbots be 100% accurate?"
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].faq[0].a",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "100%",
+          "95%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "No system is 100%.",
+        "But for bounded business domains, 95%+ accuracy with clean human handover for the remainder is achievable — and that combination is operationally excellent."
+      ]
+    },
+    {
+      "page": "chatbot-gives-wrong-answers",
+      "json_path": "pages[3].faq[2].a",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Build a test set of 50–100 real questions with known correct answers and score the bot against it."
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The 4 places AI money leaks"
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[0].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Leak 1: overlapping subscriptions.",
+        "Leak 2: per-seat pricing on ghost seats — you're paying for 25 seats, the usage dashboard shows 7 active humans.",
+        "Leak 3: unmonitored API usage.",
+        "Leak 4: enterprise tiers bought for a feature that was never switched on."
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[1].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [
+          "30–50%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 1: pull every AI-related charge from accounting — tool subscriptions, API invoices, per-seat licenses.",
+        "Step 2: for each line item, answer four questions: who uses it, for which process, how often, and what happens if it disappears tomorrow.",
+        "Step 3: open the usage dashboards.",
+        "Step 4: for usage-based spend, identify the top three consumption sources.",
+        "Step 5: mark every line keep, consolidate, downgrade, or kill.",
+        "In an illustrative audit of this kind, 30–50% of current spend is identified as recoverable — before anything changes about how the work actually gets done."
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[2].body",
+      "category": "timeline_estimate",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "12–24 months"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Breakeven versus stacked subscriptions arrives at around 12–24 months."
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[2].table",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "{\"columns\":[\"Situation\",\"Subscribe\",\"Build custom\"],\"rows\":[[\"Light, generic use; low volume\",\"Best fit\",\"Overkill\"],[\"High volume with per-use pricing\",\"Costs scale linearly forever\",\"Usually wins from year 1–2\"],[\"Needs deep integration with your systems\",\"Often impossible\",\"Design strength\"],[\"Unproven use case\",\"Validate cheaply first\",\"Build after validation\"],[\"3–5 overlapping subscriptions\",\"Consolidate\",\"Often fully replaced by one system\"]]}"
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].sections[3].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [
+          "€1,000–5,000",
+          "€300–800",
+          "€8,000–25,000",
+          "€300",
+          "€3,000"
+        ],
+        "percent": [],
+        "duration": [
+          "12–24 month"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Illustrative reference ranges for an SME: uncontrolled sprawl totals in the region of €1,000–5,000 per month across tools, seats, and usage.",
+        "A consolidated stack — one or two subscriptions plus one or two purpose-built automations with managed API usage — runs in the region of €300–800 per month ongoing, with better outcomes attached.",
+        "The purpose-built pieces carry a one-time build cost (€8,000–25,000 depending on scope), which is where the 12–24 month breakeven comes from.",
+        "First, if someone proposes building custom AI while you're at €300/month in effective subscriptions, that's usually the wrong advice — custom earns its cost at volume.",
+        "Second, if you're at €3,000/month of sprawl with no measurable outcome, the problem isn't the amount — it's that you can't name what any of it does."
+      ]
+    },
+    {
+      "page": "ai-tool-too-expensive",
+      "json_path": "pages[4].faq[2].a",
+      "category": "timeline_estimate",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "12–24 months"
+        ]
+      },
+      "sentences_with_numbers": [
+        "When per-transaction pricing or several overlapping subscriptions exceed the amortized build cost — typically at 12–24 months of the subscription alternative."
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 1: Secure your assets before anything else"
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[1].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 2: Get an independent technical assessment"
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[1].body",
+      "category": "own_pricing_to_confirm",
+      "figures": {
+        "money": [
+          "€2,000–5,000."
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "A competent independent assessment takes one to two weeks and costs in the region of €2,000–5,000."
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[2].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 3: Decide — finish, fix, or walk away"
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[2].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [
+          "€40,000",
+          "€20,000 m"
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "A €40,000 spend doesn't make a bad project worth €20,000 more."
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[2].table",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "70%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "{\"columns\":[\"Situation per the assessment\",\"Right move\",\"Why\"],\"rows\":[[\"70%+ sound, you own the assets\",\"Finish with a new team\",\"Cheapest path to value\"],[\"Core works, quality/integration poor\",\"Fix (targeted rescue)\",\"Foundation has value\"],[\"Foundation flawed or assets not yours\",\"Walk away, rebuild clean\",\"Second time is cheaper and faster\"],[\"Use case itself was wrong\",\"Stop entirely\",\"Redirect budget to a real problem\"]]}"
+      ]
+    },
+    {
+      "page": "ai-agency-underdelivering",
+      "json_path": "pages[5].sections[3].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The patterns that predict failure: payments decoupled from demonstrable progress; no acceptance criteria ('working AI' is not a criterion — 'correctly processes 95% of this test set' is); code you cannot see until the end; and confidence instead of cadence — 'trust us' instead of a demo every two weeks."
+      ]
+    },
+    {
+      "page": "legacy-chatbot-replacement",
+      "json_path": "pages[6].sections[0].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "30%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Signal 1: containment below 30% — most conversations either escalate to a human anyway or simply die, meaning the bot adds friction without resolving anything.",
+        "Signal 2: 'human, agent, person' are among the most-typed phrases in your transcripts — visitors have learned the bot is a tollbooth to pass, not help to receive.",
+        "Signal 3: every new question type requires someone to manually build a new branch, so coverage improvement has stopped; the tree you have is the tree you'll die with.",
+        "Signal 4: maintenance has become its own part-time job — updating flows, fixing broken branches, chasing the tool's quirks."
+      ]
+    },
+    {
+      "page": "legacy-chatbot-replacement",
+      "json_path": "pages[6].sections[2].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Weeks 1–2: mine your transcripts.",
+        "This produces your top 20–30 intents with real phrasing — the new system's foundation.",
+        "Weeks 3–4: build the AI system against your knowledge base, wire the integrations, and configure human handover so escalations carry full context.",
+        "Week 5: parallel running — the AI goes live alongside the legacy bot, handling conversations while the old system remains as fallback.",
+        "Week 6: cutover, once the numbers hold."
+      ]
+    },
+    {
+      "page": "legacy-chatbot-replacement",
+      "json_path": "pages[6].sections[3].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [
+          "€100–500"
+        ],
+        "percent": [
+          "30%",
+          "70–85%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Illustrative trajectory when a rule-based bot is replaced by a properly grounded AI system: containment moves from the roughly 30% ceiling of decision trees to the 70–85% range, because understanding free text is the entire point of the new architecture.",
+        "Running costs for the AI layer land in the region of €100–500 per month depending on conversation volume — usually offset before anything else by reduced maintenance effort alone."
+      ]
+    },
+    {
+      "page": "legacy-chatbot-replacement",
+      "json_path": "pages[6].faq[2].a",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "5–6 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Plan for 5–6 weeks including a parallel-running phase."
+      ]
+    },
+    {
+      "page": "legacy-chatbot-replacement",
+      "json_path": "pages[6].faq[3].a",
+      "category": "own_pricing_to_confirm",
+      "figures": {
+        "money": [
+          "€100–500"
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Usage runs in the region of €100–500/month depending on volume."
+      ]
+    },
+    {
+      "page": "ai-not-integrated-with-systems",
+      "json_path": "pages[7].sections[1].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The 3 integration patterns, explained plainly"
+      ]
+    },
+    {
+      "page": "ai-not-integrated-with-systems",
+      "json_path": "pages[7].sections[1].table",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "{\"columns\":[\"Pattern\",\"How it works\",\"Best for\"],\"rows\":[[\"API integration\",\"Systems talk directly: an order email arrives, AI extracts it, the order appears in your ERP, exceptions flagged\",\"Structured, high-volume processes with modern software\"],[\"Middleware / automation layer\",\"A central hub (n8n, Make, or custom) routes data between AI and your tools, with logging and error handling\",\"Connecting several systems without rebuilding any of them\"],[\"RPA (robotic process automation)\",\"Software operates an existing interface like a human — clicks, reads screens, types\",\"Legacy systems with no API at all\"]]}"
+      ]
+    },
+    {
+      "page": "ai-not-integrated-with-systems",
+      "json_path": "pages[7].faq[2].a",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "4–8 weeks"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Plan for 4–8 weeks for a single well-defined workflow, from kickoff to production, including testing and staged rollout with human review."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].meta_description",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "How to measure it properly, when to re-prompt vs retrain, and how to reach 95%+ on business tasks."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[0].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 1: Build a test set from reality, not imagination"
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[0].body",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "A test set is 50–100 real inputs your AI actually faces — genuine customer questions, actual documents you process, real orders — each paired with the verified correct output, confirmed by a human expert on your team."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[1].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 2: Score it, and categorize every error"
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[1].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "80%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "With it, you fix the two categories that account for 80% of errors and watch the number move."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[2].h2",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Step 3: The escalation ladder — cheapest fix first"
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].sections[3].body",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%",
+          "99%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "For bounded business tasks — answering from your documents, extracting from your standard forms, classifying your request types — accuracy of 95% and above is an engineering target, not a hope.",
+        "'95% with graceful handover' outperforms '99% with silent failure' in every real-world measure, because trust is won or lost on how a system fails, not on how often."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].faq[1].a",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "The full test set after every change to the system; light random sampling (5–10 items weekly) continuously in production, to catch drift."
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].faq[2].q",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Is 95% accuracy enough to automate a process?"
+      ]
+    },
+    {
+      "page": "ai-accuracy-too-low",
+      "json_path": "pages[8].faq[2].a",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "95%",
+          "100%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Depends what's at stake — but 95% with human review of low-confidence cases is usually the right operating point.",
+        "Design the handover; 100% doesn't exist."
+      ]
+    },
+    {
+      "page": "ai-roi-not-visible",
+      "json_path": "pages[9].intro",
+      "category": "other_figure",
+      "figures": {
+        "money": [
+          "€6,400",
+          "€2,100"
+        ],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "'It saves €6,400 a month against €2,100 in costs, here's the one-pager' survives and compounds."
+      ]
+    },
+    {
+      "page": "ai-roi-not-visible",
+      "json_path": "pages[9].sections[2].table",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "50%"
+        ],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "{\"columns\":[\"Use case\",\"Primary metrics\",\"Conversion to money\"],\"rows\":[[\"Customer support AI\",\"Cost per resolved conversation; resolution time; escalation rate\",\"Deflected tickets × cost per manual ticket\"],[\"Document processing\",\"Minutes per document; error rate; throughput\",\"Hours saved × loaded hourly cost\"],[\"Sales & lead handling\",\"Leads qualified; time-to-first-response; conversion rate\",\"Margin on incremental converted leads\"],[\"Internal copilots/assistants\",\"Hours saved per person per week (diary sampling)\",\"Pool of hours × loaded cost, discounted 50% for realism\"]]}"
+      ]
+    },
+    {
+      "page": "ai-roi-not-visible",
+      "json_path": "pages[9].sections[3].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [
+          "€24,000",
+          "€1,000",
+          "€6,300",
+          "€1,800 m",
+          "€4,500"
+        ],
+        "percent": [],
+        "duration": [
+          "180 hours"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Count all of it: subscriptions and usage fees; the amortized build cost (a €24,000 build is €1,000/month over two years, and should appear as such); the internal hours spent managing, correcting, and feeding the system; and — the line item nobody includes — the cost of its residual errors, the human review time and the occasional mistake that gets through.",
+        "Illustrative worked example: a document-processing system saves roughly 180 hours a month against €6,300 of loaded labor cost; its all-in costs are €1,800 monthly.",
+        "Net €4,500 a month, honestly counted — payback inside five months."
+      ]
+    },
+    {
+      "page": "ai-roi-not-visible",
+      "json_path": "pages[9].faq[0].a",
+      "category": "target_range",
+      "figures": {
+        "money": [],
+        "percent": [
+          "200–400%"
+        ],
+        "duration": [
+          "6–12 months"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Our planning model for well-chosen automation assumes payback within 6–12 months and 200–400% annual ROI thereafter — an illustration to reason with, not a promise — but only measured projects ever find out which side of that they're on."
+      ]
+    },
+    {
+      "page": "case-studies",
+      "json_path": "pages[10].intro",
+      "category": "other_figure",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": [
+          "10x"
+        ]
+      },
+      "sentences_with_numbers": [
+        "Most AI marketing runs on vague claims — ‘transformative’, ‘game-changing’, ‘10x’."
+      ]
+    },
+    {
+      "page": "case-studies",
+      "json_path": "pages[10].sections[1].body",
+      "category": "illustrative_or_planning",
+      "figures": {
+        "money": [],
+        "percent": [],
+        "duration": []
+      },
+      "sentences_with_numbers": [
+        "Scenario 1 — Order processing, distribution.",
+        "Scenario 2 — Support response, professional services.",
+        "Scenario 3 — Pilot rescue, light manufacturing."
+      ]
+    }
+  ],
+  "resolved_in_this_pass": [
+    "case-studies FAQ rewritten: it previously answered \"Are these case studies real clients?\" with \"Yes - real engagements... The numbers are as measured\" and \"we adjust identifiers, never the figures\". Those answers asserted real clients in FAQPage schema, the most exposed claims in the cluster.",
+    "case-studies retitled to illustrative scenarios, with the dead promise of \"full write-ups available on each linked study page\" removed (no such pages exist).",
+    "\"from engagements of this kind\" / \"we typically see\" / \"typical outcomes\" removed from every body and re-framed as illustrative scenarios and calibration ranges.",
+    "Benchmark table de-claimed: column header \"Typical broken bot\" and the asserted \"30-40% of total leads\" statistic removed.",
+    "Conversion range aligned to 15-25% across body, table and FAQ (the table and FAQ said 15-30%).",
+    "\"real benchmarks\" wording removed from the ai-tool-too-expensive intro, heading and CTA.",
+    "Policy recorded in the file as content_policy so it survives handoff."
+  ],
+  "still_open": [
+    "locale is en only while the site serves /en and /nl with hreflang. Do not emit nl hreflang for these URLs until nl versions exist.",
+    "The /fix/ cluster is still absent from src/app/sitemap.ts, so submitting the sitemap will not include these pages.",
+    "Eleven internal links point at future Cluster B/C/D pages (guides x7, integrations x2, solutions x2).",
+    "Meta titles are 36-51 chars; 50-58 would use more of the SERP space.",
+    "The page slug is still \"case-studies\" while its content is illustrative scenarios. Rename to /en/illustrative-scenarios if you want URL and content to agree.",
+    "Two conversion figures coexist: \"20-30% of engaged conversations\" in one section and \"15-25% conversation-to-lead on high-intent pages\" elsewhere. Different denominators, but worth a deliberate decision."
+  ]
+}

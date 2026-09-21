@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPostsForSitemap } from '@/lib/api';
+import { CLUSTER_LOCALE, CLUSTER_PAGES, clusterPath } from '@/lib/cluster';
 import { DEFAULT_LOCALE, LOCALES, languageAlternates, localeUrl } from '@/lib/site';
 
 /**
@@ -37,6 +38,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: { languages: languageAlternates(page) },
       });
     }
+  }
+
+  // Cluster A (/fix/... plus the scenarios hub). English-only, so the
+  // alternates deliberately omit nl rather than point it at a 404.
+  for (const page of CLUSTER_PAGES) {
+    const url = localeUrl(CLUSTER_LOCALE, clusterPath(page.slug));
+
+    entries.push({
+      url,
+      lastModified: BUILD_TIME,
+      alternates: {
+        languages: {
+          [CLUSTER_LOCALE]: url,
+          'x-default': url,
+        },
+      },
+    });
   }
 
   // Blog post entries — only advertise hreflang targets that actually exist,
