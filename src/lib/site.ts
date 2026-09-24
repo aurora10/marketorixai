@@ -68,6 +68,40 @@ export function alternatesFor(locale: string, path = '') {
 }
 
 /**
+ * Alternates for a page that exists in a known subset of locales.
+ *
+ * `alternatesFor` assumes every locale has an equivalent page, which is wrong
+ * for content whose translations do not exist yet: an `nl` hreflang that Google
+ * finds in the sitemap *and* on the English page is a claim that a Dutch
+ * article is published, and this site's CMS currently cannot deliver one.
+ *
+ * Canonical stays on the requested locale, so a fallback URL keeps working for
+ * visitors, but the hreflang set is only emitted when at least two locales are
+ * genuinely published — a set of one has nothing to annotate and a
+ * self-referential hreflang is noise.
+ */
+export function alternatesForLocales(
+  locale: string,
+  path: string,
+  published: readonly string[]
+) {
+  const canonical = localeUrl(locale, path);
+  const locales = LOCALES.filter((candidate) => published.includes(candidate));
+
+  if (locales.length < 2) return { canonical };
+
+  const languages: Record<string, string> = Object.fromEntries(
+    locales.map((candidate) => [candidate, localeUrl(candidate, path)])
+  );
+
+  if (locales.includes(DEFAULT_LOCALE)) {
+    languages['x-default'] = localeUrl(DEFAULT_LOCALE, path);
+  }
+
+  return { canonical, languages };
+}
+
+/**
  * Alternates for content that exists in one locale only.
  *
  * Use this instead of `alternatesFor` whenever the other locale has no

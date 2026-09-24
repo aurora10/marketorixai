@@ -9,7 +9,8 @@ import AnalyticsWrapper from "@/components/AnalyticsWrapper";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { SITE_URL, alternatesFor } from '@/lib/site';
+import { notFound } from 'next/navigation';
+import { SITE_URL, alternatesFor, isLocale } from '@/lib/site';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,6 +39,8 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
+  if (!isLocale(locale)) notFound();
+
   return {
     metadataBase: new URL(SITE_URL),
     title: "Marketorix | AI Solutions for Business",
@@ -53,6 +56,27 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  /**
+   * Reject any first segment that is not a real locale.
+   *
+   * The middleware matcher deliberately skips paths containing a dot (so
+   * `/favicon.ico`, `/robots.txt`, image files and `_next` assets are never
+   * locale-prefixed), which means a dotted path never reaches locale handling.
+   * Without this guard such a path falls through to `[locale]` with the entire
+   * junk segment as the "locale" — `/foo.png` rendered the home page as
+   * `HTTP 200` with `<html lang="foo.png">` and
+   * `<link rel="canonical" href="https://marketorix.com/foo.png">`, i.e. an
+   * unbounded set of self-canonical duplicates of the home page. Dotted paths
+   * are also the only ones affected: every non-dotted unknown path is already
+   * locale-normalized by the middleware and 404s (`/pricing` -> `/en/pricing`).
+   *
+   * The check lives in the layout, not in the home page, because `[locale]` is
+   * the parent segment of every route: `/foo.png/blog` reached the blog route
+   * the same way. Real static files are unaffected — Next serves `public/`
+   * before routing, and `robots.txt`/`sitemap.xml` are real app routes.
+   */
+  if (!isLocale(locale)) notFound();
+
   const messages = await getMessages();
 
   return (

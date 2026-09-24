@@ -7,7 +7,25 @@ const intlMiddleware = createMiddleware({
     locales: [...LOCALES],
 
     // Used when no locale matches
-    defaultLocale: DEFAULT_LOCALE
+    defaultLocale: DEFAULT_LOCALE,
+
+    /**
+     * next-intl also mirrors the locale alternates into an HTTP `Link` header
+     * (default: true). In 4.8.3 that header disagrees with the page's own
+     * `<link rel="alternate">` set: its `x-default` entry is built from the
+     * locale-stripped internal pathname and never gets the locale prefix
+     * re-applied, so `/en/services` advertises
+     * `<https://marketorix.com/services>; rel="alternate"; hreflang="x-default"`
+     * — a URL that only 301s — while the HTML advertises `.../en/services`.
+     *
+     * Two different x-default answers for one page makes Google discard the
+     * annotation set, which is precisely what a site whose 52 pages are locale
+     * twins cannot afford. The HTML set is complete and correct on every route
+     * (it is generated from `alternatesFor`), so the header is switched off
+     * rather than emitted twice. Switching it off also keeps this fix
+     * independent of the upstream bug rather than patching its string output.
+     */
+    alternateLinks: false
 });
 
 /**

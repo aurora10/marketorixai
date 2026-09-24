@@ -1,4 +1,5 @@
 import qs from "qs";
+import { DEFAULT_LOCALE, LOCALES } from "@/lib/site";
 
 // Defines the structure of a single blog post
 interface Post {
@@ -37,6 +38,42 @@ interface SitemapPost {
 interface SitemapPostRef {
   slug: string;
   updatedAt: string;
+  /** Locales this document is genuinely published in, per `declaredLocales`. */
+  locales: string[];
+}
+
+/** The language the CMS content is actually written in. */
+const SOURCE_LOCALE = DEFAULT_LOCALE;
+
+/**
+ * Which locales a CMS response proves the document exists in.
+ *
+ * The Strapi instance behind this site does not honour the `locale` parameter:
+ * `?locale=nl` returns the default-locale documents byte for byte (same ids,
+ * same titles) and `?locale=fr` returns all of them as well, while
+ * `filters[locale][$eq]=nl` is rejected as an invalid parameter. Asking for a
+ * translation therefore yields the original text with no indication that
+ * anything was substituted.
+ *
+ * So a response is only trusted when it *declares* its own locale. When it
+ * declares none, the content type holds no per-locale rows at all and the text
+ * exists exactly once — in the source language. The Dutch URL set is then not
+ * advertised anywhere, instead of being published as a translation of itself.
+ *
+ * This is deliberately self-correcting: the moment the content type is
+ * localised, responses start carrying `locale` and real translations reappear
+ * in the sitemap and the hreflang sets with no further code change. The
+ * acceptance test on the CMS side is that `?locale=fr` returns zero documents
+ * and `?locale=nl` returns only genuinely translated ones.
+ */
+function declaredLocales(
+  attributes: any,
+  requestedLocale: string
+): string[] {
+  const declared = attributes?.locale;
+  if (typeof declared === "string" && declared.length > 0) return [declared];
+
+  return requestedLocale === SOURCE_LOCALE ? [SOURCE_LOCALE] : [];
 }
 
 // Fetches a list of posts with pagination
@@ -233,7 +270,9 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
         const query = qs.stringify(
           {
             locale,
-            fields: ["slug", "updatedAt"],
+            // No `fields` restriction on purpose: a field list can hide the
+            // `locale` system attribute this fetch uses to decide availability,
+            // which would silently pin the site to one language forever.
             pagination: {
               pageSize: 1000,
             },
@@ -263,8 +302,9 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
             .map((item: any) => ({
               slug: item?.attributes?.slug as string,
               updatedAt: item?.attributes?.updatedAt as string,
+              locales: declaredLocales(item?.attributes, locale),
             }))
-            .filter((post: SitemapPostRef) => Boolean(post.slug)),
+            .filter((post: SitemapPostRef) => Boolean(post.slug) && post.locales.length > 0),
         };
       })
     );
@@ -272,12 +312,12 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
     // Merge results: build a map of slug -> { updatedAt, locales }
     const postMap = new Map<string, { updatedAt: string; locales: string[] }>();
 
-    for (const { locale, posts } of perLocaleResults) {
+    for (const { posts } of perLocaleResults) {
       for (const post of posts) {
         const existing = postMap.get(post.slug);
 
         if (!existing) {
-          postMap.set(post.slug, { updatedAt: post.updatedAt, locales: [locale] });
+          postMap.set(post.slug, { updatedAt: post.updatedAt, locales: [...post.locales] });
           continue;
         }
 
@@ -288,7 +328,11 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
           existing.updatedAt = post.updatedAt;
         }
 
-        existing.locales.push(locale);
+        // Availability comes from what each response declared, never from the
+        // locale that was requested.
+        for (const locale of post.locales) {
+          if (!existing.locales.includes(locale)) existing.locales.push(locale);
+        }
       }
     }
 
@@ -305,6 +349,53 @@ export async function getAllPostsForSitemap(): Promise<SitemapPost[]> {
 
 export async function getPostBySlug(slug: string, locale: string = 'en'): Promise<Post | null> {
   return getPost(slug, locale);
+}
+
+/**
+ * Locales one post is genuinely published in, for hreflang.
+ *
+ * The article page still renders whenever `getPost` returns a document — Dutch
+ * visitors keep working URLs — but a page only advertises alternates it can
+ * back with real content. See `declaredLocales` for why the response, not the
+ * request, decides.
+ */
+export async function getPostLocales(slug: string): Promise<string[]> {
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  if (!STRAPI_URL) {
+    console.error("NEXT_PUBLIC_STRAPI_API_URL environment variable is not set.");
+    return [];
+  }
+
+  const perLocale = await Promise.all(
+    LOCALES.map(async (locale) => {
+      const query = qs.stringify(
+        {
+          locale,
+          filters: { slug: { $eq: slug } },
+          pagination: { pageSize: 1 },
+        },
+        { encodeValuesOnly: true }
+      );
+
+      try {
+        const res = await fetch(`${STRAPI_URL}/api/posts?${query}`, {
+          next: { revalidate: 60 },
+        });
+
+        if (!res.ok) return [];
+
+        const data = await res.json();
+        const first = Array.isArray(data?.data) ? data.data[0] : undefined;
+
+        return first ? declaredLocales(first.attributes, locale) : [];
+      } catch (error) {
+        console.error(`Error fetching locales for post "${slug}":`, error);
+        return [];
+      }
+    })
+  );
+
+  return [...new Set(perLocale.flat())];
 }
 
 export async function getPostAndMorePosts(slug: string, locale: string = 'en'): Promise<{ post: Post | null; morePosts: Post[] }> {

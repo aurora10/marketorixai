@@ -1,4 +1,4 @@
-import { getPostAndMorePosts, getPostBySlug } from "@/lib/api";
+import { getPostAndMorePosts, getPostBySlug, getPostLocales } from "@/lib/api";
 import { permanentRedirect } from "next/navigation";
 import Image from 'next/image';
 import BlockRendererClient from "@/components/BlockRendererClient";
@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import InteractiveScrollToTop from "@/components/InteractiveScrollToTop";
 import { getTranslations } from "next-intl/server";
-import { SITE_URL, alternatesFor, localeUrl } from "@/lib/site";
+import { SITE_URL, alternatesForLocales, localeUrl } from "@/lib/site";
 
 export const dynamic = 'force-dynamic';
 
@@ -27,10 +27,18 @@ export async function generateMetadata({ params }: { params: { slug: string, loc
   // A dedicated 1200x630 PNG/JPG would be better for social previews.
   const defaultImageUrl = `${SITE_URL}/logo.svg`;
 
+  /**
+   * Only advertise locales this article is actually published in. The page
+   * itself keeps rendering from the CMS fallback (a Dutch visitor following an
+   * internal link must not hit a dead end), but it must not claim an `nl`
+   * sibling that holds the English text.
+   */
+  const publishedLocales = await getPostLocales(post.slug);
+
   return {
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
-    alternates: alternatesFor(locale, `/blog/${post.slug}`),
+    alternates: alternatesForLocales(locale, `/blog/${post.slug}`, publishedLocales),
     openGraph: {
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
